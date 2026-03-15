@@ -7,6 +7,8 @@
 //Do not run the code below as it needs further testing.
 //Testing will begin tomorrow due to delays. 
 
+int testSave(int);
+
 class UserData {
 private:
 
@@ -93,12 +95,13 @@ void userInput() {
 		std::cout << "Enter a nickname: ";
 		std::cin >> data::users.nickname;
 		data::selections++; //Increement selections
-		testSave(data::nickname, data::players);
+		testSave(data::players);
 
 		//Get the users nickname
 		std::cout << "Enter your username";
 		std::cin >> data::users.username;
 		data::selections++; //Increment selections
+		testSave(data::players);
 
 		//Get the users nickname
 		while (data::age < 5 && data::age > 100) {
@@ -115,7 +118,7 @@ void userInput() {
 
 }
 
-int testSave(std::string nickname, int players) {
+int testSave(int players) {
 
 	//Decleration
 	std::fstream fileptr;
@@ -183,4 +186,5 @@ int testSave(std::string nickname, int players) {
 			}
 		}
 	}
+	return 0;
 }
