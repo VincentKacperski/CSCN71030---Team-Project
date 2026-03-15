@@ -29,6 +29,31 @@ int gatherGameData(int players) {
 		gameData::data.mapsize = gameData::mapsize;
 	}
 
+	for (int i = 1; i < players; i++) {
+
+		//Indicate the next player
+		std::cout << "Player " << i << "\n";
+
+		//Number of ships for each player
+		std::cout << "How many ships would you like to deploy?\n";
+		std::cout << "Enter 0, default, all ships: \n";
+		std::cin >> gameData::shipCount;
+		if (gameData::shipCount == 0) {
+			//Defaut to starting with 5 ships
+			gameData::shipCount = 5;
+		} else {
+			//Store the data
+			gameData::data.shipCount = gameData::shipCount;
+		}
+		 
+		//Number of ships for each player
+		/*std::cout << "Select abilities: \n";
+		std::cout << "Enter N, default, all abilities: \n";
+		std::cin >> gameData::shipCount;
+		gameData::data.shipCount = gameData::shipCount;*/
+
+	}
+
 	return 0;
 
 }
