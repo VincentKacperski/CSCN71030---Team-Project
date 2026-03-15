@@ -8,5 +8,5 @@ struct User {
 };
 
 int testSave(int, User);
-void userInput();
+int userInput();
 

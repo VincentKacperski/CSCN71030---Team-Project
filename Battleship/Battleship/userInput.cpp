@@ -73,7 +73,7 @@ namespace data {
 
 }
 
-void userInput() {
+int userInput() {
 
 	while (data::users.players <= 0 || data::users.players > 4) {
 		std::cout << "Number of players: ";
@@ -110,6 +110,10 @@ void userInput() {
 		data::selections++; //Increment selections
 
 	}
+
+	//Procced to the next input module
+	int players = data::players;
+	return players;
 
 }
 

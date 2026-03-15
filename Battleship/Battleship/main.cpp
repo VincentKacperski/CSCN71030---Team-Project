@@ -26,10 +26,9 @@
 //Main function
 int main() {
 
-	//Add your code here
-	
 	//User Input
-	userInput();
+	int players = userInput();
+	gatherGameData(players);
 
 	return 0;
 }
