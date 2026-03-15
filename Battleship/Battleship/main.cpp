@@ -29,7 +29,7 @@ int main() {
 	//Add your code here
 	
 	//User Input
-	//userInput();
+	userInput();
 
 	return 0;
 }

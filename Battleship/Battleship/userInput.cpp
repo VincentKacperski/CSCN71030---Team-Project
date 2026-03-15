@@ -7,8 +7,6 @@
 //Do not run the code below as it needs further testing.
 //Testing will begin tomorrow due to delays. 
 
-int testSave(int);
-
 class UserData {
 private:
 
@@ -84,7 +82,7 @@ namespace data {
 
 void userInput() {
 
-	while (data::players <= 0) {
+	while (data::users.players <= 0) {
 		std::cout << "Number of players: ";
 		std::cin >> data::users.players;
 	}
@@ -98,14 +96,14 @@ void userInput() {
 		testSave(data::players);
 
 		//Get the users nickname
-		std::cout << "Enter your username";
+		std::cout << "Enter your username: ";
 		std::cin >> data::users.username;
 		data::selections++; //Increment selections
 		testSave(data::players);
 
 		//Get the users nickname
 		while (data::age < 5 && data::age > 100) {
-			std::cout << "Enter your age (integers only):";
+			std::cout << "Enter your age (integers only): ";
 			std::cin >> data::users.age;
 			if (data::age < 5 && data::age > 100) {
 				std::cout << "Error: Invalid age (Valid: 5-100): ";
