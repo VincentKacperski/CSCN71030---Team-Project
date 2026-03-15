@@ -82,12 +82,16 @@ namespace data {
 
 void userInput() {
 
-	while (data::users.players <= 0) {
+	while (data::users.players <= 0 || data::users.players > 4) {
 		std::cout << "Number of players: ";
 		std::cin >> data::users.players;
+		data::players = data::users.players;
 	}
 
-	for (int i = 0; i <= data::players; i++) {
+	for (int i = 1; i <= data::players; i++) {
+
+		//Indicate the next player
+		std::cout << "Player " << i << "\n";
 
 		//Get the users nickname
 		std::cout << "Enter a nickname: ";
