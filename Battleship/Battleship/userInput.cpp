@@ -60,13 +60,6 @@ public:
 
 };
 
-struct User {
-	std::string nickname;
-	std::string username;
-	int players = 0;
-	int age = 0;
-};
-
 namespace data {
 
 	//Decleration
@@ -97,13 +90,13 @@ void userInput() {
 		std::cout << "Enter a nickname: ";
 		std::cin >> data::users.nickname;
 		data::selections++; //Increement selections
-		testSave(data::players);
+		testSave(data::players, data::users);
 
 		//Get the users nickname
 		std::cout << "Enter your username: ";
 		std::cin >> data::users.username;
 		data::selections++; //Increment selections
-		testSave(data::players);
+		testSave(data::players, data::users);
 
 		//Get the users nickname
 		while (data::age < 5 && data::age > 100) {
@@ -120,11 +113,10 @@ void userInput() {
 
 }
 
-int testSave(int players) {
+int testSave(int players, User users) {
 
 	//Decleration
 	std::fstream fileptr;
-	User userdata;
 
 	//Opening and using files
 	if (players == 1) {
@@ -132,9 +124,9 @@ int testSave(int players) {
 
 			//Open player ones file
 			fileptr.open("Playerone.txt");
-			fileptr << userdata.nickname;
-			fileptr << userdata.username;
-			fileptr << userdata.age;
+			fileptr << data::users.nickname;
+			fileptr << data::users.username;
+			fileptr << data::users.age;
 			fileptr.close(); //Close the file
 
 		} else {
@@ -146,9 +138,9 @@ int testSave(int players) {
 
 				//Open player twos file
 				fileptr.open("Playertwo.txt");
-				fileptr << userdata.nickname;
-				fileptr << userdata.username;
-				fileptr << userdata.age;
+				fileptr << data::users.nickname;
+				fileptr << data::users.username;
+				fileptr << data::users.age;
 				fileptr.close(); //Close the file
 
 			} else {
@@ -160,9 +152,9 @@ int testSave(int players) {
 
 					//Open player twos file
 					fileptr.open("Playerthree.txt");
-					fileptr << userdata.nickname;
-					fileptr << userdata.username;
-					fileptr << userdata.age;
+					fileptr << data::users.nickname;
+					fileptr << data::users.username;
+					fileptr << data::users.age;
 					fileptr.close(); //Close the file
 
 				} else {
@@ -174,9 +166,9 @@ int testSave(int players) {
 
 						//Open player twos file
 						fileptr.open("Playerthree.txt");
-						fileptr << userdata.nickname;
-						fileptr << userdata.username;
-						fileptr << userdata.age;
+						fileptr << data::users.nickname;
+						fileptr << data::users.username;
+						fileptr << data::users.age;
 						fileptr.close(); //Close the file
 
 					} else {
