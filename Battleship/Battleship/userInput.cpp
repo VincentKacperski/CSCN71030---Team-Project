@@ -99,13 +99,12 @@ int userInput() {
 		testSave(data::players, data::users);
 
 		//Get the users nickname
-		while (data::age < 5 && data::age > 100) {
-			std::cout << "Enter your age (integers only): ";
+		std::cout << "Enter your age (integers only): ";
+		std::cin >> data::users.age;
+		data::age = data::users.age;
+		if (data::age < 5 || data::age > 100) {
+			std::cout << "Error: Invalid age (Valid: 5-100): ";
 			std::cin >> data::users.age;
-			if (data::age < 5 && data::age > 100) {
-				std::cout << "Error: Invalid age (Valid: 5-100): ";
-				std::cin >> data::users.age;
-			}
 		}
 		data::selections++; //Increment selections
 

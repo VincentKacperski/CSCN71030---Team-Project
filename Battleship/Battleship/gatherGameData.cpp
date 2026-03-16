@@ -36,7 +36,7 @@ int gatherGameData(int players) {
 
 		//Number of ships for each player
 		std::cout << "How many ships would you like to deploy?\n";
-		std::cout << "Enter 0, default, all ships: \n";
+		std::cout << "Enter 0, default, all ships: ";
 		std::cin >> gameData::shipCount;
 		if (gameData::shipCount == 0) {
 			//Defaut to starting with 5 ships
@@ -47,10 +47,20 @@ int gatherGameData(int players) {
 		}
 		 
 		//Number of ships for each player
-		/*std::cout << "Select abilities: \n";
-		std::cout << "Enter N, default, all abilities: \n";
-		std::cin >> gameData::shipCount;
-		gameData::data.shipCount = gameData::shipCount;*/
+		int choice = -1;
+		while (choice <= 0 || choice > 5) {
+			std::cout << "How many abilities would you like?\n";
+			std::cout << "Quantity: ";
+			std::cin >> choice;
+			if (choice <= 0 && choice > 5) {
+				std::cout << "You can only select 1-5 abilities!\n";
+			}
+		}
+
+		for (int i = 1; i <= choice; i++) {
+			std::cout << "Ability " << i << " (A B C S D): ";
+			std::cin >> gameData::data.abilities[i];
+		}
 
 	}
 
