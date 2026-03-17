@@ -7,7 +7,7 @@ struct User {
 	
 	int mapsize = 0;
 	int shipCount = 0;
-	char* abilities[5];
+	char abilities[5] = "";
 
 };
 
