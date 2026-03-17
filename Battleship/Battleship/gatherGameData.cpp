@@ -21,12 +21,21 @@ public:
 		shipCount = s;
 	}
 
-	//Default Setter functions
+	//Default setter functions
 	void storeMapSize(int m) { //Store player count
 		mapSize = m;
 	}
 	void storeShipCount(int s) { //Store nickname
 		shipCount = s;
+	}
+
+	//Default getter functions
+	int getMapSize() { //Store player count
+		return mapSize;
+	}
+
+	int getShipCount() { //Store nickname
+		return shipCount;
 	}
 
 };
