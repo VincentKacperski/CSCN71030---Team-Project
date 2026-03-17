@@ -8,9 +8,18 @@ private:
 
 	int mapSize;
 	int shipCount;
-	char abilities[5];
+	char abilities[5] = "";
 
 public:
+
+	//Default constructor
+	GameData() {}
+
+	//Build Constructor
+	GameData(int m, int s) {
+		mapSize = m;
+		shipCount = s;
+	}
 
 };
 
