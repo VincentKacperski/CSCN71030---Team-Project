@@ -3,6 +3,17 @@
 
 //Add your code here
 
+class GameData {
+private:
+
+	int mapSize;
+	int shipCount;
+	char abilities[5];
+
+public:
+
+};
+
 struct User {
 	
 	int mapsize = 0;
