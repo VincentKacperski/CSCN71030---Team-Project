@@ -21,6 +21,14 @@ public:
 		shipCount = s;
 	}
 
+	//Default Setter functions
+	void storeMapSize(int m) { //Store player count
+		mapSize = m;
+	}
+	void storeShipCount(int s) { //Store nickname
+		shipCount = s;
+	}
+
 };
 
 struct User {
