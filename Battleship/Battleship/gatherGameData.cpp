@@ -29,7 +29,7 @@ int gatherGameData(int players) {
 		gameData::data.mapsize = gameData::mapsize;
 	}
 
-	for (int i = 1; i < players; i++) {
+	for (int i = 1; i <= players; i++) {
 
 		//Indicate the next player
 		std::cout << "Player " << i << "\n";
