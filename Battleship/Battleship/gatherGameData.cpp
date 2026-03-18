@@ -131,6 +131,7 @@ int testSave(int players) {
 		}
 	} else {
 		if (players == 2) {
+
 			if (fileptr.is_open()) {
 
 				//Open player ones file and save game data
@@ -141,6 +142,39 @@ int testSave(int players) {
 
 			} else {
 				//Do nothing for now
+			}
+		}
+		else {
+			if (players == 3) {
+				if (fileptr.is_open()) {
+
+					//Open player ones file and save game data
+					fileptr.open("Playerthree.txt");
+					fileptr << gameData::data.shipCount;
+					fileptr << gameData::data.abilities;
+					fileptr.close(); //Close the file
+
+				} else {
+					//Do nothing for now
+				}
+			}
+			else {
+				if (players == 4) {
+					if (fileptr.is_open()) {
+
+						//Open player ones file and save game data
+						fileptr.open("Playerfour.txt");
+						fileptr << gameData::data.shipCount;
+						fileptr << gameData::data.abilities;
+						fileptr.close(); //Close the file
+
+					} else {
+						//Do nothing for now
+					}
+				}
+				else {
+					//Do nothing for now
+				}
 			}
 		}
 	}
