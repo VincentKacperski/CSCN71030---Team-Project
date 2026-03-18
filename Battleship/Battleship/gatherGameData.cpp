@@ -85,6 +85,7 @@ int gatherGameData(int players) {
 			//Store the data
 			gameData::data.shipCount = gameData::shipCount;
 			testSave(players);
+			std::cout << "Saved player ship count!\n";
 		}
 		 
 		//Number of ships for each player
@@ -101,8 +102,9 @@ int gatherGameData(int players) {
 		for (int i = 1; i <= choice; i++) {
 			std::cout << "Ability " << i << " (A B C S D): ";
 			std::cin >> gameData::data.abilities[i];
-			testSave(players);
 		}
+		testSave(players);
+		std::cout << "Saved player abilities!\n";
 
 	}
 

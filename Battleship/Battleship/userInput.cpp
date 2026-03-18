@@ -91,12 +91,14 @@ int userInput() {
 		std::cin >> data::users.nickname;
 		data::selections++; //Increement selections
 		testSave(data::players, data::users);
+		std::cout << "Saved player nickname!\n";
 
 		//Get the users nickname
 		std::cout << "Enter your username: ";
 		std::cin >> data::users.username;
 		data::selections++; //Increment selections
 		testSave(data::players, data::users);
+		std::cout << "Saved player nickname!\n";
 
 		//Get the users nickname
 		std::cout << "Enter your age (integers only): ";
