@@ -1,4 +1,6 @@
 #include <iostream>
+#include <string>
+#include <fstream>
 #include "gatherGameData.h"
 
 //Add your code here
@@ -42,7 +44,7 @@ public:
 
 struct User {
 	
-	int mapsize = 0;
+	int mapSize = 0;
 	int shipCount = 0;
 	char abilities[5] = "";
 
@@ -60,10 +62,10 @@ namespace gameData {
 int gatherGameData(int players) {
 
 	//Get the games map size
-	while (gameData::data.mapsize != 400 && gameData::data.mapsize != 100) {
+	while (gameData::data.mapSize != 400 && gameData::data.mapSize != 100) {
 		std::cout << "What map size do you prefer? (area): ";
 		std::cin >> gameData::mapsize;
-		gameData::data.mapsize = gameData::mapsize;
+		gameData::data.mapSize = gameData::mapsize;
 	}
 
 	for (int i = 1; i <= players; i++) {
@@ -78,9 +80,11 @@ int gatherGameData(int players) {
 		if (gameData::shipCount == 0) {
 			//Defaut to starting with 5 ships
 			gameData::shipCount = 5;
+			testSave(players);
 		} else {
 			//Store the data
 			gameData::data.shipCount = gameData::shipCount;
+			testSave(players);
 		}
 		 
 		//Number of ships for each player
@@ -97,6 +101,7 @@ int gatherGameData(int players) {
 		for (int i = 1; i <= choice; i++) {
 			std::cout << "Ability " << i << " (A B C S D): ";
 			std::cin >> gameData::data.abilities[i];
+			testSave(players);
 		}
 
 	}
@@ -105,7 +110,39 @@ int gatherGameData(int players) {
 
 }
 
-int testSave() {
+int testSave(int players) {
 
+	//Decleration
+	std::fstream fileptr;
 
+	//Opening and using files
+	if (players == 1) {
+		if (fileptr.is_open()) {
+
+			//Open player ones file and save game data
+			fileptr.open("Playerone.txt");
+			fileptr << gameData::data.shipCount;
+			fileptr << gameData::data.abilities;
+			fileptr.close(); //Close the file
+
+		}
+		else {
+			//Do nothing for now
+		}
+	} else {
+		if (players == 2) {
+			if (fileptr.is_open()) {
+
+				//Open player ones file and save game data
+				fileptr.open("Playertwo.txt");
+				fileptr << gameData::data.shipCount;
+				fileptr << gameData::data.abilities;
+				fileptr.close(); //Close the file
+
+			} else {
+				//Do nothing for now
+			}
+		}
+	}
+	return 0;
 }
