@@ -1,7 +1,8 @@
 #include <iostream>
 #include <string>
-#include "userInput.h"
 #include <fstream>
+#include "Base.h"
+#include "userInput.h"
 
 //Note: The code below is not tested or finished yet.
 //Do not run the code below as it needs further testing.
@@ -37,14 +38,14 @@ int userInput() {
 		std::cout << "Enter a nickname: ";
 		std::cin >> data::users.nickname;
 		data::selections++; //Increement selections
-		testSave(data::players, data::users);
+		//testSave(data::players, data::users);
 		std::cout << "Saved player nickname!\n";
 
 		//Get the users nickname
 		std::cout << "Enter your username: ";
 		std::cin >> data::users.username;
 		data::selections++; //Increment selections
-		testSave(data::players, data::users);
+		//testSave(data::players, data::users);
 		std::cout << "Saved player nickname!\n";
 
 		//Get the users nickname
@@ -65,7 +66,7 @@ int userInput() {
 
 }
 
-int testSave(int players, User users) {
+int testSaveTwo(int players, User users, GameData gamedata) {
 
 	//Decleration
 	std::fstream fileptr;

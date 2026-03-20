@@ -125,5 +125,8 @@
     <ClInclude Include="helper.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Base.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

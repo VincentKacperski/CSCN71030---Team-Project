@@ -15,6 +15,7 @@
 #include "shipChecking.h"
 #include "win.h"
 #include "helper.h"
+#include "Base.h"
 
 //Ship abilities
 #include "cruiser.h"

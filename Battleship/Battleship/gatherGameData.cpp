@@ -1,26 +1,31 @@
 #include <iostream>
 #include <string>
 #include <fstream>
+#include "Base.h"
 #include "gatherGameData.h"
+
+//Refrences
+//
 
 //Add your code here
 
 namespace gameData {
 
-	int mapsize = 100;
+	int mapSize = 0;
 	int shipCount = 0;
 	char abilities[5] = {'A', 'B', 'C', 'S', 'D'};
-	User data;
+	User userdata;
+	Game gamedata;
 
 }
 
 int gatherGameData(int players) {
 
 	//Get the games map size
-	while (gameData::data.mapSize != 400 && gameData::data.mapSize != 100) {
+	while (gameData::gamedata.mapSize != 400 && gameData::gamedata.mapSize != 100) {
 		std::cout << "What map size do you prefer? (area): ";
-		std::cin >> gameData::mapsize;
-		gameData::data.mapSize = gameData::mapsize;
+		std::cin >> gameData::mapSize;
+		gameData::gamedata.mapSize = gameData::mapSize;
 	}
 
 	for (int i = 1; i <= players; i++) {
@@ -35,11 +40,11 @@ int gatherGameData(int players) {
 		if (gameData::shipCount == 0) {
 			//Defaut to starting with 5 ships
 			gameData::shipCount = 5;
-			testSave(players);
+			//testSave(players);
 		} else {
 			//Store the data
-			gameData::data.shipCount = gameData::shipCount;
-			testSave(players);
+			gameData::userdata.shipCount = gameData::shipCount;
+			//testSave(players);
 			std::cout << "Saved player ship count!\n";
 		}
 		 
@@ -56,18 +61,16 @@ int gatherGameData(int players) {
 
 		for (int i = 1; i <= choice; i++) {
 			std::cout << "Ability " << i << " (A B C S D): ";
-			std::cin >> gameData::data.abilities[i];
+			std::cin >> gameData::gamedata.abilities[i];
 		}
-		testSave(players);
+		//testSave(players);
 		std::cout << "Saved player abilities!\n";
 
 	}
-
 	return 0;
-
 }
 
-int testSave(int players) {
+int testSave(int players, User userdata, GameData gamedata) {
 
 	//Decleration
 	std::fstream fileptr;
@@ -78,12 +81,11 @@ int testSave(int players) {
 
 			//Open player ones file and save game data
 			fileptr.open("Playerone.txt");
-			fileptr << gameData::data.shipCount;
-			fileptr << gameData::data.abilities;
+			fileptr << gameData::userdata.shipCount;
+			fileptr << gameData::gamedata.abilities;
 			fileptr.close(); //Close the file
 
-		}
-		else {
+		} else {
 			//Do nothing for now
 		}
 	} else {
@@ -93,8 +95,8 @@ int testSave(int players) {
 
 				//Open player ones file and save game data
 				fileptr.open("Playertwo.txt");
-				fileptr << gameData::data.shipCount;
-				fileptr << gameData::data.abilities;
+				fileptr << gameData::userdata.shipCount;
+				fileptr << gameData::gamedata.abilities;
 				fileptr.close(); //Close the file
 
 			} else {
@@ -107,8 +109,8 @@ int testSave(int players) {
 
 					//Open player ones file and save game data
 					fileptr.open("Playerthree.txt");
-					fileptr << gameData::data.shipCount;
-					fileptr << gameData::data.abilities;
+					fileptr << gameData::userdata.shipCount;
+					fileptr << gameData::gamedata.abilities;
 					fileptr.close(); //Close the file
 
 				} else {
@@ -121,8 +123,8 @@ int testSave(int players) {
 
 						//Open player ones file and save game data
 						fileptr.open("Playerfour.txt");
-						fileptr << gameData::data.shipCount;
-						fileptr << gameData::data.abilities;
+						fileptr << gameData::userdata.shipCount;
+						fileptr << gameData::gamedata.abilities;
 						fileptr.close(); //Close the file
 
 					} else {
