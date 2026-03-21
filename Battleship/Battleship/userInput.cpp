@@ -26,7 +26,7 @@ int userInput() {
 	while (data::players <= 0 || data::players > 4) {
 		std::cout << "Number of players: ";
 		std::cin >> data::players;
-		gamedata->storePlayers(players);
+		gamedata->storePlayers(data::players);
 	}
 
 	for (int i = 1; i <= data::players; i++) {
@@ -40,34 +40,6 @@ int userInput() {
 		} else {
 			UserData* userFour = new UserData;
 		}
-
-		//Indicate the next player
-		std::cout << "Player " << i << "\n";
-
-		//Get the users nickname
-		std::cout << "Enter a nickname: ";
-		std::cin >> data::users.nickname;
-		data::selections++; //Increement selections
-		//testSave(data::players, data::users);
-		std::cout << "Saved player nickname!\n";
-
-		//Get the users nickname
-		std::cout << "Enter your username: ";
-		std::cin >> data::users.username;
-		data::selections++; //Increment selections
-		//testSave(data::players, data::users);
-		std::cout << "Saved player nickname!\n";
-
-		//Get the users nickname
-		std::cout << "Enter your age (integers only): ";
-		std::cin >> data::users.age;
-		data::age = data::users.age;
-		if (data::age < 5 || data::age > 100) {
-			std::cout << "Error: Invalid age (Valid: 5-100): ";
-			std::cin >> data::users.age;
-		}
-		data::selections++; //Increment selections
-
 	}
 
 	//Procced to the next input module
@@ -76,6 +48,30 @@ int userInput() {
 
 }
 
+//The three function bellow gather essential user data
+void gatherNickname(UserData* user) {
+	//Get the users nickname
+	std::cout << "Enter a nickname: ";
+	std::cin >> data::nickname;
+	user->storeNickname(data::nickname);
+}
+
+void gatherUsername(UserData* user) {
+	//Get the users username
+	std::cout << "Enter a username: ";
+	std::cin >> data::username;
+	user->storeUsername(data::username);
+}
+
+void gatherAge(UserData* user) {
+	//Get the users username
+	std::cout << "Enter your age: ";
+	std::cin >> data::age;
+	user->storeAge(data::age);
+}
+//=----------------------=
+
+//Test save file
 int testSaveTwo(int players, User users, GameData gamedata) {
 
 	//Decleration
