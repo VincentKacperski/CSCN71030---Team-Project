@@ -28,6 +28,7 @@ int userInput() {
 		std::cin >> data::players;
 		gamedata->storePlayers(data::players);
 	}
+	gameSave(gamedata, data::players);
 
 	for (int i = 1; i <= data::players; i++) {
 
@@ -91,8 +92,20 @@ void gatherAge(UserData* user) {
 }
 //=----------------------=
 
+int gameSave(GameData* game) {
+
+	//Decleration
+	std::fstream fileptr;
+
+	//Store game data player count to the game data file
+	fileptr.open("Playerone.txt");
+	fileptr << game->getPlayers();
+	fileptr.close(); //Close the file
+
+}
+
 //Test save file
-int testSaveTwo(int players, User users, GameData gamedata) {
+int playerSave(UserData* user, int players) {
 
 	//Decleration
 	std::fstream fileptr;
@@ -103,9 +116,9 @@ int testSaveTwo(int players, User users, GameData gamedata) {
 
 			//Open player ones file
 			fileptr.open("Playerone.txt");
-			fileptr << data::users.nickname;
-			fileptr << data::users.username;
-			fileptr << data::users.age;
+			fileptr << user->getNickname();
+			fileptr << user->getUsername();
+			fileptr << user->getAge();
 			fileptr.close(); //Close the file
 
 		} else {
@@ -117,9 +130,9 @@ int testSaveTwo(int players, User users, GameData gamedata) {
 
 				//Open player twos file
 				fileptr.open("Playertwo.txt");
-				fileptr << data::users.nickname;
-				fileptr << data::users.username;
-				fileptr << data::users.age;
+				fileptr << user->getNickname();
+				fileptr << user->getUsername();
+				fileptr << user->getAge();
 				fileptr.close(); //Close the file
 
 			} else {
@@ -131,9 +144,9 @@ int testSaveTwo(int players, User users, GameData gamedata) {
 
 					//Open player twos file
 					fileptr.open("Playerthree.txt");
-					fileptr << data::users.nickname;
-					fileptr << data::users.username;
-					fileptr << data::users.age;
+					fileptr << user->getNickname();
+					fileptr << user->getUsername();
+					fileptr << user->getAge();
 					fileptr.close(); //Close the file
 
 				} else {
@@ -145,9 +158,9 @@ int testSaveTwo(int players, User users, GameData gamedata) {
 
 						//Open player twos file
 						fileptr.open("Playerthree.txt");
-						fileptr << data::users.nickname;
-						fileptr << data::users.username;
-						fileptr << data::users.age;
+						fileptr << user->getNickname();
+						fileptr << user->getUsername();
+						fileptr << user->getAge();
 						fileptr.close(); //Close the file
 
 					} else {

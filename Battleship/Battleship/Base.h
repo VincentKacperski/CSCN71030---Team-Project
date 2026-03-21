@@ -96,11 +96,11 @@ public:
 		return shipCount;
 	}
 
-	std::string getUsername(std::string u) { //Store ship count
+	std::string getUsername() { //Store ship count
 		return username;
 	}
 
-	std::string getNickname(std::string n) { //Store ship count
+	std::string getNickname() { //Store ship count
 		return nickname;
 	}
 
@@ -123,10 +123,8 @@ struct Game {
 
 };
 
-//
-int testSave(int, User, Game);
-int userInput();
-
 //Function Prototypes
-int testSave(int, User, Game);
+int gameSave(GameData*, int);
+int playerSave(UserData*, int);
 int gatherGameData(int);
+int userInput();
