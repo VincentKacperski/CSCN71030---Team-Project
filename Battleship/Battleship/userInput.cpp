@@ -17,19 +17,29 @@ namespace data {
 	int age = 0;
 	std::string nickname;
 	std::string username;
-	User users;
 
 }
 
 int userInput() {
 
-	while (data::users.players <= 0 || data::users.players > 4) {
+	GameData* gamedata = new GameData;
+	while (data::players <= 0 || data::players > 4) {
 		std::cout << "Number of players: ";
-		std::cin >> data::users.players;
-		data::players = data::users.players;
+		std::cin >> data::players;
+		gamedata->storePlayers(players);
 	}
 
 	for (int i = 1; i <= data::players; i++) {
+
+		if (data::players == 1) {
+			UserData* userOne = new UserData;
+		} else if (data::players == 2) {
+			UserData* userTwo = new UserData;
+		} else if (data::players == 3) {
+			UserData* userThree = new UserData;
+		} else {
+			UserData* userFour = new UserData;
+		}
 
 		//Indicate the next player
 		std::cout << "Player " << i << "\n";
