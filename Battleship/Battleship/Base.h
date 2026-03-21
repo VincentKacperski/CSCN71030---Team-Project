@@ -21,6 +21,9 @@ public:
 		players = p;
 	}
 
+	//Default Destructor
+	~GameData() {}
+
 	void storePlayers(int p) { //Store player count
 		players = p;
 	}
@@ -63,6 +66,9 @@ public:
 		nickname = n;
 		age = a;
 	}
+
+	//Default Destructor
+	~UserData() {}
 
 	//Setter functions
 	void storeAge(int a) { //Store ship count
