@@ -32,13 +32,33 @@ int userInput() {
 	for (int i = 1; i <= data::players; i++) {
 
 		if (data::players == 1) {
+
 			UserData* userOne = new UserData;
+			gatherNickname(userOne);
+			gatherUsername(userOne);
+			gatherAge(userOne);
+
 		} else if (data::players == 2) {
+
 			UserData* userTwo = new UserData;
+			gatherNickname(userTwo);
+			gatherUsername(userTwo);
+			gatherAge(userTwo);
+
 		} else if (data::players == 3) {
+
 			UserData* userThree = new UserData;
+			gatherNickname(userThree);
+			gatherUsername(userThree);
+			gatherAge(userThree);
+
 		} else {
+
 			UserData* userFour = new UserData;
+			gatherNickname(userFour);
+			gatherUsername(userFour);
+			gatherAge(userFour);
+
 		}
 	}
 
