@@ -11,7 +11,6 @@
 namespace data {
 
 	//Decleration
-	int choice = 0;
 	int selections = 0;
 	int players = 0;
 	int age = 0;
@@ -20,45 +19,40 @@ namespace data {
 
 }
 
-int userInput() {
-
-	GameData* gamedata = new GameData;
-	while (data::players <= 0 || data::players > 4) {
-		std::cout << "Number of players: ";
-		std::cin >> data::players;
-		gamedata->storePlayers(data::players);
-	}
-	gameSave(gamedata, data::players);
+int userInput(GameData* gamedata, UserData* users) {
 
 	for (int i = 1; i <= data::players; i++) {
 
-		if (data::players == 1) {
+		while (data::players <= 0 || data::players > 4) {
+			std::cout << "Number of players: ";
+			std::cin >> data::players;
+			gamedata->storePlayers(data::players);
+		}
+		gameSaveUI(gamedata);
 
-			UserData* userOne = new UserData;
-			gatherNickname(userOne);
-			gatherUsername(userOne);
-			gatherAge(userOne);
+		if (data::players == 1) {
+			gatherNickname(&users[0]);
+			gatherUsername(&users[0]);
+			gatherAge(&users[0]);
+			playerSaveUI(&users[0], data::players);
 
 		} else if (data::players == 2) {
-
-			UserData* userTwo = new UserData;
-			gatherNickname(userTwo);
-			gatherUsername(userTwo);
-			gatherAge(userTwo);
+			gatherNickname(&users[1]);
+			gatherUsername(&users[1]);
+			gatherAge(&users[1]);
+			playerSaveUI(&users[1], data::players);
 
 		} else if (data::players == 3) {
-
-			UserData* userThree = new UserData;
-			gatherNickname(userThree);
-			gatherUsername(userThree);
-			gatherAge(userThree);
+			gatherNickname(&users[2]);
+			gatherUsername(&users[2]);
+			gatherAge(&users[2]);
+			playerSaveUI(&users[2], data::players);
 
 		} else {
-
-			UserData* userFour = new UserData;
-			gatherNickname(userFour);
-			gatherUsername(userFour);
-			gatherAge(userFour);
+			gatherNickname(&users[3]);
+			gatherUsername(&users[3]);
+			gatherAge(&users[3]);
+			playerSaveUI(&users[3], data::players);
 
 		}
 	}
@@ -92,7 +86,7 @@ void gatherAge(UserData* user) {
 }
 //=----------------------=
 
-int gameSave(GameData* game) {
+void gameSaveUI(GameData* game) {
 
 	//Decleration
 	std::fstream fileptr;
@@ -105,7 +99,7 @@ int gameSave(GameData* game) {
 }
 
 //Test save file
-int playerSave(UserData* user, int players) {
+void playerSaveUI(UserData* user, int players) {
 
 	//Decleration
 	std::fstream fileptr;
@@ -157,7 +151,7 @@ int playerSave(UserData* user, int players) {
 					if (fileptr.is_open()) {
 
 						//Open player twos file
-						fileptr.open("Playerthree.txt");
+						fileptr.open("Playerfour.txt");
 						fileptr << user->getNickname();
 						fileptr << user->getUsername();
 						fileptr << user->getAge();
@@ -172,5 +166,4 @@ int playerSave(UserData* user, int players) {
 			}
 		}
 	}
-	return 0;
 }

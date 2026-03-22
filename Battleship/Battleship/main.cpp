@@ -28,8 +28,17 @@
 int main() {
 
 	//User Input
-	int players = userInput();
-	gatherGameData(players);
+
+	//Create gamedata and player objects
+	GameData* gamedata = new GameData;
+	UserData userOne;
+	UserData userTwo;
+	UserData userThree;
+	UserData userFour;
+	UserData* users[4] = {&userOne, &userTwo, &userThree, &userFour};
+	
+	int players = userInput(gamedata, *users);
+	gatherGameData(players, gamedata, *users);
 
 	return 0;
 }

@@ -79,6 +79,14 @@ public:
 		shipCount = s;
 	}
 
+	char* storeAbilities(char ab[5]) { //Get the games map size
+		abilities[0] = ab[0];
+		abilities[1] = ab[1];
+		abilities[2] = ab[2];
+		abilities[3] = ab[3];
+		abilities[4] = ab[4];
+	}
+
 	void storeUsername(std::string u) { //Store ship count
 		username = u;
 	}
@@ -94,6 +102,10 @@ public:
 
 	int getShipCount() { //Get ship count
 		return shipCount;
+	}
+
+	char* getAbilities() { //Get the players abilities
+		return abilities;
 	}
 
 	std::string getUsername() { //Store ship count
@@ -123,8 +135,21 @@ struct Game {
 
 };
 
-//Function Prototypes
-int gameSave(GameData*, int);
-int playerSave(UserData*, int);
-int gatherGameData(int);
-int userInput();
+//Test Save functions
+void gameSaveUI(GameData* game);
+void playerSaveUI(UserData* user, int players);
+void gameSaveGD(GameData* game);
+void playerSaveGD(int players, UserData* users);
+
+//Helper functions for gather game data
+void gatherShipCount(UserData* user);
+void gatherAbilities(UserData* user);
+
+//Help functions for user input
+void gatherNickname(UserData* user);
+void gatherUsername(UserData* user);
+void gatherAge(UserData* user);
+
+//Main module functions
+int gatherGameData(int players, GameData* gamedata, UserData* users);
+int userInput(GameData* gamedata, UserData* users);
