@@ -4,19 +4,13 @@
 #include "Base.h"
 #include "userInput.h"
 
-//Note: The code below is not tested or finished yet.
-//Do not run the code below as it needs further testing.
-//Testing will begin tomorrow due to delays.
-
 namespace data {
-
 	//Decleration
 	int selections = 0;
 	int players = 0;
 	int age = 0;
 	std::string nickname;
 	std::string username;
-
 }
 
 int userInput(GameData* gamedata, UserData* users) {
@@ -106,6 +100,7 @@ void playerSaveUI(UserData* user, int players) {
 
 	//Opening and using files
 	if (players == 1) {
+		fileptr.open("Playerone.txt"); // Moved open before is_open check so the file stream is actually tested after opening
 		if (fileptr.is_open()) {
 
 			//Open player ones file
@@ -115,11 +110,14 @@ void playerSaveUI(UserData* user, int players) {
 			fileptr << user->getAge();
 			fileptr.close(); //Close the file
 
-		} else {
+		}
+		else {
 			//Do nothing for now
 		}
-	} else {
+	}
+	else {
 		if (players == 2) {
+			fileptr.open("Playertwo.txt"); // Moved open before is_open check so the file stream is actually tested after opening
 			if (fileptr.is_open()) {
 
 				//Open player twos file
@@ -129,11 +127,14 @@ void playerSaveUI(UserData* user, int players) {
 				fileptr << user->getAge();
 				fileptr.close(); //Close the file
 
-			} else {
+			}
+			else {
 				//Do nothing for now
 			}
-		} else {
+		}
+		else {
 			if (players == 3) {
+				fileptr.open("Playerthree.txt"); // Moved open before is_open check so the file stream is actually tested after opening
 				if (fileptr.is_open()) {
 
 					//Open player twos file
@@ -143,11 +144,14 @@ void playerSaveUI(UserData* user, int players) {
 					fileptr << user->getAge();
 					fileptr.close(); //Close the file
 
-				} else {
+				}
+				else {
 					//Do nothing for now
 				}
-			} else {
+			}
+			else {
 				if (players == 4) {
+					fileptr.open("Playerthree.txt"); // Moved open before is_open check so the file stream is actually tested after opening
 					if (fileptr.is_open()) {
 
 						//Open player twos file
@@ -157,13 +161,17 @@ void playerSaveUI(UserData* user, int players) {
 						fileptr << user->getAge();
 						fileptr.close(); //Close the file
 
-					} else {
+					}
+					else {
 						//Do nothing for now
 					}
-				} else {
+				}
+				else {
 					//Do nothing for now
 				}
 			}
 		}
 	}
+
+	return 0; // Added return value because the function is declared with int
 }

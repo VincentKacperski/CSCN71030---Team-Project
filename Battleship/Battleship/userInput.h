@@ -1,7 +1,6 @@
 #include <string>
 #pragma once
+#include <string>
 
-//Moved the structure to base.h
-//Moved fucntion prototypes to base.h
-
-
+void userInput();
+int testSave(std::string nickname, int players);
