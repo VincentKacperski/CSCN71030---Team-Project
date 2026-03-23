@@ -28,6 +28,7 @@
 #include "shipChecking.h"
 #include "win.h"
 #include "helper.h"
+#include "Base.h"
 
 // Ship abilities
 #include "cruiser.h"
@@ -43,6 +44,9 @@
  */
 int main()
 {
+  
+    //Jacob's Code
+  
     // Temporary integration test added to verify helper, displayBoards,
     // and updateBoards functionality before full game flow is connected.
     Player player1;
@@ -72,10 +76,24 @@ int main()
 
     std::cout << "\nPlayer 1 tracking board:\n";
     displaySingleBoard(player1.trackingBoard, false);
+    displayOpponentBoard(player2);
+	  //User Input
 
+    //Vincent's Code
+  
+	  //Create gamedata and player objects
+   	GameData* gamedata = new GameData;
+	  UserData userOne;
+	  UserData userTwo;
+	  UserData userThree;
+	  UserData userFour;
+  	UserData* users[4] = {&userOne, &userTwo, &userThree, &userFour};
+	
+  	int players = userInput(gamedata, *users);
+	  gatherGameData(players, gamedata, *users);
     // Opponent view added to confirm that hidden ship display works correctly.
     std::cout << "\nOpponent View:\n";
-    displayOpponentBoard(player2);
+   
 
     return 0;
 }
