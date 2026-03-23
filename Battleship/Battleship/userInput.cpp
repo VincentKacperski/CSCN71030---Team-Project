@@ -3,10 +3,6 @@
 #include "userInput.h"
 #include <fstream>
 
-//Note: The code below is not tested or finished yet.
-//Do not run the code below as it needs further testing.
-//Testing will begin tomorrow due to delays. 
-
 class UserData {
 private:
 
@@ -52,7 +48,7 @@ public:
 		return nickname;
 	}
 	std::string getUsername() { //Store username
-	    return username;
+		return username;
 	}
 	int getAge() { //Store age
 		return age;
@@ -80,20 +76,22 @@ namespace data {
 
 }
 
+int testSave(std::string nickname, int players); // Added forward declaration so testSave can be called before its full definition
+
 void userInput() {
 
 	while (data::players <= 0) {
 		std::cout << "Number of players: ";
-		std::cin >> data::users.players;
+		std::cin >> data::players; // Changed to data::players so this loop updates the same variable it validates
 	}
 
-	for (int i = 0; i <= data::players; i++) {
+	for (int i = 1; i <= data::players; i++) { // Changed loop to start at 1 so player numbers match the save cases below
 
 		//Get the users nickname
 		std::cout << "Enter a nickname: ";
 		std::cin >> data::users.nickname;
 		data::selections++; //Increement selections
-		testSave(data::nickname, data::players);
+		testSave(data::users.nickname, i); // Changed arguments so the current nickname and current player number are passed correctly
 
 		//Get the users nickname
 		std::cout << "Enter your username";
@@ -123,64 +121,74 @@ int testSave(std::string nickname, int players) {
 
 	//Opening and using files
 	if (players == 1) {
+		fileptr.open("Playerone.txt"); // Moved open before is_open check so the file stream is actually tested after opening
 		if (fileptr.is_open()) {
 
 			//Open player ones file
-			fileptr.open("Playerone.txt");
 			fileptr << userdata.nickname;
 			fileptr << userdata.username;
 			fileptr << userdata.age;
 			fileptr.close(); //Close the file
 
-		} else {
+		}
+		else {
 			//Do nothing for now
 		}
-	} else {
+	}
+	else {
 		if (players == 2) {
+			fileptr.open("Playertwo.txt"); // Moved open before is_open check so the file stream is actually tested after opening
 			if (fileptr.is_open()) {
 
 				//Open player twos file
-				fileptr.open("Playertwo.txt");
 				fileptr << userdata.nickname;
 				fileptr << userdata.username;
 				fileptr << userdata.age;
 				fileptr.close(); //Close the file
 
-			} else {
+			}
+			else {
 				//Do nothing for now
 			}
-		} else {
+		}
+		else {
 			if (players == 3) {
+				fileptr.open("Playerthree.txt"); // Moved open before is_open check so the file stream is actually tested after opening
 				if (fileptr.is_open()) {
 
 					//Open player twos file
-					fileptr.open("Playerthree.txt");
 					fileptr << userdata.nickname;
 					fileptr << userdata.username;
 					fileptr << userdata.age;
 					fileptr.close(); //Close the file
 
-				} else {
+				}
+				else {
 					//Do nothing for now
 				}
-			} else {
+			}
+			else {
 				if (players == 4) {
+					fileptr.open("Playerthree.txt"); // Moved open before is_open check so the file stream is actually tested after opening
 					if (fileptr.is_open()) {
 
 						//Open player twos file
-						fileptr.open("Playerthree.txt");
 						fileptr << userdata.nickname;
 						fileptr << userdata.username;
 						fileptr << userdata.age;
 						fileptr.close(); //Close the file
 
-					} else {
+					}
+					else {
 						//Do nothing for now
 					}
-				} else {
+				}
+				else {
 					//Do nothing for now
 				}
 			}
 		}
 	}
+
+	return 0; // Added return value because the function is declared with int
 }
