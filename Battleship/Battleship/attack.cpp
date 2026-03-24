@@ -15,7 +15,7 @@ public:
 		std::cin >> x >> y;
 		
 	}
-	void hit() {
+	void hitPrint() {
 		std::cout << "Attack at (" << x << ", " << y << ") was a " << (hit ? "hit!" : "miss!") << std::endl;
 	}
 	void setAttack(int x, int y) {
@@ -23,8 +23,15 @@ public:
 		this->y = y;
 	}
 
-	void printAttack() {
-		std::cout << "Attack at (" << x << ", " << y << ")" << std::endl;
+	void checkAttack() {
+		std::cout << "Do you want to attack at (" << x << ", " << y << ")? (y/n): ";
+		char choice;
+		std::cin >> choice;
+		if (choice == 'y' || choice == 'Y') {
+			std::cout << "Attack confirmed at (" << x << ", " << y << ")." << std::endl;
+		} else {
+			std::cout << "Attack cancelled." << std::endl;
+		}
 	}
 
 	void setResult(bool hit) {
