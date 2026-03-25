@@ -3,6 +3,16 @@
 #include <fstream>
 #include "Base.h"
 #include "gatherGameData.h"
+#include "fileIOSystem.h"
+
+/******************************************************************************
+ * File: gatherGameData.cpp
+ * Project: CSCN71030 Team Project - Battleship
+ * Author: Vincent Kacperski
+ * Date: March 2026
+ * Description:
+ * Implements the board display functions used by the Battleship game.
+ ******************************************************************************/
 
 //Refrences
 //
@@ -37,25 +47,25 @@ int gatherGameData(int players, GameData* gamedata, UserData* users) {
 		if (players == 1) {
 			gatherShipCount(&users[players]);
 			gatherAbilities(&users[players]);
-			playerSaveGD(players, users);
+			//playerSaveGD(players, users);
 
 		}
 		else if (players == 2) {
 			gatherShipCount(&users[players]);
 			gatherAbilities(&users[players]);
-			playerSaveGD(players, users);
+			//playerSaveGD(players, users);
 
 		}
 		else if (players == 3) {
 			gatherShipCount(&users[players]);
 			gatherAbilities(&users[players]);
-			playerSaveGD(players, users);
+			//playerSaveGD(players, users);
 
 		}
 		else {
 			gatherShipCount(&users[players]);
 			gatherAbilities(&users[players]);
-			playerSaveGD(players, users);
+			//playerSaveGD(players, users);
 
 		}
 	}
@@ -78,6 +88,7 @@ void gatherShipCount(UserData* user) {
 		std::cout << "Collected player ship count\n";
 	}
 }
+
 void gatherAbilities(UserData* user) {
 
 	//Number of ships for each player
@@ -96,86 +107,4 @@ void gatherAbilities(UserData* user) {
 		std::cin >> gameData::gamedata.abilities[i];
 	}
 
-}
-
-void gameSaveGD(GameData* game) {
-
-	//Decleration
-	std::fstream fileptr;
-
-	//Store game data player count to the game data file
-	fileptr.open("Playerone.txt");
-	fileptr << game->getPlayers();
-	fileptr.close(); //Close the file
-
-}
-
-void playerSaveGD(int players, UserData* users) {
-
-	//Decleration
-	std::fstream fileptr;
-
-	//Opening and using files
-	if (players == 1) {
-		if (fileptr.is_open()) {
-
-			//Open player one's file
-			fileptr.open("Playerone.txt");
-			fileptr << users[players].getShipCount();
-			fileptr << users[players].getAbilities();
-			fileptr.close(); //Close the file
-
-		} else {
-			//Do nothing for now
-		}
-	} else {
-		if (players == 2) {
-
-			if (fileptr.is_open()) {
-
-				//Open player two's file
-				fileptr.open("Playertwo.txt");
-				fileptr << users[players].getShipCount();
-				fileptr << users[players].getAbilities();
-				fileptr.close(); //Close the file
-
-			} else {
-				//Do nothing for now
-			}
-		}
-		else {
-			if (players == 3) {
-				if (fileptr.is_open()) {
-
-					//Open player two's file
-					fileptr.open("Playerthree.txt");
-					fileptr << users[players].getShipCount();
-					fileptr << users[players].getAbilities();
-					fileptr.close(); //Close the file
-
-
-				} else {
-					//Do nothing for now
-				}
-			}
-			else {
-				if (players == 4) {
-					if (fileptr.is_open()) {
-
-						//Open player two's file
-						fileptr.open("Playerfour.txt");
-						fileptr << users[players].getShipCount();
-						fileptr << users[players].getAbilities();
-						fileptr.close(); //Close the file
-
-					} else {
-						//Do nothing for now
-					}
-				}
-				else {
-					//Do nothing for now
-				}
-			}
-		}
-	}
 }

@@ -3,6 +3,19 @@
 #include <fstream>
 #include "Base.h"
 #include "userInput.h"
+#include "fileIOSystem.h"
+
+/******************************************************************************
+ * File: userInput.cpp
+ * Project: CSCN71030 Team Project - Battleship
+ * Author: Vincent Kacperski
+ * Date: March 2026
+ * Description:
+ * Implements the board display functions used by the Battleship game.
+ ******************************************************************************/
+
+ //Refrences
+ //
 
 namespace data {
 	//Decleration
@@ -28,25 +41,25 @@ int userInput(GameData* gamedata, UserData* users) {
 			gatherNickname(&users[0]);
 			gatherUsername(&users[0]);
 			gatherAge(&users[0]);
-			playerSaveUI(&users[0], data::players);
+			savePlayer(data::players, &users[0]);
 
 		} else if (data::players == 2) {
 			gatherNickname(&users[1]);
 			gatherUsername(&users[1]);
 			gatherAge(&users[1]);
-			playerSaveUI(&users[1], data::players);
+			savePlayer(data::players, &users[1]);
 
 		} else if (data::players == 3) {
 			gatherNickname(&users[2]);
 			gatherUsername(&users[2]);
 			gatherAge(&users[2]);
-			playerSaveUI(&users[2], data::players);
+			savePlayer(data::players, &users[2]);
 
 		} else {
 			gatherNickname(&users[3]);
 			gatherUsername(&users[3]);
 			gatherAge(&users[3]);
-			playerSaveUI(&users[3], data::players);
+			savePlayer(data::players, &users[3]);
 
 		}
 	}
@@ -77,101 +90,4 @@ void gatherAge(UserData* user) {
 	std::cout << "Enter your age: ";
 	std::cin >> data::age;
 	user->storeAge(data::age);
-}
-//=----------------------=
-
-void gameSaveUI(GameData* game) {
-
-	//Decleration
-	std::fstream fileptr;
-
-	//Store game data player count to the game data file
-	fileptr.open("Playerone.txt");
-	fileptr << game->getPlayers();
-	fileptr.close(); //Close the file
-
-}
-
-//Test save file
-void playerSaveUI(UserData* user, int players) {
-
-	//Decleration
-	std::fstream fileptr;
-
-	//Opening and using files
-	if (players == 1) {
-		fileptr.open("Playerone.txt"); // Moved open before is_open check so the file stream is actually tested after opening
-		if (fileptr.is_open()) {
-
-			//Open player ones file
-			fileptr.open("Playerone.txt");
-			fileptr << user->getNickname();
-			fileptr << user->getUsername();
-			fileptr << user->getAge();
-			fileptr.close(); //Close the file
-
-		}
-		else {
-			//Do nothing for now
-		}
-	}
-	else {
-		if (players == 2) {
-			fileptr.open("Playertwo.txt"); // Moved open before is_open check so the file stream is actually tested after opening
-			if (fileptr.is_open()) {
-
-				//Open player twos file
-				fileptr.open("Playertwo.txt");
-				fileptr << user->getNickname();
-				fileptr << user->getUsername();
-				fileptr << user->getAge();
-				fileptr.close(); //Close the file
-
-			}
-			else {
-				//Do nothing for now
-			}
-		}
-		else {
-			if (players == 3) {
-				fileptr.open("Playerthree.txt"); // Moved open before is_open check so the file stream is actually tested after opening
-				if (fileptr.is_open()) {
-
-					//Open player twos file
-					fileptr.open("Playerthree.txt");
-					fileptr << user->getNickname();
-					fileptr << user->getUsername();
-					fileptr << user->getAge();
-					fileptr.close(); //Close the file
-
-				}
-				else {
-					//Do nothing for now
-				}
-			}
-			else {
-				if (players == 4) {
-					fileptr.open("Playerthree.txt"); // Moved open before is_open check so the file stream is actually tested after opening
-					if (fileptr.is_open()) {
-
-						//Open player twos file
-						fileptr.open("Playerfour.txt");
-						fileptr << user->getNickname();
-						fileptr << user->getUsername();
-						fileptr << user->getAge();
-						fileptr.close(); //Close the file
-
-					}
-					else {
-						//Do nothing for now
-					}
-				}
-				else {
-					//Do nothing for now
-				}
-			}
-		}
-	}
-
-	return 0; // Added return value because the function is declared with int
 }

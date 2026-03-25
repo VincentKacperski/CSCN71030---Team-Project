@@ -11,6 +11,7 @@
 int mainMenu(){
 	bool runProgram = true;
 	int userNum;
+
 	while (runProgram) {
 		std::cout << "Welcome to Battleship\n\n";
 		std::cout << "1. Play\n";
@@ -37,5 +38,7 @@ int mainMenu(){
 			std::cout << "Invalid Input\n";
 			//Command to clear screen here
 		}
+
 	}
+
 }
