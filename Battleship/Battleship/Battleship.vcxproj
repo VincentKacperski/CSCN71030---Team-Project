@@ -144,6 +144,7 @@
   <ItemGroup>
     <ClInclude Include="aircraftCarrier.h" />
     <ClInclude Include="attack.h" />
+    <ClInclude Include="Base.h" />
     <ClInclude Include="battleship.h" />
     <ClInclude Include="cruiser.h" />
     <ClInclude Include="destroyer.h" />
