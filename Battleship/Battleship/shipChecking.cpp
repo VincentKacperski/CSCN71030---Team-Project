@@ -3,3 +3,4 @@
 
 //Add your code here
 
+class ShipChecking{
