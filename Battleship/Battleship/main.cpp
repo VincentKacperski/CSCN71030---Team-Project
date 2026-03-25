@@ -1,3 +1,5 @@
+//C libraries
+#include "main.h"
 /******************************************************************************
  * File: main.cpp
  * Project: CSCN71030 Team Project - Battleship
