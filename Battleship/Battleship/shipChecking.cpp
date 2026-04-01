@@ -41,3 +41,22 @@ public:
         return true;
     }
 };
+
+/* ship({{1,1}, {1,2}, {1,3}});
+
+if (ship.shoot(1, 2)) {
+    std::cout << "Hit!\n";
+}
+else {
+    std::cout << "Miss!\n";
+}
+
+if (ship.isSunk()) {
+    std::cout << "Ship sunk!\n";
+}
+else {
+    std::cout << "Ship still afloat.\n";
+}
+
+return 0;
+} This is the way we will need to implement it into the function that uses this, will work on that later*/
