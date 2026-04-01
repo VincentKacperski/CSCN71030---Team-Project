@@ -71,6 +71,7 @@ int mainMenu(){
 			std::cout << "Invalid Input\n";
 			//Command to clear screen here
 		}
+
 	}
 	return 0;
 }

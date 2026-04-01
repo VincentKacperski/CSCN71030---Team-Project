@@ -49,7 +49,6 @@ int main()
   
     mainMenu();
     //Jacob's Code
-  
     // Temporary integration test added to verify helper, displayBoards,
     // and updateBoards functionality before full game flow is connected.
     /*Player player1;

@@ -9,7 +9,7 @@
 
 //std::fstream filePtr;
 
-int fileOpen(){
+int fileOpen() {
 	std::fstream file("gamedata.txt");
 
 	if (!file.is_open()) {
@@ -58,18 +58,18 @@ int fileOpen(){
 	return 0;
 }
 
-int savePlayer(int players) {
+int savePlayer(int players, UserData* users) {
 
 	std::fstream filePtr;
-	User userdata;
+	//User userdata;
 
 	if (players == 1) {
 		if (filePtr.is_open()) {
 
 			filePtr.open("playerone.txt");
-			filePtr << userdata.nickname;
-			filePtr << userdata.username;
-			filePtr << userdata.age;
+			filePtr << users[0].getNickname();
+			filePtr << users[0].getUsername();
+			filePtr << users[0].getAge();
 			filePtr.close();
 		}
 	}
@@ -78,9 +78,9 @@ int savePlayer(int players) {
 			if (filePtr.is_open()) {
 
 				filePtr.open("playertwo.txt");
-				filePtr << userdata.nickname;
-				filePtr << userdata.username;
-				filePtr << userdata.age;
+				filePtr << users[1].getNickname();
+				filePtr << users[1].getUsername();
+				filePtr << users[1].getAge();
 				filePtr.close();
 			}
 		}
@@ -89,9 +89,9 @@ int savePlayer(int players) {
 				if (filePtr.is_open()) {
 
 					filePtr.open("playerthree.txt");
-					filePtr << userdata.nickname;
-					filePtr << userdata.username;
-					filePtr << userdata.age;
+					filePtr << users[2].getNickname();
+					filePtr << users[2].getUsername();
+					filePtr << users[2].getAge();
 					filePtr.close();
 				}
 			}
@@ -100,9 +100,9 @@ int savePlayer(int players) {
 					if (filePtr.is_open()) {
 
 						filePtr.open("playerfour.txt");
-						filePtr << userdata.nickname;
-						filePtr << userdata.username;
-						filePtr << userdata.age;
+						filePtr << users[3].getNickname();
+						filePtr << users[3].getUsername();
+						filePtr << users[3].getAge();
 						filePtr.close();
 					}
 				}
@@ -115,36 +115,31 @@ int savePlayer(int players) {
 	return 0;
 }
 
-//class Ship {
-//
-//};
-//class Board {
-//
-//};
+//Save game data from the userInput module
+void gameSaveUI(GameData* game) {
 
-//void useAbility5(Ship& ship, Board& board) {
-//	int newX, newY;
-//	
-//	while (true) {
-//		std::cout << "Enter new position (x y) ";
-//		std::cin >> newX >> newY;
-//
-//		if (!board.isValidPosition(newX, newY)) {
-//			std::cout << "Invalid location: Out of Bounds\n";
-//			continue;
-//		}
-//
-//		if (board.isTargeted(newX, newY)) {
-//			std::cout << "Invalid location: This position has already been targeted\n";
-//			continue;
-//		}
-//		break;
-//	}
-//
-//	ship.x = newX;
-//	ship.y = newY;
-//	ship.abilityUsed = true;
-//
-//	detectMovement(ship);
-//	std::cout << "Ability used and the ship has been moved!\n";
-//}
+	//Decleration
+	std::fstream fileptr;
+
+	//Store game data player count to the game data file
+	fileptr.open("gamedata.txt");
+	fileptr << game->getPlayers();
+	fileptr.close(); //Close the file
+
+}
+
+//Save game data from gatherGameData module
+void gameSaveGD(GameData* game) {
+
+	//Decleration
+	std::fstream fileptr;
+
+	//Store game data player count to the game data file
+	fileptr.open("Playerone.txt");
+	fileptr << game->getPlayers();
+	fileptr.close(); //Close the file
+
+}
+
+
+
