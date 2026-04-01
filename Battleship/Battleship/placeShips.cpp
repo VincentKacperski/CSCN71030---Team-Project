@@ -44,7 +44,7 @@ class PlaceShips {
 			displayShips(fleet);
 
 			printf("\nChoose a ship (1-5): ");
-			scanf("%d", &choice);
+			scanf_s("%d", &choice);
 
 			// Adjust for array index
 			choice--;

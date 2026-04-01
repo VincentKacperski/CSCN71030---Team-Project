@@ -23,7 +23,7 @@ int gatherGameData(int players, GameData* gamedata, UserData* users) {
 
 	//Get the games map size
 	while (gameData::gamedata.mapSize != 400 && gameData::gamedata.mapSize != 100) {
-		std::cout << "What map size do you prefer? (area): ";
+		std::cout << "What map size do you prefer? (area, either 400 or 100): ";
 		std::cin >> gameData::mapSize;
 		gameData::gamedata.mapSize = gameData::mapSize;
 	}
