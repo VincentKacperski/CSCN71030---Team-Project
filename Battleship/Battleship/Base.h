@@ -135,11 +135,11 @@ struct Game {
 
 };
 
-//Test Save functions
+//Save functions
 void gameSaveUI(GameData* game);
-void playerSaveUI(UserData* user, int players);
 void gameSaveGD(GameData* game);
-void playerSaveGD(int players, UserData* users);
+int savePlayer(int players, UserData* users);
+int fileOpen();
 
 //Helper functions for gather game data
 void gatherShipCount(UserData* user);
@@ -151,5 +151,5 @@ void gatherUsername(UserData* user);
 void gatherAge(UserData* user);
 
 //Main module functions
-int gatherGameData(int players, GameData* gamedata, UserData* users);
-int userInput(GameData* gamedata, UserData* users);
+void gatherGameData(int players, GameData* gamedata, UserData* users);
+void userInput(GameData* gamedata, UserData* users);

@@ -4,7 +4,7 @@
  * Author: Jacob Stekelenburg
  * Date: March 2026
  * Description:
- *     Implements logic for updating boards after attacks and abilities.
+ * Implements logic for updating boards after attacks and abilities.
  ******************************************************************************/
 
 #include "updateBoards.h"
