@@ -24,18 +24,16 @@ namespace gameData {
 	int mapSize = 0;
 	int shipCount = 0;
 	char abilities[5] = {'A', 'B', 'C', 'S', 'D'};
-	User userdata;
-	Game gamedata;
 
 }
 
-int gatherGameData(int players, GameData* gamedata, UserData* users) {
+void gatherGameData(int players, GameData* gamedata, UserData* users) {
 
 	//Get the games map size
-	while (gameData::gamedata.mapSize != 400 && gameData::gamedata.mapSize != 100) {
-		std::cout << "What map size do you prefer? (area): ";
+	while (gamedata->getMapSize() != 20 && gamedata->getMapSize() != 10) {
+		std::cout << "What map size do you prefer (10 or 20): ";
 		std::cin >> gameData::mapSize;
-		gameData::gamedata.mapSize = gameData::mapSize;
+		gamedata->storeMapSize(gameData::mapSize);
 	}
 	gameSaveGD(gamedata);
 
@@ -69,7 +67,6 @@ int gatherGameData(int players, GameData* gamedata, UserData* users) {
 
 		}
 	}
-	return 0;
 }
 
 //The two functions bellow gather essential user data
@@ -82,9 +79,10 @@ void gatherShipCount(UserData* user) {
 	if (gameData::shipCount == 0) {
 		//Defaut to starting with 5 ships
 		gameData::shipCount = 5;
+		user->storeShipCount(5);
 	} else {
 		//Store the data
-		gameData::userdata.shipCount = gameData::shipCount;
+		user->storeShipCount(gameData::shipCount);
 		std::cout << "Collected player ship count\n";
 	}
 }
@@ -97,14 +95,22 @@ void gatherAbilities(UserData* user) {
 		std::cout << "How many abilities would you like?\n";
 		std::cout << "Quantity: ";
 		std::cin >> choice;
-		if (choice <= 0 && choice > 5) {
+
+		if (choice > user->getShipCount()) {
+			std::cout << user->getShipCount();
+			std::cout << "Ability count must match ship count!\n";
+			choice = -1;
+			continue;
+		}
+
+		if (choice <= 0) {
 			std::cout << "You can only select 1-5 abilities!\n";
 		}
 	}
 
 	for (int i = 1; i <= choice; i++) {
 		std::cout << "Ability " << i << " (A B C S D): ";
-		std::cin >> gameData::gamedata.abilities[i];
+		std::cin >> gameData::abilities[i];
 	}
 
 }

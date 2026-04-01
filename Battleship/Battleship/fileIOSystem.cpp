@@ -2,7 +2,8 @@
 #include <fstream>
 #include <string>
 #include "fileIOSystem.h"
-#include "base.h"
+#include "userInput.h"
+#include "Base.h"
 
 //Add your code here
 
@@ -15,14 +16,46 @@ int fileOpen() {
 		std::cout << "Error in opening the file!\n";
 	}
 
-	std::string pCount, nickname, username, age;
+	GameData gameData;
+	UserData playerData;
+
+	std::string pCount, nickname, username, age, size, map;
+	int realSize, realAge, realpCount;
 	if (file.is_open()) {
 		std::getline(file, nickname);
 		std::getline(file, username);
 		std::getline(file, age);
 		std::getline(file, pCount);
+		std::getline(file, size);
+		realSize = stoi(size);
+		realAge = stoi(age);
+		realpCount = stoi(pCount);
+
+		gameData.storeMapSize(realSize);
+		gameData.storePlayers(realpCount);
+
+		playerData.storeAge(realAge);
+		playerData.storeUsername(username);
+		playerData.storeNickname(nickname);
+
+		for (int i = 0;i < realSize; i++) {
+			std::getline(file, map);
+		}
 	}
 	file.close();
+
+	int i = 0;
+	std::string s[] = {"playerone.txt", "playertwo.txt", "playerthree.txt", "playerfour.txt"};
+	for (int i = 0; i < gameData.getPlayers(); i++) {
+		std::fstream file(s[i]);
+		
+		if(!file){
+
+		}
+
+
+	}
+	return 0;
 }
 
 int savePlayer(int players, UserData* users) {
@@ -79,6 +112,7 @@ int savePlayer(int players, UserData* users) {
 			}
 		}
 	}
+	return 0;
 }
 
 //Save game data from the userInput module

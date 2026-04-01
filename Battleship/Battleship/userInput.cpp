@@ -20,22 +20,22 @@
 namespace data {
 	//Decleration
 	int selections = 0;
-	int players = 0;
+	int players = -1;
 	int age = 0;
 	std::string nickname;
 	std::string username;
 }
 
-int userInput(GameData* gamedata, UserData* users) {
+void userInput(GameData* gamedata, UserData* users) {
+
+	while (data::players <= 0 || data::players > 4) {
+		std::cout << "Number of players: ";
+		std::cin >> data::players;
+		gamedata->storePlayers(data::players);
+	}
+	gameSaveUI(gamedata);
 
 	for (int i = 1; i <= data::players; i++) {
-
-		while (data::players <= 0 || data::players > 4) {
-			std::cout << "Number of players: ";
-			std::cin >> data::players;
-			gamedata->storePlayers(data::players);
-		}
-		gameSaveUI(gamedata);
 
 		if (data::players == 1) {
 			gatherNickname(&users[0]);
@@ -63,10 +63,6 @@ int userInput(GameData* gamedata, UserData* users) {
 
 		}
 	}
-
-	//Procced to the next input module
-	int players = data::players;
-	return players;
 
 }
 

@@ -46,10 +46,12 @@
  */
 int main()
 {
+  
+    mainMenu();
     //Jacob's Code
     // Temporary integration test added to verify helper, displayBoards,
     // and updateBoards functionality before full game flow is connected.
-    Player player1;
+    /*Player player1;
     Player player2;
 
     initializePlayer(player1, "Player 1", 10);
@@ -77,19 +79,9 @@ int main()
     std::cout << "\nPlayer 1 tracking board:\n";
     displaySingleBoard(player1.trackingBoard, false);
     displayOpponentBoard(player2);
-
-    //Vincent's Code
-  
-	 //Create gamedata and player objects
-   	GameData gamedata;
-	UserData userOne, userTwo, userThree, userFour;
-  	UserData users[4] = {userOne, userTwo, userThree, userFour};
-	
-  	int players = userInput(&gamedata, users);
-	gatherGameData(players, &gamedata, users);
-    // Opponent view added to confirm that hidden ship display works correctly.
-    std::cout << "\nOpponent View:\n";
+	  //User Input
+    */
    
-
+    
     return 0;
 }
