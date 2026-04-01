@@ -7,11 +7,6 @@
 int x;
 int y;
 char orientation;
-typedef struct {
-	char name[30];
-	int size;
-	char ability[100];
-} Ship;
 Ship fleet[5] = {
 	{"Cruiser", 3, "Can move one space after being placed."},
 	{"Battleship", 4, "Can attack twice per turn."},
