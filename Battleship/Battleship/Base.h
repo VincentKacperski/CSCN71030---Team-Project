@@ -151,5 +151,5 @@ void gatherUsername(UserData* user);
 void gatherAge(UserData* user);
 
 //Main module functions
-int gatherGameData(int players, GameData* gamedata, UserData* users);
-int userInput(GameData* gamedata, UserData* users);
+void gatherGameData(int players, GameData* gamedata, UserData* users);
+void userInput(GameData* gamedata, UserData* users);
