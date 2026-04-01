@@ -6,7 +6,7 @@
 
 int x;
 int y;
-char orientation;
+int orientation;
 Ship fleet[5] = {
 	{"Cruiser", 3, "Can move one space after being placed."},
 	{"Battleship", 4, "Can attack twice per turn."},
@@ -57,6 +57,7 @@ void chooseShips() {
 
 	for (int i = 0; i < amountSelected; i++) {
 		if (strcmp(selected[i].name, fleet[choice].name) == 0) {
+			placeShip(choice);
 			alreadyChosen = 1;
 			break;
 		}
@@ -75,8 +76,9 @@ void placedShip(int x, int y, char orientation) {
 }
 	
 
-void placeShip() {
-	std::cout << "Enter ship placement coordinates in numbers ex. 7,2 (x y) and orientation (h for horizontal, v for vertical): ";
+void placeShip(int choice) {
+	std::cout << "Enter ship placement coordinates in numbers ex. 7,2 (x y) and orientation (1 for horizontal, 2 for vertical): ";
 	std::cin >> x >> y >> orientation;
+	placeShips(x, y, orientation, fleet[choice].size);
 	placedShip(x, y, orientation);
 }
