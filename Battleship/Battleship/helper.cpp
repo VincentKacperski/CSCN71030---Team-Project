@@ -7,29 +7,31 @@
  *     Implements shared helper functions used across the Battleship project.
  ******************************************************************************/
 
+ //This Module has been flagged for plagerism
+
 #include "helper.h"
 
  /**
   * Creates a square board and initializes every cell with the
   * default water symbol.
   */
-std::vector<std::vector<char>> createBoard(int boardSize)
-{
-    return std::vector<std::vector<char>>(boardSize, std::vector<char>(boardSize, WATER_SYMBOL));
-}
+//std::vector<std::vector<char>> createBoard(int boardSize)
+//{
+//    return std::vector<std::vector<char>>(boardSize, std::vector<char>(boardSize, WATER_SYMBOL));
+//}
 
 /**
  * Initializes a player object with a name, board size, fresh boards,
  * and an empty ship list.
  */
-void initializePlayer(Player& player, const std::string& name, int boardSize)
-{
-    player.name = name;
-    player.boardSize = boardSize;
-    player.ownBoard = createBoard(boardSize);
-    player.trackingBoard = createBoard(boardSize);
-    player.ships.clear();
-}
+//void initializePlayer(Player& player, const std::string& name, int boardSize)
+//{
+//    player.name = name;
+//    player.boardSize = boardSize;
+//    player.ownBoard = createBoard(boardSize);
+//    player.trackingBoard = createBoard(boardSize);
+//    player.ships.clear();
+//}
 
 /**
  * Checks whether the given row and column fall within the

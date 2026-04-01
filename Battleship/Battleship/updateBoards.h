@@ -12,6 +12,8 @@
  *     preserving valid board data.
  ******************************************************************************/
 
+ //This Module has been flagged for plagerism
+
 #pragma once
 
 #include "helper.h"
@@ -26,7 +28,7 @@
   * @param col The target column.
   * @return True if the attack was a hit, otherwise false.
   */
-bool updateBoardAfterAttack(Player& defender, Player& attacker, int row, int col);
+//bool updateBoardAfterAttack(Player& defender, Player& attacker, int row, int col);
 
 /**
  * Marks the matching ship in the defender's ship list as sunk.
@@ -34,7 +36,7 @@ bool updateBoardAfterAttack(Player& defender, Player& attacker, int row, int col
  * @param defender The defending player.
  * @param shipSymbol The symbol of the ship that was destroyed.
  */
-void markShipAsSunk(Player& defender, char shipSymbol);
+//void markShipAsSunk(Player& defender, char shipSymbol);
 
 /**
  * Updates both boards after an ability affects a specific location.
@@ -45,4 +47,4 @@ void markShipAsSunk(Player& defender, char shipSymbol);
  * @param col The affected column.
  * @param resultSymbol The symbol to apply at that location.
  */
-void updateBoardsAfterAbility(Player& defender, Player& attacker, int row, int col, char resultSymbol);
+//void updateBoardsAfterAbility(Player& defender, Player& attacker, int row, int col, char resultSymbol);

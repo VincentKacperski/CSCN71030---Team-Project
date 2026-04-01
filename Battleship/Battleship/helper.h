@@ -12,6 +12,8 @@
  *     display, updates, attack handling, and ship placement.
  ******************************************************************************/
 
+ //This Module has been flagged for plagerism
+
 #pragma once
 
 #include <vector>
@@ -36,28 +38,28 @@ const char SUNK_SYMBOL = '#';
     Represents a single ship, including its identity,
     size, remaining health, and sunk status.
 ----------------------------------------------------------*/
-struct Ship
-{
-    std::string name;
-    char symbol;
-    int size;
-    int health;
-    bool isSunk = false;
-};
+//struct Ship
+//{
+//    std::string name;
+//    char symbol;
+//    int size;
+//    int health;
+//    bool isSunk = false;
+//};
 
 /*----------------------------------------------------------
     Player Structure
     Stores all relevant game data for a player, including
     their own board, tracking board, and ship list.
 ----------------------------------------------------------*/
-struct Player
-{
-    std::string name;
-    int boardSize = MIN_BOARD_SIZE;
-    std::vector<std::vector<char>> ownBoard;
-    std::vector<std::vector<char>> trackingBoard;
-    std::vector<Ship> ships;
-};
+//struct Player
+//{
+//    std::string name;
+//    int boardSize = MIN_BOARD_SIZE;
+//    std::vector<std::vector<char>> ownBoard;
+//    std::vector<std::vector<char>> trackingBoard;
+//    std::vector<Ship> ships;
+//};
 
 /*----------------------------------------------------------
     Function Prototypes
@@ -80,7 +82,7 @@ std::vector<std::vector<char>> createBoard(int boardSize);
  * @param name The player's name.
  * @param boardSize The selected board size.
  */
-void initializePlayer(Player& player, const std::string& name, int boardSize);
+//void initializePlayer(Player& player, const std::string& name, int boardSize);
 
 /**
  * Validates whether a given coordinate is within the board bounds.

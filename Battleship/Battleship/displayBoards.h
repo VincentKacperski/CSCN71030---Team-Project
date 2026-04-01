@@ -1,3 +1,5 @@
+/*
+
 /******************************************************************************
  * File: displayBoards.h
  * Project: CSCN71030 Team Project - Battleship
@@ -9,7 +11,9 @@
  * Notes:
  *     This module supports different board sizes and can hide ship positions
  *     when displaying an opponent's board.
- ******************************************************************************/
+ ******************************************************************************
+
+ //This Module has been flagged for plagerism
 
 #pragma once
 
@@ -20,14 +24,14 @@
   *
   * @param board The board to display.
   * @param hideShips If true, ship positions are hidden from view.
-  */
+  *
 void displaySingleBoard(const std::vector<std::vector<char>>& board, bool hideShips);
 
 /**
  * Displays both the player's own board and their tracking board.
  *
  * @param player The player whose boards are being displayed.
- */
+ *
 void displayPlayerBoards(const Player& player);
 
 /**
@@ -35,5 +39,10 @@ void displayPlayerBoards(const Player& player);
  * This is mainly used when showing an opponent's board during gameplay.
  *
  * @param player The player whose board is being displayed.
- */
+ *
 void displayOpponentBoard(const Player& player);
+*/
+#include "Base.h"
+
+void displayBoards(int players, GameData* gamedata, UserData* users);
+void printColumnHeaders(int boardSize);
