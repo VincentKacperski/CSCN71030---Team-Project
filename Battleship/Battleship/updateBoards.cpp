@@ -16,3 +16,17 @@ static bool isShipFullyDestroyed(const Board& board, char shipSymbol)
 
     return true;
 }
+
+// Updates the matching ship in the defender's ship list to sunk.
+void markShipAsSunk(Player& defender, char shipSymbol)
+{
+    for (int i = 0; i < static_cast<int>(defender.ships.size()); i++)
+    {
+        if (defender.ships[i].symbol == shipSymbol)
+        {
+            defender.ships[i].isSunk = true;
+            defender.ships[i].health = 0;
+            break;
+        }
+    }
+}
