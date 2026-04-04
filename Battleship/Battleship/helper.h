@@ -17,7 +17,7 @@ const char HIT_SYMBOL = 'X';
 const char MISS_SYMBOL = 'O';
 const char SUNK_SYMBOL = '#';
 
-struct Ship
+struct BoardShip
 {
     std::string name;
     char symbol;
@@ -32,7 +32,7 @@ struct Player
     int boardSize = MIN_BOARD_SIZE;
     Board ownBoard;
     Board trackingBoard;
-    std::vector<Ship> ships;
+    std::vector<BoardShip> ships;
 };
 
 Board createBoard(int boardSize);
