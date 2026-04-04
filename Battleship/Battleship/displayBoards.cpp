@@ -44,3 +44,13 @@ void displaySingleBoard(const Board& board, bool hideShips)
         cout << endl;
     }
 }
+
+// Shows both boards for the current player.
+void displayPlayerBoards(const Player& player)
+{
+    cout << "\n=== " << player.name << "'s Own Board ===\n";
+    displaySingleBoard(player.ownBoard, false);
+
+    cout << "\n=== " << player.name << "'s Tracking Board ===\n";
+    displaySingleBoard(player.trackingBoard, false);
+}
