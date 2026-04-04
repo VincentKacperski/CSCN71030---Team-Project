@@ -25,3 +25,12 @@ struct Ship
     int health;
     bool isSunk = false;
 };
+
+struct Player
+{
+    std::string name;
+    int boardSize = MIN_BOARD_SIZE;
+    Board ownBoard;
+    Board trackingBoard;
+    std::vector<Ship> ships;
+};
