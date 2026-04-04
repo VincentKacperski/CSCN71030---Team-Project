@@ -1,6 +1,22 @@
+/******************************************************************************
+ * File: updateBoards.cpp
+ * Project: CSCN71030 Team Project - Battleship
+ * Author: Jacob Stekelenburg
+ * Date: April 2026
+ * Description:
+ *     Implements the board update functions for the Battleship project.
+ *     This file handles standard attacks, marks ships as sunk, checks whether
+ *     a ship has been fully destroyed, and applies ability results to both
+ *     player boards.
+ *
+ * References:
+ *     "std::vector." cppreference.com,
+ *     https://en.cppreference.com/w/cpp/container/vector.html.
+ ******************************************************************************/
+
 #include "updateBoards.h"
 
-// Checks if a ship symbol still exists anywhere on the board.
+ // Checks if a ship symbol still exists anywhere on the board.
 static bool isShipFullyDestroyed(const Board& board, char shipSymbol)
 {
     for (int row = 0; row < static_cast<int>(board.size()); row++)

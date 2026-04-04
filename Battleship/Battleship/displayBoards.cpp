@@ -1,3 +1,24 @@
+/******************************************************************************
+ * File: displayBoards.cpp
+ * Project: CSCN71030 Team Project - Battleship
+ * Author: Jacob Stekelenburg
+ * Date: April 2026
+ * Description:
+ *     Implements the board display functions for the Battleship project.
+ *     This file prints numbered column headers, displays a single board,
+ *     and shows the current player's own board and tracking board.
+ *
+ * References:
+ *     "std::vector." cppreference.com,
+ *     https://en.cppreference.com/w/cpp/container/vector.html.
+ *
+ *     "std::setw." cppreference.com,
+ *     https://en.cppreference.com/w/cpp/io/manip/setw.html.
+ *
+ *     "Header <iomanip>." cppreference.com,
+ *     https://en.cppreference.com/w/cpp/header/iomanip.html.
+ ******************************************************************************/
+
 #include <iostream>
 #include <iomanip>
 #include "displayBoards.h"
@@ -52,5 +73,5 @@ void displayPlayerBoards(const Player& player)
     displaySingleBoard(player.ownBoard, false);
 
     cout << "\n=== " << player.name << "'s Tracking Board ===\n";
-    displaySingleBoard(player.trackingBoard, false
+    displaySingleBoard(player.trackingBoard, false);
 }
