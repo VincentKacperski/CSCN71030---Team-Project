@@ -34,3 +34,11 @@ struct Player
     Board trackingBoard;
     std::vector<Ship> ships;
 };
+
+Board createBoard(int boardSize);
+
+void initializePlayer(Player& player, const std::string& name, int boardSize);
+
+bool isValidCoordinate(int row, int col, int boardSize);
+
+bool isShipSymbol(char cell);
