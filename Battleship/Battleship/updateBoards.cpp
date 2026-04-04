@@ -77,3 +77,15 @@ bool updateBoardAfterAttack(Player& defender, Player& attacker, int row, int col
     attackerCell = MISS_SYMBOL;
     return false;
 }
+
+// Applies an ability result directly to both boards.
+void updateBoardsAfterAbility(Player& defender, Player& attacker, int row, int col, char resultSymbol)
+{
+    if (!isValidCoordinate(row, col, defender.boardSize))
+    {
+        return;
+    }
+
+    defender.ownBoard[row][col] = resultSymbol;
+    attacker.trackingBoard[row][col] = resultSymbol;
+}
