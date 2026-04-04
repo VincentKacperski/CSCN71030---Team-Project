@@ -52,5 +52,5 @@ void displayPlayerBoards(const Player& player)
     displaySingleBoard(player.ownBoard, false);
 
     cout << "\n=== " << player.name << "'s Tracking Board ===\n";
-    displaySingleBoard(player.trackingBoard, false);
+    displaySingleBoard(player.trackingBoard, false
 }
