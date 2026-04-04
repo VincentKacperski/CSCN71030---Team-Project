@@ -16,3 +16,12 @@ const char WATER_SYMBOL = '~';
 const char HIT_SYMBOL = 'X';
 const char MISS_SYMBOL = 'O';
 const char SUNK_SYMBOL = '#';
+
+struct Ship
+{
+    std::string name;
+    char symbol;
+    int size;
+    int health;
+    bool isSunk = false;
+};
