@@ -22,3 +22,12 @@ bool isValidCoordinate(int row, int col, int boardSize)
 {
     return row >= 0 && row < boardSize && col >= 0 && col < boardSize;
 }
+
+// Checks if the cell contains a ship instead of water or a result marker.
+bool isShipSymbol(char cell)
+{
+    return cell != WATER_SYMBOL &&
+        cell != HIT_SYMBOL &&
+        cell != MISS_SYMBOL &&
+        cell != SUNK_SYMBOL;
+}
