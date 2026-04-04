@@ -30,3 +30,50 @@ void markShipAsSunk(Player& defender, char shipSymbol)
         }
     }
 }
+
+// Handles a standard attack and updates both the defender board
+// and the attacker's tracking board.
+bool updateBoardAfterAttack(Player& defender, Player& attacker, int row, int col)
+{
+    if (!isValidCoordinate(row, col, defender.boardSize))
+    {
+        return false;
+    }
+
+    char& defenderCell = defender.ownBoard[row][col];
+    char& attackerCell = attacker.trackingBoard[row][col];
+
+    // Ignore cells that were already attacked before.
+    if (defenderCell == HIT_SYMBOL || defenderCell == MISS_SYMBOL || defenderCell == SUNK_SYMBOL)
+    {
+        return false;
+    }
+
+    if (isShipSymbol(defenderCell))
+    {
+        char shipSymbol = defenderCell;
+
+        defenderCell = HIT_SYMBOL;
+        attackerCell = HIT_SYMBOL;
+
+        for (int i = 0; i < static_cast<int>(defender.ships.size()); i++)
+        {
+            if (defender.ships[i].symbol == shipSymbol)
+            {
+                defender.ships[i].health--;
+                break;
+            }
+        }
+
+        if (isShipFullyDestroyed(defender.ownBoard, shipSymbol))
+        {
+            markShipAsSunk(defender, shipSymbol);
+        }
+
+        return true;
+    }
+
+    defenderCell = MISS_SYMBOL;
+    attackerCell = MISS_SYMBOL;
+    return false;
+}
