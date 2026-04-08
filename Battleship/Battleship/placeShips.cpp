@@ -33,9 +33,10 @@ void displayShips(Ship fleet[]) {
 
 void chooseShips() {
 	int choice;
+	int shipCount = gameData[i]->getPlayers();
 	int selected[shipCount];
 	int amount = 0;
-	while (amountSelected < 5) {
+	while (amountSelected < shipCount) {
 
 		printf("\nChoose a ship (1-5): ");
 		scanf_s("%d", &choice);
@@ -77,8 +78,10 @@ void placedShip(int x, int y, char orientation) {
 	
 
 void placeShip(int choice) {
-	std::cout << "Enter ship placement coordinates in numbers ex. 7,2 (x y) and orientation (1 for horizontal, 2 for vertical): ";
-	std::cin >> x >> y >> orientation;
+	std::cout << "Enter ship placement coordinates in numbers ex. 7,2 (x y)";
+	std::cin >> x >> y;
+	std::cout << "orientation (1 for horizontal, 2 for vertical):";
+	std::cin >> orientation;
 	placeShips(x, y, orientation, fleet[choice].size);
 	placedShip(x, y, orientation);
 }

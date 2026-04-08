@@ -13,12 +13,9 @@ public:
 	void requestAttack() {
 		std::cout << "Enter attack coordinates (x y): ";
 		std::cin >> x >> y;
+		checkAttack();
 		
 	
-	}
-	void setAttack(int x, int y) {
-		this->x = x;
-		this->y = y;
 	}
 
 	void checkAttack() {
@@ -30,6 +27,7 @@ public:
 			checkHit(x, y);
 		} else {
 			std::cout << "Attack cancelled." << std::endl;
+			requestAttack();
 		}
 	}
 
