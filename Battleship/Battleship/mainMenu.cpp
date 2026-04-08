@@ -8,6 +8,7 @@
 #include "Base.h"
 #include "win.h"
 #include "placeShips.h"
+#include "displayBoards.h"
 #include <Windows.h>
 
 //using namespace std; ?? What do we prefer here?
@@ -46,7 +47,7 @@ int mainMenu(){
 			randUser = rand() %gamedata->getPlayers() + 1;
 			while (playerWin == false) {
 				for (int i = randUser; i <= gamedata->getPlayers(); i++) {
-					//displayBoards();
+					displayBoards(players, gamedata, users);
 					//attack();
 					//updateBoards();
 					if (win(playerWin) == true) {

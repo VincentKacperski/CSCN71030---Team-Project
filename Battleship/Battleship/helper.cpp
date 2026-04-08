@@ -12,6 +12,8 @@
  *     https://en.cppreference.com/w/cpp/container/vector.html.
  ******************************************************************************/
 
+ //This Module has been flagged for plagerism
+
 #include "helper.h"
 
  /**
@@ -33,14 +35,14 @@ Board createBoard(int boardSize)
  * @param name The player's display name.
  * @param boardSize The selected board size.
  */
-void initializePlayer(Player& player, const std::string& name, int boardSize)
-{
-    player.name = name;
-    player.boardSize = boardSize;
-    player.ownBoard = createBoard(boardSize);
-    player.trackingBoard = createBoard(boardSize);
-    player.ships.clear();
-}
+//void initializePlayer(Player& player, const std::string& name, int boardSize)
+//{
+//    player.name = name;
+//    player.boardSize = boardSize;
+//    player.ownBoard = createBoard(boardSize);
+//    player.trackingBoard = createBoard(boardSize);
+//    player.ships.clear();
+//}
 
 /**
  * Checks if a row and column are inside the board limits.

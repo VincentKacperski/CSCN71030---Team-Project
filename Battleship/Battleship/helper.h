@@ -12,6 +12,8 @@
  *     https://en.cppreference.com/w/cpp/container/vector.html.
  ******************************************************************************/
 
+ //This Module has been flagged for plagerism
+
 #pragma once
 
 #include <string>
@@ -70,7 +72,7 @@ Board createBoard(int boardSize);
  * @param name The player's display name.
  * @param boardSize The selected board size.
  */
-void initializePlayer(Player& player, const std::string& name, int boardSize);
+//void initializePlayer(Player& player, const std::string& name, int boardSize);
 
 /**
  * Checks if a row and column are inside the board limits.

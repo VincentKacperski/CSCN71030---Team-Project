@@ -1,4 +1,5 @@
 #include <string>
+#include <vector>
 #pragma once
 
 class GameData {
@@ -50,6 +51,8 @@ private:
 	char abilities[5] = "";
 	std::string nickname;
 	std::string username;
+	std::vector<std::vector<char>> ownBoard;
+	std::vector<std::vector<char>> trackingBoard;
 
 public:
 
@@ -71,6 +74,15 @@ public:
 	~UserData() {}
 
 	//Setter functions
+
+	void storeOwnBoard(std::vector<std::vector<char>> ownBoard) {
+		this->ownBoard = ownBoard;
+	}
+
+	void storeTrackingBoard(std::vector<std::vector<char>> trackingBoard) {
+		this->trackingBoard = trackingBoard;
+	}
+
 	void storeAge(int a) { //Store ship count
 		age = a;
 	}
@@ -116,6 +128,14 @@ public:
 		return nickname;
 	}
 
+	std::vector<std::vector<char>> getOwnBoard() {
+		return ownBoard;
+	}
+
+	std::vector<std::vector<char>> getTrackingBoard() {
+		return trackingBoard;
+	}
+
 };
 
 struct User {
@@ -138,7 +158,8 @@ struct Game {
 //Save functions
 void gameSaveUI(GameData* game);
 void gameSaveGD(GameData* game);
-int savePlayer(int players, UserData* users);
+void savePlayer(int players, UserData* users, GameData* data);
+void loadPlayer(int players, UserData* users, GameData* data);
 int fileOpen();
 
 //Helper functions for gather game data

@@ -58,61 +58,62 @@ int fileOpen() {
 	return 0;
 }
 
-int savePlayer(int players, UserData* users) {
+void savePlayer(int players, UserData* users, GameData* data) {
 
-	std::fstream filePtr;
+	//std::fstream filePtr;
 	//User userdata;
+	std::string s[] = { "playerone.txt", "playertwo.txt", "playerthree.txt", "playerfour.txt" };
 
-	if (players == 1) {
+	for (int i = 0; i < data->getPlayers(); i++) {
+		std::fstream filePtr(s[i]);
+
 		if (filePtr.is_open()) {
-
-			filePtr.open("playerone.txt");
 			filePtr << users[0].getNickname();
 			filePtr << users[0].getUsername();
 			filePtr << users[0].getAge();
+			for (const auto& row : users->getOwnBoard()) {
+				std::copy(row.begin(), row.end(), std::ostream_iterator<char>(filePtr, " "));
+				//filePtr << users->getOwnBoard();
+			}
+			for (const auto& row : users->getTrackingBoard()) {
+				std::copy(row.begin(), row.end(), std::ostream_iterator<char>(filePtr, " "));
+				//filePtr << users->getTrackingBoard();
+			}
 			filePtr.close();
 		}
 	}
-	else {
-		if (players == 2) {
-			if (filePtr.is_open()) {
+}
 
-				filePtr.open("playertwo.txt");
-				filePtr << users[1].getNickname();
-				filePtr << users[1].getUsername();
-				filePtr << users[1].getAge();
-				filePtr.close();
-			}
-		}
-		else {
-			if (players == 3) {
-				if (filePtr.is_open()) {
+void loadPlayer(int players, UserData* users, GameData* data) {
+	std::string s[] = { "playerone.txt", "playertwo.txt", "playerthree.txt", "playerfour.txt" };
 
-					filePtr.open("playerthree.txt");
-					filePtr << users[2].getNickname();
-					filePtr << users[2].getUsername();
-					filePtr << users[2].getAge();
-					filePtr.close();
-				}
-			}
-			else {
-				if (players == 4) {
-					if (filePtr.is_open()) {
+	for (int i = 0; i < data->getPlayers(); i++) {
+		std::fstream filePtr(s[i]);
+		std::vector<std::vector<char>> tempBoard;
+		std::string tempString;
+		int tempInt;
+		int count = 0;
 
-						filePtr.open("playerfour.txt");
-						filePtr << users[3].getNickname();
-						filePtr << users[3].getUsername();
-						filePtr << users[3].getAge();
-						filePtr.close();
-					}
-				}
-				else {
-					//std::cout << "Error";
-				}
+		if (filePtr.is_open()) {
+			std::getline(filePtr, tempString);
+			users[i].storeNickname(tempString);
+			std::getline(filePtr, tempString);
+			users[i].storeUsername(tempString);
+			std::getline(filePtr, tempString);
+			tempInt = stoi(tempString);
+			users[i].storeAge(tempInt);
+			while (count++ < data->getMapSize() && std::getline(filePtr, tempString)) {
+				tempBoard.push_back(std::vector<char>(tempString.begin(), tempString.end()));
 			}
+			users->storeOwnBoard(tempBoard);
+			count = 0;
+			while (count++ < data->getMapSize() && std::getline(filePtr, tempString)) {
+				tempBoard.push_back(std::vector<char>(tempString.begin(), tempString.end()));
+			}
+			users->storeTrackingBoard(tempBoard);
+			filePtr.close();
 		}
 	}
-	return 0;
 }
 
 //Save game data from the userInput module

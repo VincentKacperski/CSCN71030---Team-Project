@@ -1,18 +1,10 @@
 #include <iostream>
 #include <string>
 #include <fstream>
+#include <vector>
 #include "Base.h"
 #include "gatherGameData.h"
 #include "fileIOSystem.h"
-
-/******************************************************************************
- * File: gatherGameData.cpp
- * Project: CSCN71030 Team Project - Battleship
- * Author: Vincent Kacperski
- * Date: March 2026
- * Description:
- * Implements the board display functions used by the Battleship game.
- ******************************************************************************/
 
 //Refrences
 //
@@ -113,4 +105,10 @@ void gatherAbilities(UserData* user) {
 		std::cin >> gameData::abilities[i];
 	}
 
+}
+
+std::vector<std::vector<char>> createBoard(int boardSize)
+{
+
+	return std::vector<std::vector<char>>(boardSize, std::vector<char>(boardSize, '~'));
 }
