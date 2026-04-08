@@ -1,4 +1,5 @@
 #include "Base.h"
+#include "shipChecking.h"
 
 typedef struct {
 	char name[30];

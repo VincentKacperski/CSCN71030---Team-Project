@@ -13,14 +13,9 @@ public:
 	void requestAttack() {
 		std::cout << "Enter attack coordinates (x y): ";
 		std::cin >> x >> y;
+		checkAttack();
 		
-	}
-	void hitPrint() {
-		std::cout << "Attack at (" << x << ", " << y << ") was a " << (hit ? "hit!" : "miss!") << std::endl;
-	}
-	void setAttack(int x, int y) {
-		this->x = x;
-		this->y = y;
+	
 	}
 
 	void checkAttack() {
@@ -29,12 +24,18 @@ public:
 		std::cin >> choice;
 		if (choice == 'y' || choice == 'Y') {
 			std::cout << "Attack confirmed at (" << x << ", " << y << ")." << std::endl;
+			checkHit(x, y);
 		} else {
 			std::cout << "Attack cancelled." << std::endl;
+			requestAttack();
 		}
 	}
 
 	void setResult(bool hit) {
-		this->hit = hit;
+		if (hit) {
+			std::cout << "It's a hit!" << std::endl;
+		} else {
+			std::cout << "It's a miss." << std::endl;
+		}
 	}
 };

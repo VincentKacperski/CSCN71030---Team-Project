@@ -21,14 +21,34 @@ void ShipChecking() {
         }
     }
 }
-void placeShip(int x, int y) {
+void placeShips(int x, int y, int orientation, int size) {
     if (x >= 0 && x < 10 && y >= 0 && y < 10) {
-        shipMap[x][y] = true;
+        for (int length = 0; length < size; length++) {
+            if (orientation == 2) {
+                shipMap[x + length - 1][y - 1] = true;
+            }
+            if (orientation == 1) {
+                shipMap[x][y + length] = true;
+            }
+		}
+        
     }
 }
 void checkHit(int x, int y) {
-    if (x >= 0 && x < 10 && y >= 0 && y < 10) {
-        shotMap[x][y] = true;
+    if (x >= 1 && x < 11 && y >= 1 && y < 11) {
+        if (shotMap[x - 1][y - 1] == true) {
+            std::cout << "You have already attacked this location. Please choose different coordinates.\n";
+            requestAttack();
+        }
+        else {
+
+            if (shipMap[x - 1][y - 1] == true) {
+                setResult(true);
+            }
+            else {
+                setResult(false);
+            }
+        }
     }
 }
     /*  void displayMaps() {

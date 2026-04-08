@@ -3,5 +3,5 @@
 #include "attack.h"
 #include "Base.h"
 void ShipChecking(); 
-void placeShip(int x, int y);
+void placeShips(int x, int y, int orientation, int size);
 void checkHit(int x, int y);
