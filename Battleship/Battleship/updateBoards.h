@@ -2,14 +2,15 @@
  * File: updateBoards.h
  * Project: CSCN71030 Team Project - Battleship
  * Author: Jacob Stekelenburg
- * Date: March 2026
+ * Date: April 2026
  * Description:
- *     Declares the functions used to update player boards after attacks
- *     and ability usage.
+ *     Contains function declarations for handling attacks and board updates
+ *     in the Battleship project, including normal attacks, sunk ship handling,
+ *     and ability-based board updates.
  *
- * Notes:
- *     This module handles hits, misses, and sunk ship states while
- *     preserving valid board data.
+ * References:
+ *     "std::vector." cppreference.com,
+ *     https://en.cppreference.com/w/cpp/container/vector.html.
  ******************************************************************************/
 
  //This Module has been flagged for plagerism
@@ -18,33 +19,11 @@
 
 #include "helper.h"
 
- /**
-  * Updates both the defender's board and the attacker's tracking board
-  * after a standard attack.
-  *
-  * @param defender The player being attacked.
-  * @param attacker The player performing the attack.
-  * @param row The target row.
-  * @param col The target column.
-  * @return True if the attack was a hit, otherwise false.
-  */
-//bool updateBoardAfterAttack(Player& defender, Player& attacker, int row, int col);
+ // Handles a normal attack and updates both boards.
+bool updateBoardAfterAttack(Player& defender, Player& attacker, int row, int col);
 
-/**
- * Marks the matching ship in the defender's ship list as sunk.
- *
- * @param defender The defending player.
- * @param shipSymbol The symbol of the ship that was destroyed.
- */
-//void markShipAsSunk(Player& defender, char shipSymbol);
+// Marks a ship as sunk using its symbol.
+void markShipAsSunk(Player& defender, char shipSymbol);
 
-/**
- * Updates both boards after an ability affects a specific location.
- *
- * @param defender The affected player.
- * @param attacker The player using the ability.
- * @param row The affected row.
- * @param col The affected column.
- * @param resultSymbol The symbol to apply at that location.
- */
-//void updateBoardsAfterAbility(Player& defender, Player& attacker, int row, int col, char resultSymbol);
+// Applies an ability result to both boards.
+void updateBoardsAfterAbility(Player& defender, Player& attacker, int row, int col, char resultSymbol);

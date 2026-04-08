@@ -1,48 +1,42 @@
 /*
 
 /******************************************************************************
- * File: displayBoards.h
+ * File: display.h
  * Project: CSCN71030 Team Project - Battleship
  * Author: Jacob Stekelenburg
- * Date: March 2026
+ * Date: April 2026
  * Description:
- *     Declares the functions used to display player boards during gameplay.
+ *     Contains function declarations for displaying Battleship boards to the
+ *     console, including a single board, both player boards, and an opponent
+ *     board with hidden ship positions.
  *
- * Notes:
- *     This module supports different board sizes and can hide ship positions
- *     when displaying an opponent's board.
- ******************************************************************************
-
- //This Module has been flagged for plagerism
+ * References:
+ *     "std::vector." cppreference.com,
+ *     https://en.cppreference.com/w/cpp/container/vector.html.
+ ******************************************************************************/
 
 #pragma once
 
 #include "helper.h"
 
  /**
-  * Displays a single board to the console.
+  * Prints one board to the console.
   *
   * @param board The board to display.
-  * @param hideShips If true, ship positions are hidden from view.
-  *
-void displaySingleBoard(const std::vector<std::vector<char>>& board, bool hideShips);
+  * @param hideShips True if ship positions should be hidden from view.
+  */
+void displaySingleBoard(const Board& board, bool hideShips);
 
 /**
- * Displays both the player's own board and their tracking board.
+ * Prints the player's own board and tracking board.
  *
- * @param player The player whose boards are being displayed.
- *
+ * @param player The player whose boards will be displayed.
+ */
 void displayPlayerBoards(const Player& player);
 
 /**
- * Displays a player's board with ship positions hidden.
- * This is mainly used when showing an opponent's board during gameplay.
+ * Prints an opponent board without showing ship locations.
  *
- * @param player The player whose board is being displayed.
- *
+ * @param player The player whose opponent-facing board will be displayed.
+ */
 void displayOpponentBoard(const Player& player);
-*/
-#include "Base.h"
-
-void displayBoards(int players, GameData* gamedata, UserData* users);
-void printColumnHeaders(int boardSize);

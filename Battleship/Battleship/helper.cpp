@@ -2,9 +2,14 @@
  * File: helper.cpp
  * Project: CSCN71030 Team Project - Battleship
  * Author: Jacob Stekelenburg
- * Date: March 2026
+ * Date: April 2026
  * Description:
- *     Implements shared helper functions used across the Battleship project.
+ *     Implements shared helper functions used by the board-related modules of
+ *     the Battleship project.
+ *
+ * References:
+ *     "std::vector." cppreference.com,
+ *     https://en.cppreference.com/w/cpp/container/vector.html.
  ******************************************************************************/
 
  //This Module has been flagged for plagerism
@@ -12,17 +17,23 @@
 #include "helper.h"
 
  /**
-  * Creates a square board and initializes every cell with the
-  * default water symbol.
+  * Creates a square board and fills it with water symbols.
+  *
+  * @param boardSize The number of rows and columns in the board.
+  * @return A 2D board initialized with WATER_SYMBOL.
   */
-//std::vector<std::vector<char>> createBoard(int boardSize)
-//{
-//    return std::vector<std::vector<char>>(boardSize, std::vector<char>(boardSize, WATER_SYMBOL));
-//}
+Board createBoard(int boardSize)
+{
+    Board board(boardSize, std::vector<char>(boardSize, WATER_SYMBOL));
+    return board;
+}
 
 /**
- * Initializes a player object with a name, board size, fresh boards,
- * and an empty ship list.
+ * Sets up a player with a name, board size, empty boards, and no ships.
+ *
+ * @param player The player being initialized.
+ * @param name The player's display name.
+ * @param boardSize The selected board size.
  */
 //void initializePlayer(Player& player, const std::string& name, int boardSize)
 //{
@@ -34,8 +45,12 @@
 //}
 
 /**
- * Checks whether the given row and column fall within the
- * current board boundaries.
+ * Checks if a row and column are inside the board limits.
+ *
+ * @param row The row to check.
+ * @param col The column to check.
+ * @param boardSize The current size of the board.
+ * @return True if the coordinate is valid, otherwise false.
  */
 bool isValidCoordinate(int row, int col, int boardSize)
 {
@@ -43,8 +58,10 @@ bool isValidCoordinate(int row, int col, int boardSize)
 }
 
 /**
- * Checks whether a board cell represents part of a ship
- * rather than water or a board result marker.
+ * Checks if the cell contains a ship instead of water or a result marker.
+ *
+ * @param cell The character stored in the board cell.
+ * @return True if the cell is a ship symbol, otherwise false.
  */
 bool isShipSymbol(char cell)
 {
