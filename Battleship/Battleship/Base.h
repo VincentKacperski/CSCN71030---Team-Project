@@ -158,7 +158,8 @@ struct Game {
 //Save functions
 void gameSaveUI(GameData* game);
 void gameSaveGD(GameData* game);
-int savePlayer(int players, UserData* users);
+void savePlayer(int players, UserData* users, GameData* data);
+void loadPlayer(int players, UserData* users, GameData* data);
 int fileOpen();
 
 //Helper functions for gather game data
