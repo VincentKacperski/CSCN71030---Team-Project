@@ -2,9 +2,9 @@
 #include "shipChecking.h"
 
 typedef struct {
-	char name[30];
+	std::string name;
 	int size;
-	char ability[100];
+	bool chosen;
 } Ship;
 
 void placeShip();

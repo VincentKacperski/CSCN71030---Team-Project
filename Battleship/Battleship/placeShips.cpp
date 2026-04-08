@@ -8,68 +8,59 @@ int x;
 int y;
 int orientation;
 Ship fleet[5] = {
-	{"Cruiser", 3, "Can move one space after being placed."},
-	{"Battleship", 4, "Can attack twice per turn."},
-	{"Submarine", 3, "Can submerge to avoid attacks for one turn."},
-	{"Destroyer", 2, "Can detect nearby ships within a 1-space radius."},	
-	{"Aircraft Carrier", 5, "Can launch airstrikes to attack multiple spaces at once."}
+	{"Cruiser", 3, false},
+	{"Battleship", 4, false},
+	{"Submarine", 3, false},
+	{"Destroyer", 2, false},
+	{"Carrier", 5, false}
 };
 int ships[5];
 int amountSelected = 0;
-
-
-
-
 
 void displayShips(Ship fleet[]) {
 	for (int i = 0; i < 5; i++) {
 		printf("%d. %s (Size: %d) - %s\n",
 			i + 1,
 			fleet[i].name,
-			fleet[i].size,
-			fleet[i].ability);
+			fleet[i].size);
 	}
 }
 
-void chooseShips() {
+void chooseShips(GameData* data, UserData* user) {
+	
+	//Declaration
 	int choice;
-	int shipCount = gameData[i]->getPlayers();
-	int selected[shipCount];
+	int shipCount = user->getShipCount();
+	//std::vector<std::string> selected(shipCount);
 	int amount = 0;
+	
 	while (amountSelected < shipCount) {
 
+		// Select Ship
 		printf("\nChoose a ship (1-5): ");
 		scanf_s("%d", &choice);
 
 		// Adjust for array index
 		choice--;
 
-		if (choice >= 0 && choice < shipCount) {
-			selected[choice] = fleet[choice];
-			amountSelected++;
+		// 
+		if (choice >= 0 && choice < 5) {
 
 			printf("You selected: %s\n\n", fleet[choice].name);
+			// Checks if ship is already chosen
+			if (fleet[choice].chosen = true) {
+				printf("You already chose that ship!\n\n");
+			}
+			else {
+
+				placeShip(choice);
+				fleet[choice].chosen = true;
+				amountSelected++;
+			}
 		}
 		else {
 			printf("Invalid choice. Try again.\n\n");
 		}
-	}
-	int alreadyChosen = 0;
-
-	for (int i = 0; i < amountSelected; i++) {
-		if (strcmp(selected[i].name, fleet[choice].name) == 0) {
-			placeShip(choice);
-			alreadyChosen = 1;
-			break;
-		}
-	}
-
-	if (alreadyChosen) {
-		printf("You already chose that ship!\n\n");
-	}
-	else {
-		selected[amountSelected] = fleet[choice];
-		amountSelected++;
 	}
 }
 void placedShip(int x, int y, char orientation) {
