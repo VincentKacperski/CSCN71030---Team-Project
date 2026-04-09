@@ -1,7 +1,5 @@
-/*
-
 /******************************************************************************
- * File: display.h
+ * File: displayBoards.h
  * Project: CSCN71030 Team Project - Battleship
  * Author: Jacob Stekelenburg
  * Date: April 2026
@@ -17,7 +15,8 @@
 
 #pragma once
 
-#include "helper.h"
+#include <vector>
+#include "Base.h"
 
  /**
   * Prints one board to the console.
@@ -25,18 +24,18 @@
   * @param board The board to display.
   * @param hideShips True if ship positions should be hidden from view.
   */
-void displaySingleBoard(const Board& board, bool hideShips);
+void displaySingleBoard(const std::vector<std::vector<char>>& board, bool hideShips);
 
 /**
  * Prints the player's own board and tracking board.
  *
  * @param player The player whose boards will be displayed.
  */
-void displayPlayerBoards(const Player& player);
+void displayPlayerBoards(const UserData& player);
 
 /**
  * Prints an opponent board without showing ship locations.
  *
  * @param player The player whose opponent-facing board will be displayed.
  */
-void displayOpponentBoard(const Player& player);
+void displayOpponentBoard(const UserData& player);
