@@ -31,11 +31,11 @@ void displaySingleBoard(const std::vector<std::vector<char>>& board, bool hideSh
  *
  * @param player The player whose boards will be displayed.
  */
-void displayPlayerBoards(const UserData& player);
+void displayPlayerBoards(UserData& player);
 
 /**
  * Prints an opponent board without showing ship locations.
  *
  * @param player The player whose opponent-facing board will be displayed.
  */
-void displayOpponentBoard(const UserData& player);
+void displayOpponentBoard(UserData& player);

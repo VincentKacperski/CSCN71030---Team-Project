@@ -59,7 +59,6 @@ void displaySingleBoard(const vector<vector<char>>& board, bool hideShips)
         {
             char value = board[row][col];
 
-            // If we are hiding ships, replace ship cells with water.
             if (hideShips && isShipCell(value))
             {
                 value = '~';
@@ -73,7 +72,7 @@ void displaySingleBoard(const vector<vector<char>>& board, bool hideShips)
 }
 
 // Shows both boards for the current player.
-void displayPlayerBoards(const UserData& player)
+void displayPlayerBoards(UserData& player)
 {
     cout << "\n=== Own Board ===\n";
     displaySingleBoard(player.getOwnBoard(), false);
@@ -83,7 +82,7 @@ void displayPlayerBoards(const UserData& player)
 }
 
 // Shows an opponent board without revealing ship positions.
-void displayOpponentBoard(const UserData& player)
+void displayOpponentBoard(UserData& player)
 {
     cout << "\n=== Opponent Board ===\n";
     displaySingleBoard(player.getOwnBoard(), true);
