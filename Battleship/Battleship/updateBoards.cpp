@@ -5,8 +5,7 @@
  * Date: April 2026
  * Description:
  *     Implements the board update functions for the Battleship project.
- *     This file handles standard attacks, marks ships as sunk, checks whether
- *     a ship has been fully destroyed, and applies ability results to both
+ *     This file handles standard attacks and applies ability results to both
  *     player boards.
  *
  * References:
@@ -16,92 +15,73 @@
 
 #include "updateBoards.h"
 
- // Checks if a ship symbol still exists anywhere on the board.
-static bool isShipFullyDestroyed(const Board& board, char shipSymbol)
+ // Handles a standard attack and updates both the defender board
+ // and the attacker's tracking board.
+bool updateBoardAfterAttack(UserData& defender, UserData& attacker, int row, int col)
 {
-    for (int row = 0; row < static_cast<int>(board.size()); row++)
-    {
-        for (int col = 0; col < static_cast<int>(board[row].size()); col++)
-        {
-            if (board[row][col] == shipSymbol)
-            {
-                return false;
-            }
-        }
-    }
+    std::vector<std::vector<char>> defenderBoard = defender.getOwnBoard();
+    std::vector<std::vector<char>> attackerBoard = attacker.getTrackingBoard();
 
-    return true;
-}
-
-// Updates the matching ship in the defender's ship list to sunk.
-void markShipAsSunk(Player& defender, char shipSymbol)
-{
-    for (int i = 0; i < static_cast<int>(defender.ships.size()); i++)
-    {
-        if (defender.ships[i].symbol == shipSymbol)
-        {
-            defender.ships[i].isSunk = true;
-            defender.ships[i].health = 0;
-            break;
-        }
-    }
-}
-
-// Handles a standard attack and updates both the defender board
-// and the attacker's tracking board.
-bool updateBoardAfterAttack(Player& defender, Player& attacker, int row, int col)
-{
-    if (!isValidCoordinate(row, col, defender.boardSize))
+    if (defenderBoard.empty() || attackerBoard.empty())
     {
         return false;
     }
 
-    char& defenderCell = defender.ownBoard[row][col];
-    char& attackerCell = attacker.trackingBoard[row][col];
+    int boardSize = static_cast<int>(defenderBoard.size());
+
+    if (row < 0 || row >= boardSize || col < 0 || col >= boardSize)
+    {
+        return false;
+    }
+
+    char& defenderCell = defenderBoard[row][col];
+    char& attackerCell = attackerBoard[row][col];
 
     // Ignore cells that were already attacked before.
-    if (defenderCell == HIT_SYMBOL || defenderCell == MISS_SYMBOL || defenderCell == SUNK_SYMBOL)
+    if (defenderCell == 'X' || defenderCell == 'O' || defenderCell == '#')
     {
         return false;
     }
 
-    if (isShipSymbol(defenderCell))
+    if (defenderCell != '~')
     {
-        char shipSymbol = defenderCell;
+        defenderCell = 'X';
+        attackerCell = 'X';
 
-        defenderCell = HIT_SYMBOL;
-        attackerCell = HIT_SYMBOL;
-
-        for (int i = 0; i < static_cast<int>(defender.ships.size()); i++)
-        {
-            if (defender.ships[i].symbol == shipSymbol)
-            {
-                defender.ships[i].health--;
-                break;
-            }
-        }
-
-        if (isShipFullyDestroyed(defender.ownBoard, shipSymbol))
-        {
-            markShipAsSunk(defender, shipSymbol);
-        }
-
+        defender.storeOwnBoard(defenderBoard);
+        attacker.storeTrackingBoard(attackerBoard);
         return true;
     }
 
-    defenderCell = MISS_SYMBOL;
-    attackerCell = MISS_SYMBOL;
+    defenderCell = 'O';
+    attackerCell = 'O';
+
+    defender.storeOwnBoard(defenderBoard);
+    attacker.storeTrackingBoard(attackerBoard);
     return false;
 }
 
 // Applies an ability result directly to both boards.
-void updateBoardsAfterAbility(Player& defender, Player& attacker, int row, int col, char resultSymbol)
+void updateBoardsAfterAbility(UserData& defender, UserData& attacker, int row, int col, char resultSymbol)
 {
-    if (!isValidCoordinate(row, col, defender.boardSize))
+    std::vector<std::vector<char>> defenderBoard = defender.getOwnBoard();
+    std::vector<std::vector<char>> attackerBoard = attacker.getTrackingBoard();
+
+    if (defenderBoard.empty() || attackerBoard.empty())
     {
         return;
     }
 
-    defender.ownBoard[row][col] = resultSymbol;
-    attacker.trackingBoard[row][col] = resultSymbol;
+    int boardSize = static_cast<int>(defenderBoard.size());
+
+    if (row < 0 || row >= boardSize || col < 0 || col >= boardSize)
+    {
+        return;
+    }
+
+    defenderBoard[row][col] = resultSymbol;
+    attackerBoard[row][col] = resultSymbol;
+
+    defender.storeOwnBoard(defenderBoard);
+    attacker.storeTrackingBoard(attackerBoard);
 }
