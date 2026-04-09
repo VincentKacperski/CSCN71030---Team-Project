@@ -15,8 +15,18 @@
 
 #include "updateBoards.h"
 
- // Handles a standard attack and updates both the defender board
- // and the attacker's tracking board.
+ /**
+  * Handles a standard attack and updates both the defender board and the
+  * attacker's tracking board.
+  *
+  * @param defender The player being attacked.
+  * @param attacker The player making the attack.
+  * @param row The target row on the board.
+  * @param col The target column on the board.
+  * @return True if the attack was a hit, otherwise false.
+  */
+  // Handles a standard attack and updates both the defender board
+  // and the attacker's tracking board.
 bool updateBoardAfterAttack(UserData& defender, UserData& attacker, int row, int col)
 {
     std::vector<std::vector<char>> defenderBoard = defender.getOwnBoard();
@@ -43,6 +53,7 @@ bool updateBoardAfterAttack(UserData& defender, UserData& attacker, int row, int
         return false;
     }
 
+    // Any non-water cell counts as a hit.
     if (defenderCell != '~')
     {
         defenderCell = 'X';
@@ -61,7 +72,16 @@ bool updateBoardAfterAttack(UserData& defender, UserData& attacker, int row, int
     return false;
 }
 
-// Applies an ability result directly to both boards.
+/**
+ * Applies an ability result directly to both boards.
+ *
+ * @param defender The player affected by the ability.
+ * @param attacker The player using the ability.
+ * @param row The target row on the board.
+ * @param col The target column on the board.
+ * @param resultSymbol The symbol to place on both boards.
+ */
+ // Applies an ability result directly to both boards.
 void updateBoardsAfterAbility(UserData& defender, UserData& attacker, int row, int col, char resultSymbol)
 {
     std::vector<std::vector<char>> defenderBoard = defender.getOwnBoard();
