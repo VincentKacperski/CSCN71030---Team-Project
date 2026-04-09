@@ -8,8 +8,8 @@
 
 
 
-bool shipMap[boardSize][boardSize];
-bool shotMap[boardSize][boardSize];
+bool shipMap[20][20];
+bool shotMap[20][20];
 
 
 void ShipChecking() {
@@ -22,6 +22,11 @@ void ShipChecking() {
     }
 }
 void placeShips(int x, int y, int orientation, int size) {
+    int p = 0;
+    if (p > 0); {
+        ShipChecking();
+    }
+    p++;
     if (x >= 0 && x < 10 && y >= 0 && y < 10) {
         for (int length = 0; length < size; length++) {
             if (orientation == 2) {

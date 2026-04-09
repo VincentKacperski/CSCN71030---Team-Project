@@ -1,12 +1,9 @@
 #include <iostream>
 #include "placeShips.h"
 
-//Add your code here
 
 
-int x;
-int y;
-int orientation;
+
 Ship fleet[5] = {
 	{"Cruiser", 3, false},
 	{"Battleship", 4, false},
@@ -15,30 +12,27 @@ Ship fleet[5] = {
 	{"Carrier", 5, false}
 };
 int ships[5];
-int amountSelected = 0;
+
 
 void displayShips(Ship fleet[]) {
 	for (int i = 0; i < 5; i++) {
-		printf("%d. %s (Size: %d) - %s\n",
-			i + 1,
-			fleet[i].name,
-			fleet[i].size);
+		std::cout << "" << fleet[i + 1].name << "Size: " << fleet[i + 1].size << "\n";
 	}
 }
 
 void chooseShips(GameData* data, UserData* user) {
-	
 	//Declaration
+	int amountSelected = 0;
 	int choice;
-	int shipCount = user->getShipCount();
+	int shipCount = 5;
 	//std::vector<std::string> selected(shipCount);
 	int amount = 0;
 	
 	while (amountSelected < shipCount) {
-
+		choice = 0;
 		// Select Ship
-		printf("\nChoose a ship (1-5): ");
-		scanf_s("%d", &choice);
+		std::cout << "\nChoose a ship (1-5): ";
+		std::cin >> choice;;
 
 		// Adjust for array index
 		choice--;
@@ -46,10 +40,10 @@ void chooseShips(GameData* data, UserData* user) {
 		// 
 		if (choice >= 0 && choice < 5) {
 
-			printf("You selected: %s\n\n", fleet[choice].name);
+			std::cout <<  "You selected: " << fleet[choice].name << "  \n\n";
 			// Checks if ship is already chosen
-			if (fleet[choice].chosen = true) {
-				printf("You already chose that ship!\n\n");
+			if (fleet[choice].chosen == true) {
+				std::cout << "You already chose that ship!\n\n";
 			}
 			else {
 
@@ -59,7 +53,7 @@ void chooseShips(GameData* data, UserData* user) {
 			}
 		}
 		else {
-			printf("Invalid choice. Try again.\n\n");
+			std::cout << "Invalid choice. Try again.\n\n";
 		}
 	}
 }
@@ -69,8 +63,13 @@ void placedShip(int x, int y, char orientation) {
 	
 
 void placeShip(int choice) {
-	std::cout << "Enter ship placement coordinates in numbers ex. 7,2 (x y)";
-	std::cin >> x >> y;
+	int x;
+	int y;
+	int orientation;
+	std::cout << "Enter ship placement coordinate x: ";
+	std::cin >> x; 
+	std::cout << "Enter ship placement coordinate y: ";
+	std::cin >> y;
 	std::cout << "orientation (1 for horizontal, 2 for vertical):";
 	std::cin >> orientation;
 	placeShips(x, y, orientation, fleet[choice].size);

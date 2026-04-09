@@ -43,11 +43,11 @@ int mainMenu(){
 		case 1:
 			userInput(gamedata, users);
 			gatherGameData(players, gamedata, users);
-			//placeShip();
+			chooseShips(gamedata, users);
 			randUser = rand() %gamedata->getPlayers() + 1;
 			while (playerWin == false) {
 				for (int i = randUser; i <= gamedata->getPlayers(); i++) {
-					displayBoards(players, gamedata, users);
+					//displayBoards(players, gamedata, users);
 					//attack();
 					//updateBoards();
 					if (win(playerWin) == true) {

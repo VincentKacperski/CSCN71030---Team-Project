@@ -1,3 +1,4 @@
+#pragma once
 #include "Base.h"
 #include "shipChecking.h"
 
@@ -7,7 +8,7 @@ typedef struct {
 	bool chosen;
 } Ship;
 
-void placeShip();
+void placeShip(int choice);
 void placedShip(int x, int y, char orientation);
-void chooseShips();
+void chooseShips(GameData* data, UserData* user);
 void displayShips(Ship fleet[]);
