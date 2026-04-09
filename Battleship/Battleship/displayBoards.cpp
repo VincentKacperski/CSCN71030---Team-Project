@@ -1,5 +1,3 @@
-/*
-
 /******************************************************************************
  * File: displayBoards.cpp
  * Project: CSCN71030 Team Project - Battleship
@@ -27,6 +25,12 @@
 
 using namespace std;
 
+// Checks if the current cell contains a ship symbol.
+static bool isShipCell(char value)
+{
+    return value != '~' && value != 'X' && value != 'O' && value != '#';
+}
+
 // Prints the numbered column labels at the top of the board.
 static void printColumnHeaders(int boardSize)
 {
@@ -41,7 +45,7 @@ static void printColumnHeaders(int boardSize)
 }
 
 // Displays a single board with optional hidden ship positions.
-void displaySingleBoard(const Board& board, bool hideShips)
+void displaySingleBoard(const vector<vector<char>>& board, bool hideShips)
 {
     int boardSize = static_cast<int>(board.size());
 
@@ -56,9 +60,9 @@ void displaySingleBoard(const Board& board, bool hideShips)
             char value = board[row][col];
 
             // If we are hiding ships, replace ship cells with water.
-            if (hideShips && isShipSymbol(value))
+            if (hideShips && isShipCell(value))
             {
-                value = WATER_SYMBOL;
+                value = '~';
             }
 
             cout << setw(3) << value;
@@ -69,11 +73,18 @@ void displaySingleBoard(const Board& board, bool hideShips)
 }
 
 // Shows both boards for the current player.
-void displayPlayerBoards(const Player& player)
+void displayPlayerBoards(const UserData& player)
 {
-    cout << "\n=== " << player.name << "'s Own Board ===\n";
-    displaySingleBoard(player.ownBoard, false);
+    cout << "\n=== Own Board ===\n";
+    displaySingleBoard(player.getOwnBoard(), false);
 
-    cout << "\n=== " << player.name << "'s Tracking Board ===\n";
-    displaySingleBoard(player.trackingBoard, false);
+    cout << "\n=== Tracking Board ===\n";
+    displaySingleBoard(player.getTrackingBoard(), false);
+}
+
+// Shows an opponent board without revealing ship positions.
+void displayOpponentBoard(const UserData& player)
+{
+    cout << "\n=== Opponent Board ===\n";
+    displaySingleBoard(player.getOwnBoard(), true);
 }
