@@ -5,25 +5,20 @@
  * Date: April 2026
  * Description:
  *     Contains function declarations for handling attacks and board updates
- *     in the Battleship project, including normal attacks, sunk ship handling,
- *     and ability-based board updates.
+ *     in the Battleship project, including normal attacks and ability-based
+ *     board updates.
  *
  * References:
  *     "std::vector." cppreference.com,
  *     https://en.cppreference.com/w/cpp/container/vector.html.
  ******************************************************************************/
 
- //This Module has been flagged for plagerism
-
 #pragma once
 
-#include "helper.h"
+#include "Base.h"
 
  // Handles a normal attack and updates both boards.
-bool updateBoardAfterAttack(Player& defender, Player& attacker, int row, int col);
-
-// Marks a ship as sunk using its symbol.
-void markShipAsSunk(Player& defender, char shipSymbol);
+bool updateBoardAfterAttack(UserData& defender, UserData& attacker, int row, int col);
 
 // Applies an ability result to both boards.
-void updateBoardsAfterAbility(Player& defender, Player& attacker, int row, int col, char resultSymbol);
+void updateBoardsAfterAbility(UserData& defender, UserData& attacker, int row, int col, char resultSymbol);
