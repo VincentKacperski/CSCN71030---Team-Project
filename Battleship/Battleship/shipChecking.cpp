@@ -1,69 +1,115 @@
 #include <iostream>
 #include <vector>
-#include <utility>
 #include "shipChecking.h"
 
+// Initializes the player's own board and tracking board.
+void initializeBoards(UserData& user, int boardSize)
+{
+    std::vector<std::vector<char>> ownBoard(boardSize, std::vector<char>(boardSize, '~'));
+    std::vector<std::vector<char>> trackingBoard(boardSize, std::vector<char>(boardSize, '~'));
 
-//Add your code here
-
-
-
-bool shipMap[20][20];
-bool shotMap[20][20];
-
-
-void ShipChecking() {
-    // Initialize shipMap and shotMap to false
-    for (int i = 0; i < 10; i++) {
-        for (int j = 0; j < 10; j++) {
-            shipMap[i][j] = false;
-            shotMap[i][j] = false;
-        }
-    }
+    user.storeOwnBoard(ownBoard);
+    user.storeTrackingBoard(trackingBoard);
 }
-void placeShips(int x, int y, int orientation, int size) {
-    int p = 0;
-    if (p > 0); {
-        ShipChecking();
-    }
-    p++;
-    if (x >= 0 && x < 10 && y >= 0 && y < 10) {
-        for (int length = 0; length < size; length++) {
-            if (orientation == 2) {
-                shipMap[x + length - 1][y - 1] = true;
-            }
-            if (orientation == 1) {
-                shipMap[x][y + length] = true;
-            }
-		}
-        
-    }
-}
-void checkHit(int x, int y) {
-    if (x >= 1 && x < 11 && y >= 1 && y < 11) {
-        if (shotMap[x - 1][y - 1] == true) {
-            std::cout << "You have already attacked this location. Please choose different coordinates.\n";
-            requestAttack();
-        }
-        else {
 
-            if (shipMap[x - 1][y - 1] == true) {
-                setResult(true);
+// Places a ship on the player's own board if the position is valid.
+bool placeShips(UserData& user, int x, int y, int orientation, int size, char symbol)
+{
+    std::vector<std::vector<char>> board = user.getOwnBoard();
+
+    if (board.empty())
+    {
+        return false;
+    }
+
+    int boardSize = static_cast<int>(board.size());
+
+    if (x < 0 || x >= boardSize || y < 0 || y >= boardSize)
+    {
+        return false;
+    }
+
+    if (orientation == 1)
+    {
+        if (y + size > boardSize)
+        {
+            return false;
+        }
+
+        for (int i = 0; i < size; i++)
+        {
+            if (board[x][y + i] != '~')
+            {
+                return false;
             }
-            else {
-                setResult(false);
-            }
+        }
+
+        for (int i = 0; i < size; i++)
+        {
+            board[x][y + i] = symbol;
         }
     }
-}
-    /*  void displayMaps() {
+    else if (orientation == 2)
+    {
+        if (x + size > boardSize)
+        {
+            return false;
+        }
 
-            std::cout << "Shot Map:\n";
-            for (int i = 0; i < 10; i++) {
-                for (int j = 0; j < 10; j++) {
-                    std::cout << (shotMap[i][j] ? "X " : ". ");
-                }
-                std::cout << "\n";
+        for (int i = 0; i < size; i++)
+        {
+            if (board[x + i][y] != '~')
+            {
+                return false;
             }
         }
-    }; */
+
+        for (int i = 0; i < size; i++)
+        {
+            board[x + i][y] = symbol;
+        }
+    }
+    else
+    {
+        return false;
+    }
+
+    user.storeOwnBoard(board);
+    return true;
+}
+
+// Checks if the selected location is a hit or miss.
+bool checkHit(UserData& defender, int x, int y)
+{
+    std::vector<std::vector<char>> board = defender.getOwnBoard();
+
+    if (board.empty())
+    {
+        return false;
+    }
+
+    int boardSize = static_cast<int>(board.size());
+
+    if (x < 0 || x >= boardSize || y < 0 || y >= boardSize)
+    {
+        return false;
+    }
+
+    char& cell = board[x][y];
+
+    if (cell == 'X' || cell == 'O' || cell == '#')
+    {
+        return false;
+    }
+
+    if (cell != '~')
+    {
+        cell = 'X';
+        defender.storeOwnBoard(board);
+        return true;
+    }
+
+    cell = 'O';
+    defender.storeOwnBoard(board);
+    return false;
+}
