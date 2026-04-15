@@ -3,6 +3,7 @@
 #include <fstream>
 #include <vector>
 #include "Base.h"
+#include "helper.h"
 #include "gatherGameData.h"
 #include "fileIOSystem.h"
 
@@ -29,35 +30,18 @@ void gatherGameData(int players, GameData* gamedata, UserData* users) {
 	}
 	gameSaveGD(gamedata);
 
-	for (int i = 1; i <= players; i++) {
+	for (int i = 0; i < gamedata->getPlayers(); i++) {
 
 		//Indicate the next player
-		std::cout << "Player " << i << "\n";
+		std::cout << "Player " << i + 1 << "\n";
 		 
-		if (players == 1) {
-			gatherShipCount(&users[players]);
-			gatherAbilities(&users[players]);
-			//playerSaveGD(players, users);
+		gatherShipCount(&users[i]);
+		gatherAbilities(&users[i]);
+		users[i].storeOwnBoard(createBoard(10));
+		users[i].storeTrackingBoard(createBoard(10));
 
-		}
-		else if (players == 2) {
-			gatherShipCount(&users[players]);
-			gatherAbilities(&users[players]);
-			//playerSaveGD(players, users);
-
-		}
-		else if (players == 3) {
-			gatherShipCount(&users[players]);
-			gatherAbilities(&users[players]);
-			//playerSaveGD(players, users);
-
-		}
-		else {
-			gatherShipCount(&users[players]);
-			gatherAbilities(&users[players]);
-			//playerSaveGD(players, users);
-
-		}
+		system("cls");
+		//playerSaveGD(players, users);
 	}
 }
 

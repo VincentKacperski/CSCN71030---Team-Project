@@ -47,7 +47,7 @@ static void printColumnHeaders(int boardSize)
 // Displays a single board with optional hidden ship positions.
 void displaySingleBoard(const vector<vector<char>>& board, bool hideShips)
 {
-    int boardSize = static_cast<int>(board.size());
+    int boardSize = board.size();
 
     printColumnHeaders(boardSize);
 
@@ -74,7 +74,7 @@ void displaySingleBoard(const vector<vector<char>>& board, bool hideShips)
 // Shows both boards for the current player.
 void displayPlayerBoards(UserData& player)
 {
-    cout << "\n=== Own Board ===\n";
+    cout << "\n=== Own Board === " << player.getNickname() << "\n";
     displaySingleBoard(player.getOwnBoard(), false);
 
     cout << "\n=== Tracking Board ===\n";

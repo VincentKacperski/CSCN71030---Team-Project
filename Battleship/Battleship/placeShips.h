@@ -8,7 +8,7 @@ typedef struct {
 	bool chosen;
 } Ship;
 
-void placeShip(int choice);
+void placeShip(UserData* user, int choice);
 void placedShip(int x, int y, char orientation);
 void chooseShips(GameData* data, UserData* user);
 void displayShips(Ship fleet[]);

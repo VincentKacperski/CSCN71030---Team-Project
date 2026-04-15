@@ -43,18 +43,28 @@ int mainMenu(){
 		case 1:
 			userInput(gamedata, users);
 			gatherGameData(players, gamedata, users);
-			chooseShips(gamedata, users);
-			randUser = rand() %gamedata->getPlayers() + 1;
+			gameSaveUI(gamedata);
+			//chooseShips(gamedata, users);
+			randUser = rand() % gamedata->getPlayers();// +1;
+
 			while (playerWin == false) {
-				for (int i = randUser; i <= gamedata->getPlayers(); i++) {
-					//displayBoards(players, gamedata, users);
+				for (int i = 0/*randUser */ ; i < gamedata->getPlayers(); i++) {
+					displayPlayerBoards(users[i]);
+					for (int j = 0/*randUser */; j < gamedata->getPlayers(); j++) {
+						if (j != i) {
+							displayOpponentBoard(users[j]);
+						}
+					}
 					//attack();
 					//updateBoards();
-					if (win(playerWin) == true) {
+					/*if (win(playerWin) == true) {
 						break;
-					}
-					if (i == gamedata->getPlayers()) {
+					}*/
+					/*if (i == gamedata->getPlayers()) {
 						i = 0;
+					}*/
+					if (i == 2) {
+						break;
 					}
 				}
 			}
@@ -63,13 +73,16 @@ int mainMenu(){
 			//helper();
 			//Enter Helper.cpp
 		case 3:
-			//fileIOSystem();
+			fileIOSystem(gamedata);
+			break;
 			//Enter File IO List
 		case 4:
 			runProgram = false;
 			break;
 		default:
 			std::cout << "Invalid Input\n";
+			Sleep(1000);
+			system("cls");
 			//Command to clear screen here
 		}
 

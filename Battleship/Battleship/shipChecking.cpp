@@ -13,9 +13,9 @@ void initializeBoards(UserData& user, int boardSize)
 }
 
 // Places a ship on the player's own board if the position is valid.
-bool placeShips(UserData& user, int x, int y, int orientation, int size, char symbol)
+bool placeShips(UserData* user, int x, int y, int orientation, int size, char symbol)
 {
-    std::vector<std::vector<char>> board = user.getOwnBoard();
+    std::vector<std::vector<char>> board = user->getOwnBoard();
 
     if (board.empty())
     {
@@ -74,7 +74,7 @@ bool placeShips(UserData& user, int x, int y, int orientation, int size, char sy
         return false;
     }
 
-    user.storeOwnBoard(board);
+    user->storeOwnBoard(board);
     return true;
 }
 

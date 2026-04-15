@@ -9,52 +9,58 @@
 
 //std::fstream filePtr;
 
-int fileOpen() {
+void fileIOSystem(GameData* gamedata) {
+
+	system("cls");
+
+	char choice;
+
+	std::cout << "-----File Menu-----\n";
+	std::cout << "Would you like to check for a save file?\n";
+	std::cout << "Yes or No (Y/N)?\n";
+	std::cin >> choice;
+
+	if (choice == 'y') {
+		fileOpen(gamedata);
+		Sleep(1000);
+		system("cls");
+	}
+	else if (choice == 'n') {
+		std::cout << "Returning to Menu";
+		Sleep(1000);
+		system("cls");
+	}
+	else {
+		std::cout << "Invalid Input - Try again\n";
+	}
+	system("cls");
+}
+
+int fileOpen(GameData* gamedata) {
 	std::fstream file("gamedata.txt");
 
 	if (!file.is_open()) {
 		std::cout << "Error in opening the file!\n";
 	}
 
-	GameData gameData;
-	UserData playerData;
-
 	std::string pCount, nickname, username, age, size, map;
 	int realSize, realAge, realpCount;
 	if (file.is_open()) {
-		std::getline(file, nickname);
-		std::getline(file, username);
-		std::getline(file, age);
+		//std::getline(file, nickname);
+		//std::getline(file, username);
+		//std::getline(file, age);
 		std::getline(file, pCount);
 		std::getline(file, size);
 		realSize = stoi(size);
-		realAge = stoi(age);
+		//realAge = stoi(age);
 		realpCount = stoi(pCount);
 
-		gameData.storeMapSize(realSize);
-		gameData.storePlayers(realpCount);
+		gamedata->storeMapSize(realSize);
+		gamedata->storePlayers(realpCount);
 
-		playerData.storeAge(realAge);
-		playerData.storeUsername(username);
-		playerData.storeNickname(nickname);
-
-		for (int i = 0;i < realSize; i++) {
-			std::getline(file, map);
-		}
 	}
 	file.close();
 
-	int i = 0;
-	std::string s[] = {"playerone.txt", "playertwo.txt", "playerthree.txt", "playerfour.txt"};
-	for (int i = 0; i < gameData.getPlayers(); i++) {
-		std::fstream file(s[i]);
-		
-		if(!file){
-
-		}
-
-
-	}
 	return 0;
 }
 
@@ -124,7 +130,8 @@ void gameSaveUI(GameData* game) {
 
 	//Store game data player count to the game data file
 	fileptr.open("gamedata.txt");
-	fileptr << game->getPlayers();
+	fileptr << game->getPlayers() << "\n";
+	fileptr << game->getMapSize() << "\n";
 	fileptr.close(); //Close the file
 
 }

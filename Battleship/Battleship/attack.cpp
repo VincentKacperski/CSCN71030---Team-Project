@@ -22,7 +22,7 @@ void checkAttack(int x, int y) {
 	std::cin >> choice;
 	if (choice == 'y' || choice == 'Y') {
 		std::cout << "Attack confirmed at (" << x << ", " << y << ")." << std::endl;
-		checkHit(x, y);
+		//checkHit(x, y);
 	} else {
 		std::cout << "Attack cancelled." << std::endl;
 		requestAttack();

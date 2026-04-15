@@ -47,7 +47,7 @@ void chooseShips(GameData* data, UserData* user) {
 			}
 			else {
 
-				placeShip(choice);
+				placeShip(user, choice);
 				fleet[choice].chosen = true;
 				amountSelected++;
 			}
@@ -62,16 +62,17 @@ void placedShip(int x, int y, char orientation) {
 }
 	
 
-void placeShip(int choice) {
+void placeShip(UserData* user, int choice) {
 	int x;
 	int y;
 	int orientation;
+	char symbol = '~';
 	std::cout << "Enter ship placement coordinate x: ";
 	std::cin >> x; 
 	std::cout << "Enter ship placement coordinate y: ";
 	std::cin >> y;
 	std::cout << "orientation (1 for horizontal, 2 for vertical):";
 	std::cin >> orientation;
-	placeShips(x, y, orientation, fleet[choice].size);
+	placeShips(user, x, y, orientation, fleet[choice].size, symbol);
 	placedShip(x, y, orientation);
 }

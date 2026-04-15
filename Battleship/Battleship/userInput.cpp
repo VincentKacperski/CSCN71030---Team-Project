@@ -28,6 +28,8 @@ namespace data {
 
 void userInput(GameData* gamedata, UserData* users) {
 
+	system("cls");
+
 	while (data::players <= 0 || data::players > 4) {
 		std::cout << "Number of players: ";
 		std::cin >> data::players;
@@ -35,33 +37,15 @@ void userInput(GameData* gamedata, UserData* users) {
 	}
 	gameSaveUI(gamedata);
 
-	for (int i = 1; i <= data::players; i++) {
+	for (int i = 0; i < gamedata->getPlayers(); i++) {
 
-		if (data::players == 1) {
-			gatherNickname(&users[0]);
-			gatherUsername(&users[0]);
-			gatherAge(&users[0]);
-			savePlayer(data::players, &users[0], gamedata);
+		std::cout << "Player " << i + 1 << "\n";
+		gatherNickname(&users[i]);
+		gatherUsername(&users[i]);
+		gatherAge(&users[i]);
+		savePlayer(i, &users[i], gamedata);
 
-		} else if (data::players == 2) {
-			gatherNickname(&users[1]);
-			gatherUsername(&users[1]);
-			gatherAge(&users[1]);
-			savePlayer(data::players, &users[1], gamedata);
-
-		} else if (data::players == 3) {
-			gatherNickname(&users[2]);
-			gatherUsername(&users[2]);
-			gatherAge(&users[2]);
-			savePlayer(data::players, &users[2], gamedata);
-
-		} else {
-			gatherNickname(&users[3]);
-			gatherUsername(&users[3]);
-			gatherAge(&users[3]);
-			savePlayer(data::players, &users[3], gamedata);
-
-		}
+		system("cls");
 	}
 
 }

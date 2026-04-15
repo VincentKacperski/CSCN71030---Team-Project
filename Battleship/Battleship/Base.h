@@ -1,5 +1,6 @@
 #include <string>
 #include <vector>
+#include <Windows.h>
 #pragma once
 
 class GameData {
@@ -160,7 +161,8 @@ void gameSaveUI(GameData* game);
 void gameSaveGD(GameData* game);
 void savePlayer(int players, UserData* users, GameData* data);
 void loadPlayer(int players, UserData* users, GameData* data);
-int fileOpen();
+int fileOpen(GameData* data);
+void fileIOSystem(GameData* gamedata);
 
 //Helper functions for gather game data
 void gatherShipCount(UserData* user);
