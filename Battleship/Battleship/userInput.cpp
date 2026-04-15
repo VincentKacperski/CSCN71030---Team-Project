@@ -9,14 +9,15 @@
  * File: userInput.cpp
  * Project: CSCN71030 Team Project - Battleship
  * Author: Vincent Kacperski
- * Date: March 2026
+ * Date: April 2026
  * Description:
- * Implements the board display functions used by the Battleship game.
+ * Implements the userInput module used by the Battleship game.
  ******************************************************************************/
 
- //Refrences
- //
+//References
+//https://www.w3schools.com/cpp/ref_fstream_fstream.asp
 
+//Declarations
 namespace data {
 	//Decleration
 	int selections = 0;
@@ -26,6 +27,7 @@ namespace data {
 	std::string username;
 }
 
+//Get essential data from the user
 void userInput(GameData* gamedata, UserData* users) {
 
 	system("cls");
@@ -33,6 +35,9 @@ void userInput(GameData* gamedata, UserData* users) {
 	while (data::players <= 0 || data::players > 4) {
 		std::cout << "Number of players: ";
 		std::cin >> data::players;
+		if (data::players > 4 || data::players < 0) {
+			std::cout << "Player count is invalid! Only 1-4 players allowed.\n";
+		}
 		gamedata->storePlayers(data::players);
 	}
 	gameSaveUI(gamedata);

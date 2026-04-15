@@ -19,7 +19,6 @@
 //Refrences
 //https://www.w3schools.com/cpp/ref_fstream_fstream.asp
 
-//Declaration
 namespace gameData {
 
 	int mapSize = 0;
@@ -28,7 +27,6 @@ namespace gameData {
 
 }
 
-//Collects essential game data for the game to work correctly
 void gatherGameData(int players, GameData* gamedata, UserData* users) {
 
 	//Get the games map size
@@ -72,7 +70,6 @@ void gatherShipCount(UserData* user) {
 	}
 }
 
-//This function gathers each players abilities
 void gatherAbilities(UserData* user) {
 
 	//Number of ships for each player
@@ -101,7 +98,8 @@ void gatherAbilities(UserData* user) {
 
 }
 
-std::vector<std::vector<char>> createBoard(int boardSize)
-{
-	return std::vector<std::vector<char>>(boardSize, std::vector<char>(boardSize, '~'));
-}
+//std::vector<std::vector<char>> createBoard(int boardSize)
+//{
+//
+//	return std::vector<std::vector<char>>(boardSize, std::vector<char>(boardSize, '~'));
+//}
