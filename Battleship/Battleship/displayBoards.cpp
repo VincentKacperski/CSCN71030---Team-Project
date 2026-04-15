@@ -85,5 +85,5 @@ void displayPlayerBoards(UserData& player)
 void displayOpponentBoard(UserData& player)
 {
     cout << "\n=== Opponent Board ===\n";
-    displaySingleBoard(player.getOwnBoard(), true);
+    displaySingleBoard(player.getTrackingBoard(), true);
 }

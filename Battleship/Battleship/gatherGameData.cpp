@@ -100,8 +100,3 @@ void gatherAbilities(UserData* user) {
 	}
 
 }
-
-std::vector<std::vector<char>> createBoard(int boardSize)
-{
-	return std::vector<std::vector<char>>(boardSize, std::vector<char>(boardSize, '~'));
-}

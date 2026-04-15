@@ -32,11 +32,11 @@ void userInput(GameData* gamedata, UserData* users) {
 
 	system("cls");
 
-	while (data::players <= 0 || data::players > 4) {
+	while (data::players < 2 || data::players > 4) {
 		std::cout << "Number of players: ";
 		std::cin >> data::players;
-		if (data::players > 4 || data::players < 0) {
-			std::cout << "Player count is invalid! Only 1-4 players allowed.\n";
+		if (data::players > 4 || data::players < 2) {
+			std::cout << "Player count is invalid! Only 2-4 players allowed.\n";
 		}
 		gamedata->storePlayers(data::players);
 	}

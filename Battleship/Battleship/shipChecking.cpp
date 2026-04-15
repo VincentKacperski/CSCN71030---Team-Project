@@ -1,6 +1,8 @@
 #include <iostream>
 #include <vector>
+#include "Base.h"
 #include "shipChecking.h"
+#include "displayBoards.h"
 
 // Initializes the player's own board and tracking board.
 void initializeBoards(UserData& user, int boardSize)
@@ -13,9 +15,9 @@ void initializeBoards(UserData& user, int boardSize)
 }
 
 // Places a ship on the player's own board if the position is valid.
-bool placeShips(UserData* user, int x, int y, int orientation, int size, char symbol)
+bool placeShips(UserData& user, int x, int y, int orientation, int size, char symbol)
 {
-    std::vector<std::vector<char>> board = user->getOwnBoard();
+    std::vector<std::vector<char>> board = user.getOwnBoard();
 
     if (board.empty())
     {
@@ -24,7 +26,7 @@ bool placeShips(UserData* user, int x, int y, int orientation, int size, char sy
 
     int boardSize = static_cast<int>(board.size());
 
-    if (x < 0 || x >= boardSize || y < 0 || y >= boardSize)
+    if (x < 0 || x > board.size() || y < 0 || y > board.size())
     {
         return false;
     }
@@ -36,17 +38,17 @@ bool placeShips(UserData* user, int x, int y, int orientation, int size, char sy
             return false;
         }
 
-        for (int i = 0; i < size; i++)
+        for (int i = 0; i <= size; i++)
         {
-            if (board[x][y + i] != '~')
+            if (board[x - 1][y + i - 1] != '~')
             {
                 return false;
             }
         }
 
-        for (int i = 0; i < size; i++)
+        for (int i = 0; i <= size; i++)
         {
-            board[x][y + i] = symbol;
+            board[x - 1][y + i - 1] = symbol;
         }
     }
     else if (orientation == 2)
@@ -58,7 +60,7 @@ bool placeShips(UserData* user, int x, int y, int orientation, int size, char sy
 
         for (int i = 0; i < size; i++)
         {
-            if (board[x + i][y] != '~')
+            if (board[x + i - 1][y - 1] != '~')
             {
                 return false;
             }
@@ -66,7 +68,7 @@ bool placeShips(UserData* user, int x, int y, int orientation, int size, char sy
 
         for (int i = 0; i < size; i++)
         {
-            board[x + i][y] = symbol;
+            board[x + i - 1][y - 1] = symbol;
         }
     }
     else
@@ -74,7 +76,7 @@ bool placeShips(UserData* user, int x, int y, int orientation, int size, char sy
         return false;
     }
 
-    user->storeOwnBoard(board);
+    user.storeOwnBoard(board);
     return true;
 }
 

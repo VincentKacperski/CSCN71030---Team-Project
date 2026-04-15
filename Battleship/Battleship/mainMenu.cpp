@@ -44,7 +44,7 @@ int mainMenu(){
 			userInput(gamedata, users);
 			gatherGameData(players, gamedata, users);
 			gameSaveUI(gamedata);
-			//chooseShips(gamedata, users);
+			chooseShips(gamedata, users);
 			randUser = rand() % gamedata->getPlayers();// +1;
 
 			while (playerWin == false) {

@@ -1,5 +1,6 @@
 #include <iostream>
 #include "placeShips.h"
+#include "displayBoards.h"
 
 
 
@@ -22,38 +23,51 @@ void displayShips(Ship fleet[]) {
 
 void chooseShips(GameData* data, UserData* user) {
 	//Declaration
-	int amountSelected = 0;
-	int choice;
-	int shipCount = 5;
-	//std::vector<std::string> selected(shipCount);
-	int amount = 0;
+	int amountSelected, choice;
+	int shipCount = user->getShipCount();
 	
-	while (amountSelected < shipCount) {
-		choice = 0;
-		// Select Ship
-		std::cout << "\nChoose a ship (1-5): ";
-		std::cin >> choice;;
+	for (int i = 0; i < data->getPlayers(); i++) {
+		amountSelected = 0;
+		for (int j = 0; j < shipCount; j++) {
+			fleet[j].chosen = false;
+		}
 
-		// Adjust for array index
-		choice--;
+		//system("cls");
 
-		// 
-		if (choice >= 0 && choice < 5) {
+		while (amountSelected < shipCount) {
+			choice = 0;
+			// Select Ship
 
-			std::cout <<  "You selected: " << fleet[choice].name << "  \n\n";
-			// Checks if ship is already chosen
-			if (fleet[choice].chosen == true) {
-				std::cout << "You already chose that ship!\n\n";
+			Sleep(1000);
+			system("cls");
+
+			std::cout << user[i].getNickname() << "\n";
+			std::cout << "\nChoose a ship (1-5): ";
+			std::cin >> choice;;
+
+			// Adjust for array index
+			choice--;
+
+			// 
+			if (choice >= 0 && choice < 5) {
+
+				std::cout << "You selected: " << fleet[choice].name << "  \n\n";
+				// Checks if ship is already chosen
+				if (fleet[choice].chosen == true) {
+					std::cout << "You already chose that ship!\n\n";
+				}
+				else {
+
+					placeShip(&user[i], choice);
+					//fleet[choice].chosen = true;
+					if (fleet[choice].chosen == true) {
+						amountSelected++;
+					}
+				}
 			}
 			else {
-
-				placeShip(user, choice);
-				fleet[choice].chosen = true;
-				amountSelected++;
+				std::cout << "Invalid choice. Try again.\n\n";
 			}
-		}
-		else {
-			std::cout << "Invalid choice. Try again.\n\n";
 		}
 	}
 }
@@ -66,13 +80,21 @@ void placeShip(UserData* user, int choice) {
 	int x;
 	int y;
 	int orientation;
-	char symbol = '~';
+	char symbol = '#';
+
+	displayPlayerBoards(*user);
+
 	std::cout << "Enter ship placement coordinate x: ";
 	std::cin >> x; 
 	std::cout << "Enter ship placement coordinate y: ";
 	std::cin >> y;
 	std::cout << "orientation (1 for horizontal, 2 for vertical):";
 	std::cin >> orientation;
-	placeShips(user, x, y, orientation, fleet[choice].size, symbol);
-	placedShip(x, y, orientation);
+	fleet[choice].chosen = placeShips(*user, x, y, orientation, fleet[choice].size, symbol);
+	if (fleet[choice].chosen == true) {
+		placedShip(x, y, orientation);
+	}
+	else {
+		std::cout << "Error in Placement\n";
+	}
 }
