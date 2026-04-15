@@ -9,6 +9,7 @@
 #include "win.h"
 #include "placeShips.h"
 #include "displayBoards.h"
+#include "attack.h"
 #include <Windows.h>
 
 //using namespace std; ?? What do we prefer here?
@@ -55,17 +56,16 @@ int mainMenu(){
 							displayOpponentBoard(users[j]);
 						}
 					}
-					//attack();
-					//updateBoards();
+					requestAttack(users[i], gamedata);
 					/*if (win(playerWin) == true) {
 						break;
 					}*/
 					/*if (i == gamedata->getPlayers()) {
 						i = 0;
 					}*/
-					if (i == 2) {
+					/*if (i == 2) {
 						break;
-					}
+					}*/
 				}
 			}
 			//Enter User Input
