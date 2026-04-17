@@ -37,7 +37,24 @@ void gatherGameData(int players, GameData* gamedata, UserData* users) {
 		
 		//Get the games map size
 		std::cout << "What map size do you prefer (10 or 20): ";
-		std::cin >> gameData::mapSize;
+		std::cin >> gameData::buffer;
+
+		//Invalidate string and character inputs
+		try {
+			//Try using stoi
+			gameData::mapSize = std::stoi(gameData::buffer);
+			//Check for a valid map size
+			if (gameData::mapSize != 10 && gameData::mapSize != 20) {
+				std::cout << "Invalid map size!\n";
+			}
+			else {
+				gamedata->storeMapSize(gameData::mapSize);
+			}
+
+		}
+		catch (const std::invalid_argument& e) {
+			std::cout << "No strings or characters allowed. Integers only!\n";
+		}
 
 	}
 	gameSaveGD(gamedata);
@@ -50,7 +67,6 @@ void gatherGameData(int players, GameData* gamedata, UserData* users) {
 		gatherAbilities(&users[i]);
 		users[i].storeOwnBoard(createBoard(10));
 		users[i].storeTrackingBoard(createBoard(10));
-
 		system("cls");
 		//playerSaveGD(players, users);
 	}
@@ -63,8 +79,27 @@ void gatherShipCount(UserData* user) {
 	std::cout << "How many ships would you like to deploy?\n";
 	std::cout << "Enter 0, default, all ships: ";
 	std::cin >> gameData::buffer;
-	
-	//Check for the defualt count
+
+	//Invalidate string and character inputs
+	try {
+		//Try using stoi
+		gameData::shipCount = std::stoi(gameData::buffer);
+		//Check for a valid map size
+		if (gameData::shipCount < 0 || gameData::shipCount > 5) {
+			std::cout << "Invalid map size!\n";
+		} else if (gameData::shipCount == 0) {
+			std::cout << "No ships?! Its going to be tough. Carefull there!\n";
+			std::cout << "Lucky for you. I brought in some reinforcments!\n";
+		} else {
+			user->storeShipCount(gameData::shipCount);
+		}
+
+	}
+	catch (const std::invalid_argument& e) {
+		std::cout << "No strings or characters allowed. Integers only!\n";
+	}
+
+	//Check for the defualt ship count
 	if (gameData::shipCount == 0) {
 		//Defaut to starting with 5 ships
 		gameData::shipCount = 5;
@@ -74,6 +109,7 @@ void gatherShipCount(UserData* user) {
 		user->storeShipCount(gameData::shipCount);
 		std::cout << "Collected player ship count\n";
 	}
+
 }
 
 //This function gathers each players abilities
@@ -82,8 +118,8 @@ void gatherAbilities(UserData* user) {
 	//Number of ships for each player
 	int choice = -1;
 	while (choice <= 0 || choice > 5) {
-		std::cout << "How many abilities would you like?\n";
-		std::cout << "Quantity: ";
+		std::cout << "Would you like to upgrade some ships?\n";
+		std::cout << "Ability quantity: ";
 		std::cin >> choice;
 
 		if (choice > user->getShipCount()) {
