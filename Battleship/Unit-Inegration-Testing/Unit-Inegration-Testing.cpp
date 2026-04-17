@@ -121,5 +121,43 @@ namespace UnitInegrationTesting
 
 			Assert::IsFalse(result);
 		}
+
+		// Checks that a hit updates the defender's board.
+		TEST_METHOD(UpdateBoards_updateBoardAfterAttack_HitMarksDefenderBoard)
+		{
+			UserData defender;
+			UserData attacker;
+
+			defender.storeOwnBoard(createBoard(10));
+			attacker.storeTrackingBoard(createBoard(10));
+
+			std::vector<std::vector<char>> board = defender.getOwnBoard();
+			board[4][5] = 'B';
+			defender.storeOwnBoard(board);
+
+			updateBoardAfterAttack(defender, attacker, 4, 5);
+
+			std::vector<std::vector<char>> updatedBoard = defender.getOwnBoard();
+			Assert::AreEqual('X', updatedBoard[4][5]);
+		}
+
+		// Checks that a hit updates the attacker's tracking board.
+		TEST_METHOD(UpdateBoards_updateBoardAfterAttack_HitMarksAttackerTrackingBoard)
+		{
+			UserData defender;
+			UserData attacker;
+
+			defender.storeOwnBoard(createBoard(10));
+			attacker.storeTrackingBoard(createBoard(10));
+
+			std::vector<std::vector<char>> board = defender.getOwnBoard();
+			board[3][2] = 'C';
+			defender.storeOwnBoard(board);
+
+			updateBoardAfterAttack(defender, attacker, 3, 2);
+
+			std::vector<std::vector<char>> trackingBoard = attacker.getTrackingBoard();
+			Assert::AreEqual('X', trackingBoard[3][2]);
+		}
 	};
 }
