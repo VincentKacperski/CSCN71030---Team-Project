@@ -1,11 +1,14 @@
+#include "pch.h"
+
 //Libraries
 #include <vector>
 #include <iostream>
 #include <string>
 #include <time.h>
+#include <sstream>
+#include <streambuf>
 
 //Files
-#include "pch.h"
 #include "CppUnitTest.h"
 #include "mainMenu.h"
 #include "userInput.h"
@@ -250,6 +253,44 @@ namespace UnitInegrationTesting
 
 			Assert::AreEqual('~', defenderBoard[0][0]);
 			Assert::AreEqual('~', trackingBoard[0][0]);
+		}
+	};
+
+	// Unit tests for the Display Boards module.
+	TEST_CLASS(DisplayBoardsTests)
+	{
+	public:
+
+		// Checks that a board shows ship symbols when hideShips is false.
+		TEST_METHOD(DisplayBoards_displaySingleBoard_ShowsVisibleShips)
+		{
+			std::vector<std::vector<char>> board = createBoard(10);
+			board[0][0] = 'Q';
+
+			std::ostringstream output;
+			std::basic_streambuf<char>* oldBuffer = std::cout.rdbuf(output.rdbuf());
+
+			displaySingleBoard(board, false);
+
+			std::cout.rdbuf(oldBuffer);
+
+			Assert::IsTrue(output.str().find('Q') != std::string::npos);
+		}
+
+		// Checks that ship symbols are hidden when hideShips is true.
+		TEST_METHOD(DisplayBoards_displaySingleBoard_HidesShipsWhenRequested)
+		{
+			std::vector<std::vector<char>> board = createBoard(10);
+			board[0][0] = 'Q';
+
+			std::ostringstream output;
+			std::basic_streambuf<char>* oldBuffer = std::cout.rdbuf(output.rdbuf());
+
+			displaySingleBoard(board, true);
+
+			std::cout.rdbuf(oldBuffer);
+
+			Assert::IsTrue(output.str().find('Q') == std::string::npos);
 		}
 	};
 }
