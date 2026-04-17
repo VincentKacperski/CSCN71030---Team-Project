@@ -48,8 +48,6 @@ extern "C++" void setResult(bool hit);
 extern "C++" void placeShip(UserData* user, int choice);
 
 //Display Boards - Jacob
-extern "C++" static bool isShipCell(char value);
-extern "C++" static void printColumnHeaders(int boardSize);
 extern "C++" void displaySingleBoard(const std::vector<std::vector<char>>& board, bool hideShips);
 extern "C++" void displayPlayerBoards(UserData& player);
 extern "C++" void displayOpponentBoard(UserData& player);
@@ -79,17 +77,46 @@ extern "C++" Board createBoard(int boardSize);
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
+using namespace Microsoft::VisualStudio::CppUnitTestFramework;
+
+using namespace Microsoft::VisualStudio::CppUnitTestFramework;
+
+using namespace Microsoft::VisualStudio::CppUnitTestFramework;
+
 namespace UnitInegrationTesting
 {
-	TEST_CLASS(UnitInegrationTesting)
+	TEST_CLASS(UpdateBoardsTests)
 	{
 	public:
-		
-		TEST_METHOD(TestMethod1)
+
+		TEST_METHOD(UpdateBoards_updateBoardAfterAttack_HitReturnsTrue)
 		{
-			printf("Test Success\n");
+			UserData defender;
+			UserData attacker;
+
+			defender.storeOwnBoard(createBoard(10));
+			attacker.storeTrackingBoard(createBoard(10));
+
+			std::vector<std::vector<char>> board = defender.getOwnBoard();
+			board[2][3] = 'S';
+			defender.storeOwnBoard(board);
+
+			bool result = updateBoardAfterAttack(defender, attacker, 2, 3);
+
+			Assert::IsTrue(result);
 		}
 
+		TEST_METHOD(UpdateBoards_updateBoardAfterAttack_MissReturnsFalse)
+		{
+			UserData defender;
+			UserData attacker;
+
+			defender.storeOwnBoard(createBoard(10));
+			attacker.storeTrackingBoard(createBoard(10));
+
+			bool result = updateBoardAfterAttack(defender, attacker, 1, 1);
+
+			Assert::IsFalse(result);
+		}
 	};
 }
-

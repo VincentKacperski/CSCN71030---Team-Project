@@ -30,7 +30,6 @@
 bool updateBoardAfterAttack(UserData& defender, UserData& attacker, int row, int col)
 {
     std::vector<std::vector<char>> defenderBoard = defender.getOwnBoard();
-    std::vector<std::vector<char>> defenderTrackingBoard = defender.getTrackingBoard();
     std::vector<std::vector<char>> attackerBoard = attacker.getTrackingBoard();
 
     if (defenderBoard.empty() || attackerBoard.empty())
@@ -45,36 +44,29 @@ bool updateBoardAfterAttack(UserData& defender, UserData& attacker, int row, int
         return false;
     }
 
-    char& defenderCell = defenderBoard[row-1][col-1];
-    char& defenderTCell = defenderTrackingBoard[row - 1][col - 1];
-    char& attackerCell = attackerBoard[row-1][col-1];
+    char& defenderCell = defenderBoard[row][col];
+    char& attackerCell = attackerBoard[row][col];
 
-    // Ignore cells that were already attacked before.
-    if (defenderCell == 'X' || defenderCell == 'O')// || defenderCell == '#')
+    if (defenderCell == 'X' || defenderCell == 'O')
     {
         return false;
     }
 
-    // Any non-water cell counts as a hit.
     if (defenderCell != '~')
     {
         defenderCell = 'X';
-        defenderTCell = 'X';
         attackerCell = 'X';
 
         defender.storeOwnBoard(defenderBoard);
-        defender.storeTrackingBoard(defenderTrackingBoard);
-        //attacker.storeTrackingBoard(attackerBoard);
+        attacker.storeTrackingBoard(attackerBoard);
         return true;
     }
 
     defenderCell = 'O';
-    defenderTCell = 'O';
     attackerCell = 'O';
 
     defender.storeOwnBoard(defenderBoard);
-    defender.storeTrackingBoard(defenderTrackingBoard);
-    //attacker.storeTrackingBoard(attackerBoard);
+    attacker.storeTrackingBoard(attackerBoard);
     return false;
 }
 
