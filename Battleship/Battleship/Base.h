@@ -92,7 +92,7 @@ public:
 		shipCount = s;
 	}
 
-	char* storeAbilities(char ab[5]) { //Get the games map size
+	void storeAbilities(char* ab) { //Get the games map size
 		abilities[0] = ab[0];
 		abilities[1] = ab[1];
 		abilities[2] = ab[2];

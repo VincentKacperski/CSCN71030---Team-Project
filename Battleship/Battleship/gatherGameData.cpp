@@ -118,25 +118,76 @@ void gatherAbilities(UserData* user) {
 	//Number of ships for each player
 	int choice = -1;
 	while (choice <= 0 || choice > 5) {
+
+		//User input for ability count
 		std::cout << "Would you like to upgrade some ships?\n";
 		std::cout << "Ability quantity: ";
-		std::cin >> choice;
+		std::cin >> gameData::buffer;
 
-		if (choice > user->getShipCount()) {
-			std::cout << user->getShipCount();
-			std::cout << "Ability count must match ship count!\n";
-			choice = -1;
-			continue;
+		//Invalidate string and character inputs
+		try {
+			//Try using stoi
+			choice = std::stoi(gameData::buffer);
+			//Check for a valid map size
+			if (choice > gameData::shipCount) {
+				std::cout << "To many abilities selected! Greater than maximum ship deployment!\n";
+			} else if (choice <= 0) {
+				std::cout << "You cannot have negative abilities since they don't exist!\n";
+			} else {
+				user->storeShipCount(gameData::shipCount);
+			}
+
+		}
+		catch (const std::invalid_argument& e) {
+			std::cout << "No strings or characters allowed. Integers only!\n";
 		}
 
-		if (choice <= 0) {
-			std::cout << "You can only select 1-5 abilities!\n";
-		}
 	}
 
+	//Loop for reading in abilities
 	for (int i = 1; i <= choice; i++) {
-		std::cout << "Ability " << i << " (A B C S D): ";
-		std::cin >> gameData::abilities[i];
-	}
 
+		//Decleration
+		int holder = 0;
+
+		//Clear all abilities for next input
+		gameData::abilities[0] = '0'; gameData::abilities[1] = '0'; 
+		gameData::abilities[2] = '0'; gameData::abilities[3] = '0';  
+		gameData::abilities[4] = '0';
+
+		//Game data ability selection
+		std::cout << "Select an ability " << i << " (1:A, 2:B, 3:C, 4:S, 5:D)\n";
+		std::cout << "Enter a choice from (1-5): ";
+		std::cin >> gameData::buffer;
+
+		//Invalidate string and character inputs
+		try {
+			//Try using stoi
+			holder = std::stoi(gameData::buffer);
+			//Check for a valid map size
+			if (holder == 1) {
+				gameData::abilities[i] = (char)holder + 100; //Converts from ASCII
+				std::cout << "Aircraft Carrier modification made!\n";
+			} else if (holder == 2) {
+				gameData::abilities[i] = (char)holder + 100; //Converts from ASCII	
+				std::cout << "Battleship modification made!\n";
+			} else if (holder == 3) {
+				gameData::abilities[i] = (char)holder + 100; //Converts from ASCII	
+				std::cout << "Curiser modification made!\n";
+			} else if (holder == 4) {
+				gameData::abilities[i] = (char)holder + 119; //Converts from ASCII	
+				std::cout << "Submarine modification made!\n";
+			} else if (holder == 5) {
+				gameData::abilities[i] = (char)holder + 100; //Converts from ASCII	
+				std::cout << "Destroyer modification made!\n";
+			} else {
+				//Continue
+			}
+
+		} catch (const std::invalid_argument& e) {
+			std::cout << "No strings or characters allowed. Integers only!\n";
+		}
+
+	}
+	user->storeAbilities(gameData::abilities);
 }
