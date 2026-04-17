@@ -85,10 +85,12 @@ using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
 namespace UnitInegrationTesting
 {
+	// Unit tests for the Update Boards module.
 	TEST_CLASS(UpdateBoardsTests)
 	{
 	public:
 
+		// Checks that a hit returns true.
 		TEST_METHOD(UpdateBoards_updateBoardAfterAttack_HitReturnsTrue)
 		{
 			UserData defender;
@@ -106,6 +108,7 @@ namespace UnitInegrationTesting
 			Assert::IsTrue(result);
 		}
 
+		// Checks that a miss returns false.
 		TEST_METHOD(UpdateBoards_updateBoardAfterAttack_MissReturnsFalse)
 		{
 			UserData defender;
