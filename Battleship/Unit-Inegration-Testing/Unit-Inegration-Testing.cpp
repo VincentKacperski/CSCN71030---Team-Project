@@ -82,7 +82,6 @@ using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
-
 namespace UnitInegrationTesting
 {
 	// Unit tests for the Update Boards module.
@@ -158,6 +157,50 @@ namespace UnitInegrationTesting
 
 			std::vector<std::vector<char>> trackingBoard = attacker.getTrackingBoard();
 			Assert::AreEqual('X', trackingBoard[3][2]);
+		}
+
+		// Checks that a miss updates the attacker's tracking board.
+		TEST_METHOD(UpdateBoards_updateBoardAfterAttack_MissMarksAttackerTrackingBoard)
+		{
+			UserData defender;
+			UserData attacker;
+
+			defender.storeOwnBoard(createBoard(10));
+			attacker.storeTrackingBoard(createBoard(10));
+
+			updateBoardAfterAttack(defender, attacker, 0, 0);
+
+			std::vector<std::vector<char>> trackingBoard = attacker.getTrackingBoard();
+			Assert::AreEqual('O', trackingBoard[0][0]);
+		}
+
+		// Checks that invalid coordinates return false.
+		TEST_METHOD(UpdateBoards_updateBoardAfterAttack_InvalidCoordinatesReturnFalse)
+		{
+			UserData defender;
+			UserData attacker;
+
+			defender.storeOwnBoard(createBoard(10));
+			attacker.storeTrackingBoard(createBoard(10));
+
+			bool result = updateBoardAfterAttack(defender, attacker, -1, 15);
+
+			Assert::IsFalse(result);
+		}
+
+		// Checks that attacking the same cell again returns false.
+		TEST_METHOD(UpdateBoards_updateBoardAfterAttack_RepeatedAttackReturnsFalse)
+		{
+			UserData defender;
+			UserData attacker;
+
+			defender.storeOwnBoard(createBoard(10));
+			attacker.storeTrackingBoard(createBoard(10));
+
+			updateBoardAfterAttack(defender, attacker, 0, 0);
+			bool result = updateBoardAfterAttack(defender, attacker, 0, 0);
+
+			Assert::IsFalse(result);
 		}
 	};
 }
