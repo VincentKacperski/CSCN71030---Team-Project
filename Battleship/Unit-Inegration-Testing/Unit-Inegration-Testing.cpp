@@ -292,5 +292,35 @@ namespace UnitInegrationTesting
 
 			Assert::IsTrue(output.str().find('Q') == std::string::npos);
 		}
+
+		// Checks that the board output includes column headers.
+		TEST_METHOD(DisplayBoards_displaySingleBoard_ShowsColumnHeaders)
+		{
+			std::vector<std::vector<char>> board = createBoard(10);
+
+			std::ostringstream output;
+			std::basic_streambuf<char>* oldBuffer = std::cout.rdbuf(output.rdbuf());
+
+			displaySingleBoard(board, false);
+
+			std::cout.rdbuf(oldBuffer);
+
+			Assert::IsTrue(output.str().find("10") != std::string::npos);
+		}
+
+		// Checks that the board output includes row numbers.
+		TEST_METHOD(DisplayBoards_displaySingleBoard_ShowsRowNumbers)
+		{
+			std::vector<std::vector<char>> board = createBoard(10);
+
+			std::ostringstream output;
+			std::basic_streambuf<char>* oldBuffer = std::cout.rdbuf(output.rdbuf());
+
+			displaySingleBoard(board, false);
+
+			std::cout.rdbuf(oldBuffer);
+
+			Assert::IsTrue(output.str().find("1") != std::string::npos);
+		}
 	};
 }
