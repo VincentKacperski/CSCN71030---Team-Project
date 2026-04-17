@@ -82,6 +82,7 @@ using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
+
 namespace UnitInegrationTesting
 {
 	// Unit tests for the Update Boards module.
@@ -201,6 +202,54 @@ namespace UnitInegrationTesting
 			bool result = updateBoardAfterAttack(defender, attacker, 0, 0);
 
 			Assert::IsFalse(result);
+		}
+
+		// Checks that ability results update the defender's board.
+		TEST_METHOD(UpdateBoards_updateBoardsAfterAbility_UpdatesDefenderBoard)
+		{
+			UserData defender;
+			UserData attacker;
+
+			defender.storeOwnBoard(createBoard(10));
+			attacker.storeTrackingBoard(createBoard(10));
+
+			updateBoardsAfterAbility(defender, attacker, 2, 2, 'X');
+
+			std::vector<std::vector<char>> updatedBoard = defender.getOwnBoard();
+			Assert::AreEqual('X', updatedBoard[2][2]);
+		}
+
+		// Checks that ability results update the attacker's tracking board.
+		TEST_METHOD(UpdateBoards_updateBoardsAfterAbility_UpdatesAttackerTrackingBoard)
+		{
+			UserData defender;
+			UserData attacker;
+
+			defender.storeOwnBoard(createBoard(10));
+			attacker.storeTrackingBoard(createBoard(10));
+
+			updateBoardsAfterAbility(defender, attacker, 3, 3, 'O');
+
+			std::vector<std::vector<char>> trackingBoard = attacker.getTrackingBoard();
+			Assert::AreEqual('O', trackingBoard[3][3]);
+		}
+
+		// Checks that ability updates do nothing when coordinates are invalid.
+		TEST_METHOD(UpdateBoards_updateBoardsAfterAbility_InvalidCoordinatesDoNothing)
+		{
+			UserData defender;
+			UserData attacker;
+
+			defender.storeOwnBoard(createBoard(10));
+			attacker.storeTrackingBoard(createBoard(10));
+
+			updateBoardsAfterAbility(defender, attacker, -1, 15, 'X');
+
+			std::vector<std::vector<char>> defenderBoard = defender.getOwnBoard();
+			std::vector<std::vector<char>> trackingBoard = attacker.getTrackingBoard();
+
+			Assert::AreEqual('~', defenderBoard[0][0]);
+			Assert::AreEqual('~', trackingBoard[0][0]);
 		}
 	};
 }
