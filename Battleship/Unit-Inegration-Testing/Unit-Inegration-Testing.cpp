@@ -322,5 +322,42 @@ namespace UnitInegrationTesting
 
 			Assert::IsTrue(output.str().find("1") != std::string::npos);
 		}
+
+		// Checks that player boards show the own board and tracking board labels.
+		TEST_METHOD(DisplayBoards_displayPlayerBoards_ShowsBoardLabels)
+		{
+			UserData player;
+			player.storeNickname("Jacob");
+			player.storeOwnBoard(createBoard(10));
+			player.storeTrackingBoard(createBoard(10));
+
+			std::ostringstream output;
+			std::basic_streambuf<char>* oldBuffer = std::cout.rdbuf(output.rdbuf());
+
+			displayPlayerBoards(player);
+
+			std::cout.rdbuf(oldBuffer);
+
+			Assert::IsTrue(output.str().find("=== Own Board ===") != std::string::npos);
+			Assert::IsTrue(output.str().find("=== Tracking Board ===") != std::string::npos);
+		}
+
+		// Checks that player board output includes the player's nickname.
+		TEST_METHOD(DisplayBoards_displayPlayerBoards_ShowsNickname)
+		{
+			UserData player;
+			player.storeNickname("Jacob");
+			player.storeOwnBoard(createBoard(10));
+			player.storeTrackingBoard(createBoard(10));
+
+			std::ostringstream output;
+			std::basic_streambuf<char>* oldBuffer = std::cout.rdbuf(output.rdbuf());
+
+			displayPlayerBoards(player);
+
+			std::cout.rdbuf(oldBuffer);
+
+			Assert::IsTrue(output.str().find("Jacob") != std::string::npos);
+		}
 	};
 }
