@@ -2,9 +2,7 @@
 #include "placeShips.h"
 #include "displayBoards.h"
 
-
-
-
+//Ships data structure
 Ship fleet[5] = {
 	{"Cruiser", 3, false},
 	{"Battleship", 4, false},
@@ -12,8 +10,9 @@ Ship fleet[5] = {
 	{"Destroyer", 2, false},
 	{"Carrier", 5, false}
 };
-int ships[5];
 
+//Decleration
+int ships[5];
 
 void displayShips(Ship fleet[]) {
 	for (int i = 0; i < 5; i++) {
@@ -71,11 +70,11 @@ void chooseShips(GameData* data, UserData* user) {
 		}
 	}
 }
+
 void placedShip(int x, int y, char orientation) {
 	std::cout << "Placing ship at (" << x << ", " << y << ") with orientation " << orientation << "..." << std::endl;
 }
 	
-
 void placeShip(UserData* user, int choice) {
 	int x;
 	int y;

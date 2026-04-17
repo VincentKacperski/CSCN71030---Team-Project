@@ -15,7 +15,7 @@
 //using namespace std; ?? What do we prefer here?
 //Add your code here
 
-int mainMenu(){
+int mainMenu() {
 	bool runProgram = true;
 	int userNum, randUser;
 
@@ -47,7 +47,6 @@ int mainMenu(){
 			gameSaveUI(gamedata);
 			chooseShips(gamedata, users);
 			randUser = rand() % gamedata->getPlayers();// +1;
-
 			while (playerWin == false) {
 				for (int i = 0/*randUser */ ; i < gamedata->getPlayers(); i++) {
 					displayPlayerBoards(users[i]);

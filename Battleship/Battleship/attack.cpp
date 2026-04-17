@@ -7,7 +7,6 @@
 
 bool hit;
 
-
 void requestAttack(UserData& user, GameData* data) {
 	int x;
 	int y;
