@@ -25,6 +25,7 @@ namespace gameData {
 	int mapSize = 0;
 	int shipCount = 0;
 	char abilities[5] = {'A', 'B', 'C', 'S', 'D'};
+	std::string buffer;
 
 }
 
@@ -33,17 +34,18 @@ void gatherGameData(int players, GameData* gamedata, UserData* users) {
 
 	//Get the games map size
 	while (gamedata->getMapSize() != 20 && gamedata->getMapSize() != 10) {
+		
+		//Get the games map size
 		std::cout << "What map size do you prefer (10 or 20): ";
 		std::cin >> gameData::mapSize;
-		gamedata->storeMapSize(gameData::mapSize);
+
 	}
 	gameSaveGD(gamedata);
 
 	for (int i = 0; i < gamedata->getPlayers(); i++) {
 
 		//Indicate the next player
-		std::cout << "Player " << i + 1 << "\n";
-		 
+		std::cout << "Player " << i + 1 << "\n";	 
 		gatherShipCount(&users[i]);
 		gatherAbilities(&users[i]);
 		users[i].storeOwnBoard(createBoard(10));
@@ -60,7 +62,9 @@ void gatherShipCount(UserData* user) {
 	//Number of ships for each player
 	std::cout << "How many ships would you like to deploy?\n";
 	std::cout << "Enter 0, default, all ships: ";
-	std::cin >> gameData::shipCount;
+	std::cin >> gameData::buffer;
+	
+	//Check for the defualt count
 	if (gameData::shipCount == 0) {
 		//Defaut to starting with 5 ships
 		gameData::shipCount = 5;
