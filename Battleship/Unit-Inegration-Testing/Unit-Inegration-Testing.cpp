@@ -360,4 +360,52 @@ namespace UnitInegrationTesting
 			Assert::IsTrue(output.str().find("Jacob") != std::string::npos);
 		}
 	};
+
+	// Integration tests for the Update Boards module.
+	TEST_CLASS(UpdateBoardsIntegrationTests)
+	{
+	public:
+
+		// Checks that a hit updates both the defender's own board and the attacker's tracking board.
+		TEST_METHOD(Integration_UpdateBoards_HitUpdatesBothBoards)
+		{
+			UserData defender;
+			UserData attacker;
+
+			defender.storeOwnBoard(createBoard(10));
+			attacker.storeTrackingBoard(createBoard(10));
+
+			std::vector<std::vector<char>> defenderBoard = defender.getOwnBoard();
+			defenderBoard[2][3] = 'S';
+			defender.storeOwnBoard(defenderBoard);
+
+			bool result = updateBoardAfterAttack(defender, attacker, 2, 3);
+
+			std::vector<std::vector<char>> updatedDefenderBoard = defender.getOwnBoard();
+			std::vector<std::vector<char>> updatedTrackingBoard = attacker.getTrackingBoard();
+
+			Assert::IsTrue(result);
+			Assert::AreEqual('X', updatedDefenderBoard[2][3]);
+			Assert::AreEqual('X', updatedTrackingBoard[2][3]);
+		}
+
+		// Checks that a miss updates both the defender's own board and the attacker's tracking board.
+		TEST_METHOD(Integration_UpdateBoards_MissUpdatesBothBoards)
+		{
+			UserData defender;
+			UserData attacker;
+
+			defender.storeOwnBoard(createBoard(10));
+			attacker.storeTrackingBoard(createBoard(10));
+
+			bool result = updateBoardAfterAttack(defender, attacker, 0, 0);
+
+			std::vector<std::vector<char>> updatedDefenderBoard = defender.getOwnBoard();
+			std::vector<std::vector<char>> updatedTrackingBoard = attacker.getTrackingBoard();
+
+			Assert::IsFalse(result);
+			Assert::AreEqual('O', updatedDefenderBoard[0][0]);
+			Assert::AreEqual('O', updatedTrackingBoard[0][0]);
+		}
+	};
 }
