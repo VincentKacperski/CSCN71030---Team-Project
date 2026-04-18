@@ -496,4 +496,211 @@ namespace UnitInegrationTesting
 		}
 
 	};
+
+	using namespace Microsoft::VisualStudio::CppUnitTestFramework;
+
+	namespace AlexsUnitTesting
+	{
+		TEST_CLASS(AttackUnitTesting)
+		{
+		public:
+
+			TEST_METHOD(TestrequestAttack)
+			{
+				UserData user;
+				GameData data;
+				data.Players(2);
+
+				std::istringstream input("1\n3 4\nn\n");
+				std::streambuf* cinBackup = std::cin.rdbuf(input.rdbuf());
+
+				std::ostringstream output;
+				std::streambuf* coutBackup = std::cout.rdbuf(output.rdbuf());
+
+				requestAttack(user, &data);
+
+				std::cin.rdbuf(cinBackup);
+				std::cout.rdbuf(coutBackup);
+
+				std::string outStr = output.str();
+
+				Assert::IsTrue(outStr.find("Which Player would you like to attack?") != std::string::npos);
+				Assert::IsTrue(outStr.find("Enter attack coordinates") != std::string::npos);
+			}
+
+			TEST_METHOD(TestcheckAttack)
+			{
+				UserData user;
+
+				std::istringstream input("y\n");
+				std::streambuf* cinBackup = std::cin.rdbuf(input.rdbuf());
+
+				std::ostringstream output;
+				std::streambuf* coutBackup = std::cout.rdbuf(output.rdbuf());
+
+				checkAttack(&user, 2, 5, 1);
+
+				std::cin.rdbuf(cinBackup);
+				std::cout.rdbuf(coutBackup);
+
+				std::string outStr = output.str();
+
+				Assert::IsTrue(outStr.find("Attack confirmed at (2, 5)") != std::string::npos);
+			}
+
+			TEST_METHOD(TestsetResult)
+			{
+				std::ostringstream output;
+				std::streambuf* coutBackup = std::cout.rdbuf(output.rdbuf());
+
+				setResult(true);
+				setResult(false);
+
+				std::cout.rdbuf(coutBackup);
+
+				std::string outStr = output.str();
+
+				Assert::IsTrue(outStr.find("It's a hit.") != std::string::npos);
+				Assert::IsTrue(outStr.find("It's a miss.") != std::string::npos);
+			}
+		};
+		TEST_CLASS(DisplayShipsUnitTesting)
+		{
+
+			TEST_METHOD(TestdisplayShipsShowingNames)
+			{
+				std::ostringstream output;
+				std::streambuf* coutBackup = std::cout.rdbuf(output.rdbuf());
+
+				displayShips(fleet);
+
+				std::cout.rdbuf(coutBackup);
+
+				std::string out = output.str();
+
+				Assert::IsTrue(out.find("Cruiser") != std::string::npos);
+				Assert::IsTrue(out.find("Battleship") != std::string::npos);
+			}
+
+			TEST_METHOD(TestdisplayShipsShowsSizes)
+			{
+				std::ostringstream output;
+				std::streambuf* coutBackup = std::cout.rdbuf(output.rdbuf());
+
+				displayShips(fleet);
+
+				std::cout.rdbuf(coutBackup);
+
+				std::string out = output.str();
+
+				Assert::IsTrue(out.find("Size") != std::string::npos);
+			}
+
+			TEST_METHOD(TestchooseShipsInvalid)
+			{
+				GameData data;
+				UserData user;
+
+				std::istringstream input("999\n1\n1\n1\n1\n1\n1\n");
+				std::streambuf* cinBackup = std::cin.rdbuf(input.rdbuf());
+
+				std::ostringstream output;
+				std::streambuf* coutBackup = std::cout.rdbuf(output.rdbuf());
+
+				chooseShips(&data, &user);
+
+				std::cin.rdbuf(cinBackup);
+				std::cout.rdbuf(coutBackup);
+
+				std::string out = output.str();
+
+				Assert::IsTrue(out.find("Invalid choice") != std::string::npos);
+			}
+
+			TEST_METHOD(TestchooseShipsSucceed)
+			{
+				GameData data;
+				UserData user;
+
+
+
+				std::istringstream input("1\n1\n1\n1\n1\n1\n");
+				std::streambuf* cinBackup = std::cin.rdbuf(input.rdbuf());
+
+				std::ostringstream output;
+				std::streambuf* coutBackup = std::cout.rdbuf(output.rdbuf());
+
+				chooseShips(&data, &user);
+
+				std::cin.rdbuf(cinBackup);
+				std::cout.rdbuf(coutBackup);
+
+				std::string out = output.str();
+
+				Assert::IsTrue(out.find("Choose a ship") != std::string::npos);
+			}
+
+			TEST_METHOD(TestplacedShipOutput)
+			{
+				std::ostringstream output;
+				std::streambuf* coutBackup = std::cout.rdbuf(output.rdbuf());
+
+				placedShip(2, 3, 'H');
+
+				std::cout.rdbuf(coutBackup);
+
+				std::string out = output.str();
+
+				Assert::IsTrue(out.find("(2, 3)") != std::string::npos);
+				Assert::IsTrue(out.find("H") != std::string::npos);
+			}
+
+			TEST_METHOD(TestplacedShipNoCrash)
+			{
+				placedShip(0, 0, 'V');
+				Assert::IsTrue(true);
+			}
+
+			TEST_METHOD(TestplaceShipError)
+			{
+				UserData user;
+
+				std::istringstream input("0\n0\n1\n");
+				std::streambuf* cinBackup = std::cin.rdbuf(input.rdbuf());
+
+				std::ostringstream output;
+				std::streambuf* coutBackup = std::cout.rdbuf(output.rdbuf());
+
+				placeShip(&user, 0);
+
+				std::cin.rdbuf(cinBackup);
+				std::cout.rdbuf(coutBackup);
+
+				std::string out = output.str();
+
+				Assert::IsTrue(out.find("Error in Placement") != std::string::npos);
+			}
+
+			TEST_METHOD(TestplaceShipSucceed)
+			{
+				UserData user;
+
+				std::istringstream input("1\n1\n1\n");
+				std::streambuf* cinBackup = std::cin.rdbuf(input.rdbuf());
+
+				std::ostringstream output;
+				std::streambuf* coutBackup = std::cout.rdbuf(output.rdbuf());
+
+				placeShip(&user, 0);
+
+				std::cin.rdbuf(cinBackup);
+				std::cout.rdbuf(coutBackup);
+
+				std::string out = output.str();
+
+				Assert::IsTrue(out.find("Enter ship placement coordinate") != std::string::npos);
+			}
+		};
+	}
+
 }
