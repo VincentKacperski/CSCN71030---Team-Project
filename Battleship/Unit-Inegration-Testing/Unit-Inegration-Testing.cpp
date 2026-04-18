@@ -475,5 +475,23 @@ namespace UnitInegrationTesting
 			Assert::IsTrue(output.str().find("O") != std::string::npos);
 			Assert::IsTrue(output.str().find("Q") == std::string::npos);
 		}
+		// Checks that displaySingleBoard handles unexpected board characters safely.
+		TEST_METHOD(DisplayBoards_displaySingleBoard_InvalidBoardCharacterDoesNotCrash)
+		{
+			std::vector<std::vector<char>> board = createBoard(10);
+			board[2][2] = '@'; // invalid/unexpected symbol
+
+			std::ostringstream output;
+			std::basic_streambuf<char>* oldBuffer = std::cout.rdbuf(output.rdbuf());
+
+			displaySingleBoard(board, false);
+
+			std::cout.rdbuf(oldBuffer);
+
+			// The board should still print, including row/column formatting.
+			Assert::IsTrue(output.str().length() > 0);
+			Assert::IsTrue(output.str().find("1") != std::string::npos);
+		}
+
 	};
 }
