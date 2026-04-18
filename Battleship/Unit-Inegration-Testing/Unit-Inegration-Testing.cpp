@@ -408,4 +408,72 @@ namespace UnitInegrationTesting
 			Assert::AreEqual('O', updatedTrackingBoard[0][0]);
 		}
 	};
+
+	// Integration tests for the Display Boards module.
+	TEST_CLASS(DisplayBoardsIntegrationTests)
+	{
+	public:
+
+		// Checks that displayPlayerBoards shows an updated hit on the tracking board.
+		TEST_METHOD(Integration_DisplayBoards_DisplayPlayerBoardsShowsUpdatedHit)
+		{
+			UserData defender;
+			UserData attacker;
+
+			defender.storeNickname("Defender");
+			attacker.storeNickname("Attacker");
+
+			defender.storeOwnBoard(createBoard(10));
+			attacker.storeOwnBoard(createBoard(10));
+			attacker.storeTrackingBoard(createBoard(10));
+
+			std::vector<std::vector<char>> defenderBoard = defender.getOwnBoard();
+			defenderBoard[2][3] = 'S';
+			defender.storeOwnBoard(defenderBoard);
+
+			updateBoardAfterAttack(defender, attacker, 2, 3);
+
+			// First confirm the tracking board was actually updated.
+			std::vector<std::vector<char>> trackingBoard = attacker.getTrackingBoard();
+			Assert::AreEqual('X', trackingBoard[2][3]);
+
+			std::ostringstream output;
+			std::basic_streambuf<char>* oldBuffer = std::cout.rdbuf(output.rdbuf());
+
+			displayPlayerBoards(attacker);
+
+			std::cout.rdbuf(oldBuffer);
+
+			Assert::IsTrue(output.str().find("=== Own Board ===") != std::string::npos);
+			Assert::IsTrue(output.str().find("=== Tracking Board ===") != std::string::npos);
+			Assert::IsTrue(output.str().find("Attacker") != std::string::npos);
+		}
+
+		// Checks that displayOpponentBoard shows ability result markers but still hides untouched ships.
+		TEST_METHOD(Integration_DisplayBoards_DisplayOpponentBoardShowsAbilityResultAndHidesShips)
+		{
+			UserData defender;
+			UserData attacker;
+
+			defender.storeOwnBoard(createBoard(10));
+			attacker.storeTrackingBoard(createBoard(10));
+
+			std::vector<std::vector<char>> defenderBoard = defender.getOwnBoard();
+			defenderBoard[4][4] = 'Q';
+			defender.storeOwnBoard(defenderBoard);
+
+			updateBoardsAfterAbility(defender, attacker, 2, 2, 'O');
+
+			std::ostringstream output;
+			std::basic_streambuf<char>* oldBuffer = std::cout.rdbuf(output.rdbuf());
+
+			displayOpponentBoard(defender);
+
+			std::cout.rdbuf(oldBuffer);
+
+			Assert::IsTrue(output.str().find("=== Opponent Board ===") != std::string::npos);
+			Assert::IsTrue(output.str().find("O") != std::string::npos);
+			Assert::IsTrue(output.str().find("Q") == std::string::npos);
+		}
+	};
 }
