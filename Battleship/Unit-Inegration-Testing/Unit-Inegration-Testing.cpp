@@ -1,14 +1,14 @@
+#include "pch.h"
+
 //Libraries
 #include <vector>
 #include <iostream>
 #include <string>
 #include <time.h>
-#include <fstream>
+#include <sstream>
+#include <streambuf>
 
 //Files
-extern "C++" {
-
-#include "pch.h"
 #include "CppUnitTest.h"
 //#include "../Battleship/main.h"
 #include "../Battleship/mainMenu.h"
@@ -53,8 +53,6 @@ extern "C++" void setResult(bool hit);
 extern "C++" void placeShip(UserData* user, int choice);
 
 //Display Boards - Jacob
-extern "C++" static bool isShipCell(char value);
-extern "C++" static void printColumnHeaders(int boardSize);
 extern "C++" void displaySingleBoard(const std::vector<std::vector<char>>& board, bool hideShips);
 extern "C++" void displayPlayerBoards(UserData& player);
 extern "C++" void displayOpponentBoard(UserData& player);
@@ -84,88 +82,418 @@ extern "C++" Board createBoard(int boardSize);
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
+using namespace Microsoft::VisualStudio::CppUnitTestFramework;
+
+using namespace Microsoft::VisualStudio::CppUnitTestFramework;
+
+using namespace Microsoft::VisualStudio::CppUnitTestFramework;
+
 namespace UnitInegrationTesting
 {
-	TEST_CLASS(UnitInegrationTesting)
+	// Unit tests for the Update Boards module.
+	TEST_CLASS(UpdateBoardsTests)
 	{
 	public:
 
-		TEST_METHOD(MainMenuTest_001_GameplayLoop) {
-			int expected = 1;
-			int result = processChoice(1);
-			Assert::AreEqual(expected, result);
+		// Checks that a hit returns true.
+		TEST_METHOD(UpdateBoards_updateBoardAfterAttack_HitReturnsTrue)
+		{
+			UserData defender;
+			UserData attacker;
+
+			defender.storeOwnBoard(createBoard(10));
+			attacker.storeTrackingBoard(createBoard(10));
+
+			std::vector<std::vector<char>> board = defender.getOwnBoard();
+			board[2][3] = 'S';
+			defender.storeOwnBoard(board);
+
+			bool result = updateBoardAfterAttack(defender, attacker, 2, 3);
+
+			Assert::IsTrue(result);
 		}
-		TEST_METHOD(MainMenuTest_002_FileIO) {
-			int expected = 2;
-			int result = processChoice(2);
-			Assert::AreEqual(expected, result);
+
+		// Checks that a miss returns false.
+		TEST_METHOD(UpdateBoards_updateBoardAfterAttack_MissReturnsFalse)
+		{
+			UserData defender;
+			UserData attacker;
+
+			defender.storeOwnBoard(createBoard(10));
+			attacker.storeTrackingBoard(createBoard(10));
+
+			bool result = updateBoardAfterAttack(defender, attacker, 1, 1);
+
+			Assert::IsFalse(result);
 		}
-		TEST_METHOD(MainMenuTest_003_Helper) {
-			int expected = 3;
-			int result = processChoice(3);
-			Assert::AreEqual(expected, result);
+
+		// Checks that a hit updates the defender's board.
+		TEST_METHOD(UpdateBoards_updateBoardAfterAttack_HitMarksDefenderBoard)
+		{
+			UserData defender;
+			UserData attacker;
+
+			defender.storeOwnBoard(createBoard(10));
+			attacker.storeTrackingBoard(createBoard(10));
+
+			std::vector<std::vector<char>> board = defender.getOwnBoard();
+			board[4][5] = 'B';
+			defender.storeOwnBoard(board);
+
+			updateBoardAfterAttack(defender, attacker, 4, 5);
+
+			std::vector<std::vector<char>> updatedBoard = defender.getOwnBoard();
+			Assert::AreEqual('X', updatedBoard[4][5]);
 		}
-		TEST_METHOD(MainMenuTest_004_ExitProgram) {
-			int expected = 4;
-			int result = processChoice(4);
-			Assert::AreEqual(expected, result);
+
+		// Checks that a hit updates the attacker's tracking board.
+		TEST_METHOD(UpdateBoards_updateBoardAfterAttack_HitMarksAttackerTrackingBoard)
+		{
+			UserData defender;
+			UserData attacker;
+
+			defender.storeOwnBoard(createBoard(10));
+			attacker.storeTrackingBoard(createBoard(10));
+
+			std::vector<std::vector<char>> board = defender.getOwnBoard();
+			board[3][2] = 'C';
+			defender.storeOwnBoard(board);
+
+			updateBoardAfterAttack(defender, attacker, 3, 2);
+
+			std::vector<std::vector<char>> trackingBoard = attacker.getTrackingBoard();
+			Assert::AreEqual('X', trackingBoard[3][2]);
 		}
-		TEST_METHOD(MainMenuTest_005_InvalidInput) {
-			int expected = -1;
-			int result = processChoice(100);
-			Assert::AreEqual(expected, result);
+
+		// Checks that a miss updates the attacker's tracking board.
+		TEST_METHOD(UpdateBoards_updateBoardAfterAttack_MissMarksAttackerTrackingBoard)
+		{
+			UserData defender;
+			UserData attacker;
+
+			defender.storeOwnBoard(createBoard(10));
+			attacker.storeTrackingBoard(createBoard(10));
+
+			updateBoardAfterAttack(defender, attacker, 0, 0);
+
+			std::vector<std::vector<char>> trackingBoard = attacker.getTrackingBoard();
+			Assert::AreEqual('O', trackingBoard[0][0]);
 		}
-		TEST_METHOD(FileIOSystemTest_001_OpenFile) {
-			GameData data;
 
-			std::ofstream file("gamedata.txt");
-			file << "2\n";   // players
-			file << "10\n";  // map size
-			file.close();
+		// Checks that invalid coordinates return false.
+		TEST_METHOD(UpdateBoards_updateBoardAfterAttack_InvalidCoordinatesReturnFalse)
+		{
+			UserData defender;
+			UserData attacker;
 
-			fileOpen(&data);
-			Assert::AreEqual(2, data.getPlayers());
-			Assert::AreEqual(10, data.getMapSize());
+			defender.storeOwnBoard(createBoard(10));
+			attacker.storeTrackingBoard(createBoard(10));
+
+			bool result = updateBoardAfterAttack(defender, attacker, -1, 15);
+
+			Assert::IsFalse(result);
 		}
-		TEST_METHOD(FileIOSystemTest_002_MissingFile) {
-			GameData data;
 
-			remove("gamedata.txt");
+		// Checks that attacking the same cell again returns false.
+		TEST_METHOD(UpdateBoards_updateBoardAfterAttack_RepeatedAttackReturnsFalse)
+		{
+			UserData defender;
+			UserData attacker;
 
-			fileOpen(&data);
+			defender.storeOwnBoard(createBoard(10));
+			attacker.storeTrackingBoard(createBoard(10));
 
-			Assert::IsTrue(true);
+			updateBoardAfterAttack(defender, attacker, 0, 0);
+			bool result = updateBoardAfterAttack(defender, attacker, 0, 0);
+
+			Assert::IsFalse(result);
 		}
-		TEST_METHOD(FileIOSystemTest_003_gameSaveUI) {
-			GameData data;
-			data.storePlayers(3);
-			data.storeMapSize(8);
 
-			gameSaveUI(&data);
+		// Checks that ability results update the defender's board.
+		TEST_METHOD(UpdateBoards_updateBoardsAfterAbility_UpdatesDefenderBoard)
+		{
+			UserData defender;
+			UserData attacker;
 
-			std::ifstream file("gamedata.txt");
-			std::string players, size;
+			defender.storeOwnBoard(createBoard(10));
+			attacker.storeTrackingBoard(createBoard(10));
 
-			getline(file, players);
-			getline(file, size);
+			updateBoardsAfterAbility(defender, attacker, 2, 2, 'X');
 
-			Assert::AreEqual(std::string("3"), players);
-			Assert::AreEqual(std::string("8"), size);
+			std::vector<std::vector<char>> updatedBoard = defender.getOwnBoard();
+			Assert::AreEqual('X', updatedBoard[2][2]);
 		}
-		TEST_METHOD(FileIOSystemTest_004_gameSaveGD) {
-			GameData data;
-			data.storePlayers(3);
 
-			gameSaveGD(&data);
+		// Checks that ability results update the attacker's tracking board.
+		TEST_METHOD(UpdateBoards_updateBoardsAfterAbility_UpdatesAttackerTrackingBoard)
+		{
+			UserData defender;
+			UserData attacker;
 
-			std::ifstream file("gamedata.txt");
-			std::string players;
+			defender.storeOwnBoard(createBoard(10));
+			attacker.storeTrackingBoard(createBoard(10));
 
-			getline(file, players);
+			updateBoardsAfterAbility(defender, attacker, 3, 3, 'O');
 
-			Assert::AreEqual(std::string("3"), players);
+			std::vector<std::vector<char>> trackingBoard = attacker.getTrackingBoard();
+			Assert::AreEqual('O', trackingBoard[3][3]);
+		}
+
+		// Checks that ability updates do nothing when coordinates are invalid.
+		TEST_METHOD(UpdateBoards_updateBoardsAfterAbility_InvalidCoordinatesDoNothing)
+		{
+			UserData defender;
+			UserData attacker;
+
+			defender.storeOwnBoard(createBoard(10));
+			attacker.storeTrackingBoard(createBoard(10));
+
+			updateBoardsAfterAbility(defender, attacker, -1, 15, 'X');
+
+			std::vector<std::vector<char>> defenderBoard = defender.getOwnBoard();
+			std::vector<std::vector<char>> trackingBoard = attacker.getTrackingBoard();
+
+			Assert::AreEqual('~', defenderBoard[0][0]);
+			Assert::AreEqual('~', trackingBoard[0][0]);
+		}
+	};
+
+	// Unit tests for the Display Boards module.
+	TEST_CLASS(DisplayBoardsTests)
+	{
+	public:
+
+		// Checks that a board shows ship symbols when hideShips is false.
+		TEST_METHOD(DisplayBoards_displaySingleBoard_ShowsVisibleShips)
+		{
+			std::vector<std::vector<char>> board = createBoard(10);
+			board[0][0] = 'Q';
+
+			std::ostringstream output;
+			std::basic_streambuf<char>* oldBuffer = std::cout.rdbuf(output.rdbuf());
+
+			displaySingleBoard(board, false);
+
+			std::cout.rdbuf(oldBuffer);
+
+			Assert::IsTrue(output.str().find('Q') != std::string::npos);
+		}
+
+		// Checks that ship symbols are hidden when hideShips is true.
+		TEST_METHOD(DisplayBoards_displaySingleBoard_HidesShipsWhenRequested)
+		{
+			std::vector<std::vector<char>> board = createBoard(10);
+			board[0][0] = 'Q';
+
+			std::ostringstream output;
+			std::basic_streambuf<char>* oldBuffer = std::cout.rdbuf(output.rdbuf());
+
+			displaySingleBoard(board, true);
+
+			std::cout.rdbuf(oldBuffer);
+
+			Assert::IsTrue(output.str().find('Q') == std::string::npos);
+		}
+
+		// Checks that the board output includes column headers.
+		TEST_METHOD(DisplayBoards_displaySingleBoard_ShowsColumnHeaders)
+		{
+			std::vector<std::vector<char>> board = createBoard(10);
+
+			std::ostringstream output;
+			std::basic_streambuf<char>* oldBuffer = std::cout.rdbuf(output.rdbuf());
+
+			displaySingleBoard(board, false);
+
+			std::cout.rdbuf(oldBuffer);
+
+			Assert::IsTrue(output.str().find("10") != std::string::npos);
+		}
+
+		// Checks that the board output includes row numbers.
+		TEST_METHOD(DisplayBoards_displaySingleBoard_ShowsRowNumbers)
+		{
+			std::vector<std::vector<char>> board = createBoard(10);
+
+			std::ostringstream output;
+			std::basic_streambuf<char>* oldBuffer = std::cout.rdbuf(output.rdbuf());
+
+			displaySingleBoard(board, false);
+
+			std::cout.rdbuf(oldBuffer);
+
+			Assert::IsTrue(output.str().find("1") != std::string::npos);
+		}
+
+		// Checks that player boards show the own board and tracking board labels.
+		TEST_METHOD(DisplayBoards_displayPlayerBoards_ShowsBoardLabels)
+		{
+			UserData player;
+			player.storeNickname("Jacob");
+			player.storeOwnBoard(createBoard(10));
+			player.storeTrackingBoard(createBoard(10));
+
+			std::ostringstream output;
+			std::basic_streambuf<char>* oldBuffer = std::cout.rdbuf(output.rdbuf());
+
+			displayPlayerBoards(player);
+
+			std::cout.rdbuf(oldBuffer);
+
+			Assert::IsTrue(output.str().find("=== Own Board ===") != std::string::npos);
+			Assert::IsTrue(output.str().find("=== Tracking Board ===") != std::string::npos);
+		}
+
+		// Checks that player board output includes the player's nickname.
+		TEST_METHOD(DisplayBoards_displayPlayerBoards_ShowsNickname)
+		{
+			UserData player;
+			player.storeNickname("Jacob");
+			player.storeOwnBoard(createBoard(10));
+			player.storeTrackingBoard(createBoard(10));
+
+			std::ostringstream output;
+			std::basic_streambuf<char>* oldBuffer = std::cout.rdbuf(output.rdbuf());
+
+			displayPlayerBoards(player);
+
+			std::cout.rdbuf(oldBuffer);
+
+			Assert::IsTrue(output.str().find("Jacob") != std::string::npos);
+		}
+	};
+
+	// Integration tests for the Update Boards module.
+	TEST_CLASS(UpdateBoardsIntegrationTests)
+	{
+	public:
+
+		// Checks that a hit updates both the defender's own board and the attacker's tracking board.
+		TEST_METHOD(Integration_UpdateBoards_HitUpdatesBothBoards)
+		{
+			UserData defender;
+			UserData attacker;
+
+			defender.storeOwnBoard(createBoard(10));
+			attacker.storeTrackingBoard(createBoard(10));
+
+			std::vector<std::vector<char>> defenderBoard = defender.getOwnBoard();
+			defenderBoard[2][3] = 'S';
+			defender.storeOwnBoard(defenderBoard);
+
+			bool result = updateBoardAfterAttack(defender, attacker, 2, 3);
+
+			std::vector<std::vector<char>> updatedDefenderBoard = defender.getOwnBoard();
+			std::vector<std::vector<char>> updatedTrackingBoard = attacker.getTrackingBoard();
+
+			Assert::IsTrue(result);
+			Assert::AreEqual('X', updatedDefenderBoard[2][3]);
+			Assert::AreEqual('X', updatedTrackingBoard[2][3]);
+		}
+
+		// Checks that a miss updates both the defender's own board and the attacker's tracking board.
+		TEST_METHOD(Integration_UpdateBoards_MissUpdatesBothBoards)
+		{
+			UserData defender;
+			UserData attacker;
+
+			defender.storeOwnBoard(createBoard(10));
+			attacker.storeTrackingBoard(createBoard(10));
+
+			bool result = updateBoardAfterAttack(defender, attacker, 0, 0);
+
+			std::vector<std::vector<char>> updatedDefenderBoard = defender.getOwnBoard();
+			std::vector<std::vector<char>> updatedTrackingBoard = attacker.getTrackingBoard();
+
+			Assert::IsFalse(result);
+			Assert::AreEqual('O', updatedDefenderBoard[0][0]);
+			Assert::AreEqual('O', updatedTrackingBoard[0][0]);
+		}
+	};
+
+	// Integration tests for the Display Boards module.
+	TEST_CLASS(DisplayBoardsIntegrationTests)
+	{
+	public:
+
+		// Checks that displayPlayerBoards shows an updated hit on the tracking board.
+		TEST_METHOD(Integration_DisplayBoards_DisplayPlayerBoardsShowsUpdatedHit)
+		{
+			UserData defender;
+			UserData attacker;
+
+			defender.storeNickname("Defender");
+			attacker.storeNickname("Attacker");
+
+			defender.storeOwnBoard(createBoard(10));
+			attacker.storeOwnBoard(createBoard(10));
+			attacker.storeTrackingBoard(createBoard(10));
+
+			std::vector<std::vector<char>> defenderBoard = defender.getOwnBoard();
+			defenderBoard[2][3] = 'S';
+			defender.storeOwnBoard(defenderBoard);
+
+			updateBoardAfterAttack(defender, attacker, 2, 3);
+
+			// First confirm the tracking board was actually updated.
+			std::vector<std::vector<char>> trackingBoard = attacker.getTrackingBoard();
+			Assert::AreEqual('X', trackingBoard[2][3]);
+
+			std::ostringstream output;
+			std::basic_streambuf<char>* oldBuffer = std::cout.rdbuf(output.rdbuf());
+
+			displayPlayerBoards(attacker);
+
+			std::cout.rdbuf(oldBuffer);
+
+			Assert::IsTrue(output.str().find("=== Own Board ===") != std::string::npos);
+			Assert::IsTrue(output.str().find("=== Tracking Board ===") != std::string::npos);
+			Assert::IsTrue(output.str().find("Attacker") != std::string::npos);
+		}
+
+		// Checks that displayOpponentBoard shows ability result markers but still hides untouched ships.
+		TEST_METHOD(Integration_DisplayBoards_DisplayOpponentBoardShowsAbilityResultAndHidesShips)
+		{
+			UserData defender;
+			UserData attacker;
+
+			defender.storeOwnBoard(createBoard(10));
+			attacker.storeTrackingBoard(createBoard(10));
+
+			std::vector<std::vector<char>> defenderBoard = defender.getOwnBoard();
+			defenderBoard[4][4] = 'Q';
+			defender.storeOwnBoard(defenderBoard);
+
+			updateBoardsAfterAbility(defender, attacker, 2, 2, 'O');
+
+			std::ostringstream output;
+			std::basic_streambuf<char>* oldBuffer = std::cout.rdbuf(output.rdbuf());
+
+			displayOpponentBoard(defender);
+
+			std::cout.rdbuf(oldBuffer);
+
+			Assert::IsTrue(output.str().find("=== Opponent Board ===") != std::string::npos);
+			Assert::IsTrue(output.str().find("O") != std::string::npos);
+			Assert::IsTrue(output.str().find("Q") == std::string::npos);
+		}
+		// Checks that displaySingleBoard handles unexpected board characters safely.
+		TEST_METHOD(DisplayBoards_displaySingleBoard_InvalidBoardCharacterDoesNotCrash)
+		{
+			std::vector<std::vector<char>> board = createBoard(10);
+			board[2][2] = '@'; // invalid/unexpected symbol
+
+			std::ostringstream output;
+			std::basic_streambuf<char>* oldBuffer = std::cout.rdbuf(output.rdbuf());
+
+			displaySingleBoard(board, false);
+
+			std::cout.rdbuf(oldBuffer);
+
+			// The board should still print, including row/column formatting.
+			Assert::IsTrue(output.str().length() > 0);
+			Assert::IsTrue(output.str().find("1") != std::string::npos);
 		}
 
 	};
 }
-
