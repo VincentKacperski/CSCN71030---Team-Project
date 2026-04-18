@@ -497,11 +497,8 @@ namespace UnitInegrationTesting
 
 	};
 
-	using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
-	namespace AlexsUnitTesting
-	{
-		TEST_CLASS(AttackUnitTesting)
+	TEST_CLASS(AttackUnitTesting)
 		{
 		public:
 
