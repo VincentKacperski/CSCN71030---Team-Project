@@ -126,13 +126,18 @@ void loadPlayer(int players, UserData* users, GameData* data) {
 void gameSaveUI(GameData* game) {
 
 	//Decleration
-	std::fstream fileptr;
+	std::ofstream fileptr("gamedata.txt");
 
-	//Store game data player count to the game data file
-	fileptr.open("gamedata.txt");
-	fileptr << game->getPlayers() << "\n";
-	fileptr << game->getMapSize() << "\n";
-	fileptr.close(); //Close the file
+	if (!fileptr.is_open()) {
+		std::cout << "Error in opening the file!\n";
+	}
+	else{
+		//Store game data player count to the game data file
+		//fileptr.open("gamedata.txt");
+		fileptr << game->getPlayers() << "\n";
+		fileptr << game->getMapSize() << "\n";
+		fileptr.close(); //Close the file
+	}
 
 }
 
@@ -140,7 +145,7 @@ void gameSaveUI(GameData* game) {
 void gameSaveGD(GameData* game) {
 
 	//Decleration
-	std::fstream fileptr;
+	std::ofstream fileptr;
 
 	//Store game data player count to the game data file
 	fileptr.open("Playerone.txt");

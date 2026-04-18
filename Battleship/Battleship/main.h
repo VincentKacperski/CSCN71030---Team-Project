@@ -22,3 +22,5 @@
 #include "submarine.h"
 #include "destroyer.h"
 #include "aircraftCarrier.h"
+
+int main();

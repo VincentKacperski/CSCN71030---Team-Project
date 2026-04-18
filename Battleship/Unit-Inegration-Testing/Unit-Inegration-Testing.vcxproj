@@ -99,7 +99,7 @@
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
-      <AdditionalLibraryDirectories>C:\Users\Vincent\source\repos\Battleship-Testing\Battleship\Battleship\x64\Debug;C:\Users\Administrator\source\repos\Battleship_Redo\Battleship\Battleship\x64\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\Users\owenf\source\repos\CSCN71030---Team-Project\Battleship\Battleship\x64\Debug;C:\Users\Vincent\source\repos\Battleship-Testing\Battleship\Battleship\x64\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>main.obj;mainMenu.obj;userInput.obj;gatherGameData.obj;placeShips.obj;fileIOSystem.obj;attack.obj;displayBoards.obj;shipChecking.obj;updateBoards.obj;win.obj;helper.obj;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
@@ -166,7 +166,9 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="Unit-Inegration-Testing.cpp" />
+    <ClCompile Include="Unit-Inegration-Testing.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />

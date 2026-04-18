@@ -10,16 +10,18 @@
 
 //Files
 #include "CppUnitTest.h"
-#include "mainMenu.h"
-#include "userInput.h"
-#include "fileIOSystem.h"
-#include "gatherGameData.h"
-#include "Base.h"
-#include "win.h"
-#include "placeShips.h"
-#include "displayBoards.h"
-#include "attack.h"
-#include "helper.h"
+//#include "../Battleship/main.h"
+#include "../Battleship/mainMenu.h"
+#include "../Battleship/userInput.h"
+#include "../Battleship/fileIOSystem.h"
+#include "../Battleship/gatherGameData.h"
+#include "../Battleship/Base.h"
+#include "../Battleship/win.h"
+#include "../Battleship/placeShips.h"
+#include "../Battleship/displayBoards.h"
+#include "../Battleship/attack.h"
+#include "../Battleship/helper.h"
+}
 #include <Windows.h>
 
 //Main Menu Module  - Owen
