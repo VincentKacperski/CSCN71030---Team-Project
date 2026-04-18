@@ -39,6 +39,7 @@ int mainMenu() {
 		std::cout << "3. Saves\n";
 		std::cout << "4. End\n";
 		std::cin >> userNum;
+		userNum = processChoice(userNum);
 
 		switch (userNum) {
 		case 1:
@@ -67,10 +68,12 @@ int mainMenu() {
 					}*/
 				}
 			}
+			break;
 			//Enter User Input
 		case 2:
 			//helper();
 			//Enter Helper.cpp
+			break;
 		case 3:
 			fileIOSystem(gamedata);
 			break;
@@ -87,4 +90,15 @@ int mainMenu() {
 
 	}
 	return 0;
+}
+
+int processChoice(int userNum) {
+	switch (userNum) {
+		case 1: return 1;
+		case 2: return 2;
+		case 3: return 3;
+		case 4: return 4;
+		default: return -1;
+	}
+	//return userNum;
 }

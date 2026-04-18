@@ -3,20 +3,25 @@
 #include <iostream>
 #include <string>
 #include <time.h>
+#include <fstream>
 
 //Files
+extern "C++" {
+
 #include "pch.h"
 #include "CppUnitTest.h"
-#include "mainMenu.h"
-#include "userInput.h"
-#include "fileIOSystem.h"
-#include "gatherGameData.h"
-#include "Base.h"
-#include "win.h"
-#include "placeShips.h"
-#include "displayBoards.h"
-#include "attack.h"
-#include "helper.h"
+//#include "../Battleship/main.h"
+#include "../Battleship/mainMenu.h"
+#include "../Battleship/userInput.h"
+#include "../Battleship/fileIOSystem.h"
+#include "../Battleship/gatherGameData.h"
+#include "../Battleship/Base.h"
+#include "../Battleship/win.h"
+#include "../Battleship/placeShips.h"
+#include "../Battleship/displayBoards.h"
+#include "../Battleship/attack.h"
+#include "../Battleship/helper.h"
+}
 #include <Windows.h>
 
 //Main Menu Module  - Owen
@@ -84,10 +89,81 @@ namespace UnitInegrationTesting
 	TEST_CLASS(UnitInegrationTesting)
 	{
 	public:
-		
-		TEST_METHOD(TestMethod1)
-		{
-			printf("Test Success\n");
+
+		TEST_METHOD(MainMenuTest_001_GameplayLoop) {
+			int expected = 1;
+			int result = processChoice(1);
+			Assert::AreEqual(expected, result);
+		}
+		TEST_METHOD(MainMenuTest_002_FileIO) {
+			int expected = 2;
+			int result = processChoice(2);
+			Assert::AreEqual(expected, result);
+		}
+		TEST_METHOD(MainMenuTest_003_Helper) {
+			int expected = 3;
+			int result = processChoice(3);
+			Assert::AreEqual(expected, result);
+		}
+		TEST_METHOD(MainMenuTest_004_ExitProgram) {
+			int expected = 4;
+			int result = processChoice(4);
+			Assert::AreEqual(expected, result);
+		}
+		TEST_METHOD(MainMenuTest_005_InvalidInput) {
+			int expected = -1;
+			int result = processChoice(100);
+			Assert::AreEqual(expected, result);
+		}
+		TEST_METHOD(FileIOSystemTest_001_OpenFile) {
+			GameData data;
+
+			std::ofstream file("gamedata.txt");
+			file << "2\n";   // players
+			file << "10\n";  // map size
+			file.close();
+
+			fileOpen(&data);
+			Assert::AreEqual(2, data.getPlayers());
+			Assert::AreEqual(10, data.getMapSize());
+		}
+		TEST_METHOD(FileIOSystemTest_002_MissingFile) {
+			GameData data;
+
+			remove("gamedata.txt");
+
+			fileOpen(&data);
+
+			Assert::IsTrue(true);
+		}
+		TEST_METHOD(FileIOSystemTest_003_gameSaveUI) {
+			GameData data;
+			data.storePlayers(3);
+			data.storeMapSize(8);
+
+			gameSaveUI(&data);
+
+			std::ifstream file("gamedata.txt");
+			std::string players, size;
+
+			getline(file, players);
+			getline(file, size);
+
+			Assert::AreEqual(std::string("3"), players);
+			Assert::AreEqual(std::string("8"), size);
+		}
+		TEST_METHOD(FileIOSystemTest_004_gameSaveGD) {
+			GameData data;
+			data.storePlayers(3);
+
+			gameSaveGD(&data);
+
+			std::ifstream file("gamedata.txt");
+			std::string players;
+
+			getline(file, players);
+
+			Assert::AreEqual(std::string("3"), players);
 		}
 
 	};
