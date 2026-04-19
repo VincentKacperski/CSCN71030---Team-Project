@@ -1,6 +1,8 @@
 #include <iostream>
 #include <string>
 #include <fstream>
+#include <stdexcept>
+#include <exception>
 #include "Base.h"
 #include "userInput.h"
 #include "fileIOSystem.h"
@@ -21,8 +23,9 @@
 namespace data {
 	//Decleration
 	int selections = 0;
-	int players = -1;
+	int players = 0;
 	int age = 0;
+	std::string buffer;
 	std::string nickname;
 	std::string username;
 }
@@ -33,12 +36,26 @@ void userInput(GameData* gamedata, UserData* users) {
 	system("cls");
 
 	while (data::players < 2 || data::players > 4) {
+
+		//Player # input
 		std::cout << "Number of players: ";
-		std::cin >> data::players;
-		if (data::players > 4 || data::players < 2) {
-			std::cout << "Player count is invalid! Only 2-4 players allowed.\n";
+		std::cin >> data::buffer;
+		//Invalidate character input
+		try {
+
+			//Try using stoi
+			data::players = std::stoi(data::buffer);
+			//Cast string with number to valid inputs
+			if (std::stoi(data::buffer) < 2 || std::stoi(data::buffer) > 4) {
+				std::cout << "Invalid player count!\n";
+			} else {
+				gamedata->storePlayers(data::players);
+			}
+
+		} catch (const std::invalid_argument& e) {
+			std::cout << "No strings or characters allowed. Integers only!\n";
 		}
-		gamedata->storePlayers(data::players);
+	
 	}
 	gameSaveUI(gamedata);
 
