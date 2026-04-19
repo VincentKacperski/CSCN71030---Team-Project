@@ -2,6 +2,9 @@
 #include "placeShips.h"
 #include "displayBoards.h"
 
+//Decleration
+int ships[5];
+
 //Ships data structure
 Ship fleet[5] = {
 	{"Cruiser", 3, false},
@@ -10,9 +13,6 @@ Ship fleet[5] = {
 	{"Destroyer", 2, false},
 	{"Carrier", 5, false}
 };
-
-//Decleration
-int ships[5];
 
 void displayShips(Ship fleet[]) {
 	for (int i = 0; i < 5; i++) {
@@ -64,7 +64,7 @@ void chooseShips(GameData* data, UserData* user) {
 					}
 				}
 			}
-			else {
+			else {	
 				std::cout << "Invalid choice. Try again.\n\n";
 			}
 		}

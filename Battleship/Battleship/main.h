@@ -7,7 +7,7 @@
 #include "mainMenu.h"
 #include "userInput.h"
 #include "gatherGameData.h"
-#include "placeShips.h"
+//#include "placeShips.h"
 #include "displayBoards.h"
 #include "fileIOSystem.h"
 #include "attack.h"
@@ -22,3 +22,5 @@
 #include "submarine.h"
 #include "destroyer.h"
 #include "aircraftCarrier.h"
+
+int main();
