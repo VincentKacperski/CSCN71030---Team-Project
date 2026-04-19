@@ -99,7 +99,7 @@
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
-      <AdditionalLibraryDirectories>C:\Users\owenf\source\repos\CSCN71030---Team-Project\Battleship\Battleship\x64\Debug;C:\Users\Vincent\source\repos\Battleship-Testing\Battleship\Battleship\x64\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\Users\Vincent\source\repos\Jacob-Test\Battleship\Battleship\x64\Debug;C:\Users\owenf\source\repos\CSCN71030---Team-Project\Battleship\Battleship\x64\Debug;C:\Users\Vincent\source\repos\Battleship-Testing\Battleship\Battleship\x64\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>main.obj;mainMenu.obj;userInput.obj;gatherGameData.obj;placeShips.obj;fileIOSystem.obj;attack.obj;displayBoards.obj;shipChecking.obj;updateBoards.obj;win.obj;helper.obj;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
@@ -115,7 +115,7 @@
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
-      <AdditionalLibraryDirectories>C:\Users\Vincent\source\repos\Battleship-Testing\Battleship\Battleship\x64\Debug;C:\Users\Administrator\source\repos\Battleship_Redo\Battleship\Battleship\x64\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\Users\Vincent\source\repos\Jacob-Test\Battleship\Battleship\x64\Debug;C:\Users\Vincent\source\repos\Battleship-Testing\Battleship\Battleship\x64\Debug;C:\Users\Administrator\source\repos\Battleship_Redo\Battleship\Battleship\x64\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>main.obj;mainMenu.obj;userInput.obj;gatherGameData.obj;placeShips.obj;fileIOSystem.obj;attack.obj;displayBoards.obj;shipChecking.obj;updateBoards.obj;win.obj;helper.obj;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
@@ -135,7 +135,7 @@
       <SubSystem>Windows</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalLibraryDirectories>C:\Users\Vincent\source\repos\Battleship-Testing\Battleship\Battleship\x64\Debug;C:\Users\Administrator\source\repos\Battleship_Redo\Battleship\Battleship\x64\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\Users\Vincent\source\repos\Jacob-Test\Battleship\Battleship\x64\Debug;C:\Users\Vincent\source\repos\Battleship-Testing\Battleship\Battleship\x64\Debug;C:\Users\Administrator\source\repos\Battleship_Redo\Battleship\Battleship\x64\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>main.obj;mainMenu.obj;userInput.obj;gatherGameData.obj;placeShips.obj;fileIOSystem.obj;attack.obj;displayBoards.obj;shipChecking.obj;updateBoards.obj;win.obj;helper.obj;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
@@ -155,7 +155,7 @@
       <SubSystem>Windows</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalLibraryDirectories>C:\Users\Vincent\source\repos\Battleship-Testing\Battleship\Battleship\x64\Debug;C:\Users\Administrator\source\repos\Battleship_Redo\Battleship\Battleship\x64\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\Users\Vincent\source\repos\Jacob-Test\Battleship\Battleship\x64\Debug;C:\Users\Vincent\source\repos\Battleship-Testing\Battleship\Battleship\x64\Debug;C:\Users\Administrator\source\repos\Battleship_Redo\Battleship\Battleship\x64\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>main.obj;mainMenu.obj;userInput.obj;gatherGameData.obj;placeShips.obj;fileIOSystem.obj;attack.obj;displayBoards.obj;shipChecking.obj;updateBoards.obj;win.obj;helper.obj;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>

@@ -7,13 +7,14 @@
 #include "gatherGameData.h"
 #include "Base.h"
 #include "win.h"
-#include "placeShips.h"
+//#include "placeShips.h"
 #include "displayBoards.h"
 #include "attack.h"
 #include <Windows.h>
 
 //using namespace std; ?? What do we prefer here?
 //Add your code here
+void chooseShips(GameData* data, UserData* user);
 
 int mainMenu() {
 	bool runProgram = true;
