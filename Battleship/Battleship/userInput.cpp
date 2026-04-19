@@ -31,10 +31,22 @@ namespace data {
 }
 
 //Get essential data from the user
-void userInput(GameData* gamedata, UserData* users) {
+int userInput(GameData* gamedata, UserData* users) {
 
 	system("cls");
 
+	//Test Code =----------------------------=
+	try {
+		//Try using stoi
+		data::players = std::stoi("2df4jcwdkj");
+	} catch (const std::invalid_argument& e) {
+		std::cout << "No strings or characters allowed. Integers only!\n";
+	}
+	gamedata->storePlayers(data::players);
+	return gamedata->getPlayers();
+	//=--------------------------------------=
+
+	//Check if player count is between 2 and 4
 	while (data::players < 2 || data::players > 4) {
 
 		//Player # input
@@ -66,30 +78,48 @@ void userInput(GameData* gamedata, UserData* users) {
 		gatherUsername(&users[i]);
 		gatherAge(&users[i]);
 		savePlayer(i, &users[i], gamedata);
-
 		system("cls");
+
 	}
 
 }
 
 //The three function bellow gather essential user data
-void gatherNickname(UserData* user) {
-	//Get the users nickname
+std::string gatherNickname(UserData* user) {
+
+	//Test Code
+	data::nickname = "Vince";
+	user->storeNickname(data::nickname);
+	return user->getNickname();
+
+	//Normal Code
 	std::cout << "Enter a nickname: ";
 	std::cin >> data::nickname;
 	user->storeNickname(data::nickname);
 }
 
-void gatherUsername(UserData* user) {
+std::string gatherUsername(UserData* user) {
+
+	//Test Code
+	data::nickname = "uirwuiwriouvwoiwrfkrwkkrfreooi";
+	user->storeNickname(data::nickname);
+	return user->getNickname();
+
 	//Get the users username
 	std::cout << "Enter a username: ";
 	std::cin >> data::username;
 	user->storeUsername(data::username);
 }
 
-void gatherAge(UserData* user) {
+int gatherAge(UserData* user) {
+
+	//Test Code
+	user->storeAge(1);
+	return user->getAge();
+
 	//Get the users username
 	std::cout << "Enter your age: ";
 	std::cin >> data::age;
 	user->storeAge(data::age);
 }
+

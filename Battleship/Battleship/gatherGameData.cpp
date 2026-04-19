@@ -30,7 +30,19 @@ namespace gameData {
 }
 
 //Collects essential game data for the game to work correctly
-void gatherGameData(int players, GameData* gamedata, UserData* users) {
+int gatherGameData(int players, GameData* gamedata, UserData* users) {
+
+	//Test Code =----------------------------=
+	try {
+		//Try using stoi
+		gameData::mapSize = std::stoi("20");
+	}
+	catch (const std::invalid_argument& e) {
+		std::cout << "No strings or characters allowed. Integers only!\n";
+	}
+	gamedata->storeMapSize(gameData::mapSize);
+	return gamedata->getMapSize();
+	//=--------------------------------------=
 
 	//Get the games map size
 	while (gamedata->getMapSize() != 20 && gamedata->getMapSize() != 10) {
@@ -73,7 +85,26 @@ void gatherGameData(int players, GameData* gamedata, UserData* users) {
 }
 
 //The two functions bellow gather essential user data
-void gatherShipCount(UserData* user) {
+int gatherShipCount(UserData* user) {
+
+	//Test Code =----------------------------=
+	try {
+		//Try using stoi
+		gameData::shipCount = std::stoi("0uuiewv");
+	
+	}
+	catch (const std::invalid_argument& e) {
+		std::cout << "No strings or characters allowed. Integers only!\n";
+		return -1;
+	}
+	if (gameData::shipCount == 0) {
+		gameData::shipCount = 5;
+		user->storeShipCount(gameData::shipCount);
+		return user->getShipCount();
+	}
+	user->storeShipCount(gameData::mapSize);
+	return 0;
+	//=--------------------------------------=
 
 	//Number of ships for each player
 	std::cout << "How many ships would you like to deploy?\n";
@@ -87,15 +118,17 @@ void gatherShipCount(UserData* user) {
 		//Check for a valid map size
 		if (gameData::shipCount < 0 || gameData::shipCount > 5) {
 			std::cout << "Invalid map size!\n";
-		} else if (gameData::shipCount == 0) {
+		}
+		else if (gameData::shipCount == 0) {
 			std::cout << "No ships?! Its going to be tough. Carefull there!\n";
-			std::cout << "Lucky for you. I brought in some reinforcments!\n";
+			std::cout << "Lucky for you. I brought in some reinforcments!\n"; \
+				gameData::shipCount = 5;
+
 		} else {
 			user->storeShipCount(gameData::shipCount);
 		}
 
-	}
-	catch (const std::invalid_argument& e) {
+	} catch (const std::invalid_argument& e) {
 		std::cout << "No strings or characters allowed. Integers only!\n";
 	}
 
@@ -113,10 +146,30 @@ void gatherShipCount(UserData* user) {
 }
 
 //This function gathers each players abilities
-void gatherAbilities(UserData* user) {
+int gatherAbilities(UserData* user) {
 
 	//Number of ships for each player
-	int choice = -1;
+
+	//Test Code =------------------------=
+	int choice = -2;
+	try {
+		//Try using stoi
+		choice = std::stoi("%-2390^GV)@");
+		//Check for a valid map size
+		if (choice > gameData::shipCount) {
+			std::cout << "To many abilities selected! Greater than maximum ship deployment!\n";
+			return -1;
+		} else if (choice <= 0) {
+			std::cout << "You cannot have negative abilities since they don't exist!\n";
+			return -2;
+		}
+	}
+	catch (const std::invalid_argument& e) {
+		std::cout << "No strings or characters allowed. Integers only!\n";
+		return -3;
+	}
+	//=----------------------------------=
+
 	while (choice <= 0 || choice > 5) {
 
 		//User input for ability count
