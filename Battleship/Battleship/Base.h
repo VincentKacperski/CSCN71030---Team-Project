@@ -165,14 +165,14 @@ int fileOpen(GameData* data);
 void fileIOSystem(GameData* gamedata);
 
 //Helper functions for gather game data
-void gatherShipCount(UserData* user);
-void gatherAbilities(UserData* user);
+int gatherShipCount(UserData* user);
+int gatherAbilities(UserData* user);
 
 //Help functions for user input
-void gatherNickname(UserData* user);
-void gatherUsername(UserData* user);
-void gatherAge(UserData* user);
+std::string gatherNickname(UserData* user);
+std::string gatherUsername(UserData* user);
+int gatherAge(UserData* user);
 
 //Main module functions
-void gatherGameData(int players, GameData* gamedata, UserData* users);
-void userInput(GameData* gamedata, UserData* users);
+int gatherGameData(int players, GameData* gamedata, UserData* users);
+int userInput(GameData* gamedata, UserData* users);

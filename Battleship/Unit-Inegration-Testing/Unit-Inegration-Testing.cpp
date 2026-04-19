@@ -23,16 +23,15 @@
 extern "C++" int mainMenu();
 
 //User Input Module - Vincent
-extern "C++" void userInput(GameData*, UserData*);
-extern "C++" void gatherNickname(UserData* user);
-extern "C++" void gatherUsername(UserData* user);
-extern "C++" void gatherAge(UserData* user);
+extern "C++" int userInput(GameData*, UserData*);
+extern "C++" std::string gatherNickname(UserData* user);
+extern "C++" std::string gatherUsername(UserData* user);
+extern "C++" int gatherAge(UserData* user);
 
 //Gather Game Data module - Vincent
-extern "C++" void gatherGameData(int players, GameData* gamedata, UserData* users);
-extern "C++" void gatherShipCount(UserData* user);
-extern "C++" void gatherShipCount(UserData* user);
-extern "C++" void gatherAbilities(UserData* user);
+extern "C++" int gatherGameData(int players, GameData* gamedata, UserData* users);
+extern "C++" int gatherShipCount(UserData* user);
+extern "C++" int gatherAbilities(UserData* user);
 
 //Place Ships Module - Alex
 extern "C++" void displayShips(Ship fleet[]);
@@ -81,13 +80,106 @@ using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
 namespace UnitInegrationTesting
 {
-	TEST_CLASS(UnitInegrationTesting)
+	TEST_CLASS(UserInputTesting)
 	{
 	public:
 		
-		TEST_METHOD(TestMethod1)
+		TEST_METHOD(UserInputTest_001_NicknameCorrect)
 		{
-			printf("Test Success\n");
+			//Decleration
+			UserData user;
+			std::string name = gatherNickname(&user);
+			
+			//Check data
+			Assert::AreEqual(std::string("Vince"), name);
+
+		}
+
+		TEST_METHOD(UserInputTest_002_UsernameCorrect)
+		{
+			//Decleration
+			UserData user;
+			std::string name = gatherUsername(&user);
+
+			//Check data
+			Assert::AreEqual(std::string("uirwuiwriouvwoiwrfkrwkkrfreooi"), name);
+
+		}
+
+		TEST_METHOD(UserInputTest_003_AgeCorrect)
+		{
+			//Decleration
+			UserData user;
+			int age = gatherAge(&user);
+
+			//Check data
+			Assert::AreEqual(1, age);
+
+		}
+
+		TEST_METHOD(UserInputTest_004_PlayerCountCorrect)
+		{
+			//Decleration
+
+			GameData* gamedata = new GameData;
+			UserData userOne;
+			UserData userTwo;
+			UserData userThree;
+			UserData userFour;
+			UserData users[4] = { userOne, userTwo, userThree, userFour };
+			int playerCount = userInput(gamedata, users);
+
+			//Check data
+			Assert::AreEqual(2, playerCount);
+
+		}
+
+	};
+
+	TEST_CLASS(GatherGameDataTesting)
+	{
+	public:
+
+		TEST_METHOD(GatherGameDataTest_001_PlayerCountCorrect)
+		{
+			//Decleration
+
+			GameData* gamedata = new GameData;
+			UserData userOne;
+			UserData userTwo;
+			UserData userThree;
+			UserData userFour;
+			UserData users[4] = { userOne, userTwo, userThree, userFour };
+			int player = 0;
+			int mapSize = gatherGameData(2, gamedata, users);
+
+			//Check data
+			Assert::AreEqual(20, mapSize);
+
+		}
+
+		TEST_METHOD(GatherGameDataTest_002_ShipCountValid)
+		{
+
+			//Decleration
+			UserData user;
+			int shipCount = gatherShipCount(&user);
+
+			//Check data
+			Assert::AreEqual(5, shipCount);
+
+		}
+
+		TEST_METHOD(GatherGameDataTest_003_AbilitiesInvalid)
+		{
+
+			//Decleration
+			UserData user;
+			int choice = gatherAbilities(&user);
+
+			//Check data
+			Assert::AreEqual(-3, choice);
+
 		}
 
 	};
